@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <bean id = "tv" class = "polymorphism.SamsungTV">
+      <!--    <constructor-arg ref = "sony"></constructor-arg> 생성자를 이용한 의존주입
+        <constructor-arg ref = "apple"></constructor-arg>
+        <constructor-arg value = "2700000"></constructor-arg> -->
+        
+        <property name = "speaker" ref = "apple"></property>
+        <property name = "price" value = "300000"></property>
+    </bean>
+    <bean id = "sony" class = "polymorphism.SonySpeaker"></bean>
+    <bean id = "apple" class = "polymorphism.AppleSpeaker"></bean>
+    
+    <!--<bean id = "collectionBean" class = "com.springbook.ioc.injection.CollectionBean">
+        <property name = "addressList">
+            <list>
+                <value>서울시 영등포구 여의도1동</value>
+                <value>서울시 영등포구 여의도2동</value>
+            </list>
+        </property>
+    </bean> -->
+    
+   <!--<bean id = "collectionBean" class = "com.springbook.ioc.injection.CollectionBean">
+        <property name = "addressList">
+            <set>
+                <value>서울시 영등포구 여의도1동</value>
+                <value>서울시 영등포구 여의도2동</value>
+            </set>
+        </property>
+    </bean> -->
+    
+<!--     <bean id = "collectionBean" class = "com.springbook.ioc.injection.CollectionBean">
+        <property name = "addressList">
+            <map>
+                <entry>
+                    <key>
+                        <value>고길동</value>
+                    </key>
+                    <value>서울시 영등포구 여의도1동</value>
+                </entry>
+                <entry>
+                    <key>
+                        <value>마이클</value>
+                    </key>
+                    <value>서울시 영등포구 여의도2동</value>
+                </entry>
+            </map>
+        </property>
+    </bean> -->
+    
+    <bean id = "collectionBean" class = "com.springbook.ioc.injection.CollectionBean">
+        <property name = "addressList">
+            <props>
+                <prop key = "고길동">서울시 영등포구 여의도1동</prop>
+                <prop key = "마이클">서울시 영등포구 여의도2동</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
