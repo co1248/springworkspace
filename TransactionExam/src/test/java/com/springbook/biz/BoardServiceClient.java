@@ -37,13 +37,13 @@ public class BoardServiceClient {
 			} else if(select == 2) {
 				List<BoardVO> list = boardService.getBoardList();
 				for(BoardVO vo1 : list) {
-					System.out.println(vo1.toString());
+					System.out.println("--->" + vo1.toString());
 				}
 			} else if(select == 3) {
 				System.out.print("조회 글번호 입력 : ");
 			    vo.setSeq(sc.nextInt());
 			    vo = boardService.getBoard(vo);
-			    System.out.println(vo.toString());
+			    System.out.println("--->" + vo.toString());
 			} else if(select == 4) {
 				System.out.print("수정 글번호 입력 : ");
 			    vo.setSeq(sc.nextInt());
