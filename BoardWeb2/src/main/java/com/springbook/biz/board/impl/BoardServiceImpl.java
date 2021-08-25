@@ -28,6 +28,9 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		//log.printLog();
 		//log.printLogging();
+//		if(vo.getSeq() == 0) {
+//			throw new IllegalArgumentException("0번 글 등록할 수 없습니다.");
+//		}
 		boardDAO.inserdBoard(vo);
 	}
 
