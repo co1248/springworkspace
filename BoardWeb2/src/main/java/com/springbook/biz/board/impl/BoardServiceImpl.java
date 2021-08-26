@@ -7,14 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.springbook.biz.board.BoardService;
 import com.springbook.biz.board.BoardVO;
-import com.springbook.biz.common.Log4jAdvice;
-import com.springbook.biz.common.LogAdvice;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
-	private BoardDAO boardDAO;//의존주입을 해줘야한다
+	private BoardDAOSpring boardDAO;
+	//private BoardDAO boardDAO;//의존주입을 해줘야한다
 	//private LogAdvice log;
 	//private Log4jAdvice log;
 	
@@ -31,16 +30,17 @@ public class BoardServiceImpl implements BoardService {
 //		if(vo.getSeq() == 0) {
 //			throw new IllegalArgumentException("0번 글 등록할 수 없습니다.");
 //		}
-		boardDAO.inserdBoard(vo);
+		boardDAO.insertBoard(vo);
 	}
 
 	@Override
-	public List<BoardVO> getBoardList() {
+	public List<BoardVO> getBoardList(BoardVO vo) {
 		// TODO Auto-generated method stub
 		//log.printLog();
 		//log.printLogging();
-		return boardDAO.getBoardList();
+		return boardDAO.getBoardList(vo);
 	}
+
 
 	@Override
 	public BoardVO getBoard(BoardVO vo) {
