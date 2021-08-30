@@ -18,7 +18,7 @@ public class BoardDAO {
 	private ResultSet rs = null;
 	
 	//글추가
-		public void inserdBoard(BoardVO vo) {
+		public void insertBoard(BoardVO vo) {
 			System.out.println("===> JDBC로 inserdBoard() 기능 처리");
 
 	        try{ 

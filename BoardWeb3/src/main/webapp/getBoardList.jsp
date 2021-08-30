@@ -44,7 +44,9 @@ String id = request.getParameter("id");
              <%for(BoardVO board : boardList) {%>
              <tr>
                  <td><%=board.getSeq() %></td>
-                 <td><%=board.getTitle() %></td>
+                 <td><a href = "getBoard.jsp?seq=<%=board.getSeq() %>">
+                     <%=board.getTitle() %>
+                 </a></td>
                  <td><%=board.getWriter() %></td>
                  <td><%=board.getRegDate() %></td>
                  <td><%=board.getCnt() %></td>            
