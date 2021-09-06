@@ -10,9 +10,9 @@ import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.board.impl.BoardDAO;
 
 @Controller
-public class GetBoardListController{
+public class GetBoardListController {
 
-	@RequestMapping(value="/getBoardList.do")
+	@RequestMapping("/getBoardList.do")
 	public ModelAndView getBoardList(BoardVO vo , BoardDAO boardDAO, ModelAndView mav /*command object*/) {
 		// TODO Auto-generated method stub
 		System.out.println("글 목록 검색 처리");
