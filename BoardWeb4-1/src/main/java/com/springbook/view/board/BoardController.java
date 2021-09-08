@@ -18,50 +18,61 @@ public class BoardController {
 	@RequestMapping(value="/insertBoard.do")
 	public String insertBoard(BoardVO vo , BoardDAO boardDAO /*command object*/) {
 		// TODO Auto-generated method stub
-		System.out.println("±Û µî·Ï Ã³¸®");
+		System.out.println("ê¸€ ë“±ë¡ ì²˜ë¦¬");
 		boardDAO.insertBoard(vo);
 		return "redirect:getBoardList.do";
 	}
+	
 	@RequestMapping("/updateBoard.do")
 	public String updateBoard(BoardVO vo , BoardDAO boardDAO /*command object*/) {
 		// TODO Auto-generated method stub
-		System.out.println("±Û ¼öÁ¤ Ã³¸®");
-		System.out.println("ÀÛ¼ºÀÚ ÀÌ¸§ :" + vo.getWriter());
+		System.out.println("ê¸€ ìˆ˜ì • ì²˜ë¦¬");
+		System.out.println("ì‘ì„±ì ì´ë¦„ :" + vo.getWriter());
 		boardDAO.updateBoard(vo);
 		return "redirect:getBoardList.do";
 	}
+//	@RequestMapping("/updateBoard.do")
+//	public String updateBoard(@ModelAttribute("board")BoardVO vo , BoardDAO boardDAO /*command object*/) {
+//		// TODO Auto-generated method stub
+//		System.out.println("ê¸€ ìˆ˜ì • ì²˜ë¦¬");
+//		System.out.println("ë²ˆí˜¸ :" + vo.getSeq());
+//		System.out.println("ì œëª© :" + vo.getTitle());
+//		System.out.println("ì‘ì„±ì :" + vo.getWriter());
+//		System.out.println("ë‚´ìš© :" + vo.getContent());
+//		System.out.println("ë“±ë¡ì¼ :" + vo.getRegDate());
+//		System.out.println("ì¡°íšŒìˆ˜ :" + vo.getCnt());
+//		boardDAO.updateBoard(vo);
+//		return "redirect:getBoardList.do";
+//	}
 	
 //	@RequestMapping("/getBoardList.do")
 //	public ModelAndView getBoardList(BoardVO vo , BoardDAO boardDAO, ModelAndView mav /*command object*/) {
 //		// TODO Auto-generated method stub
-//		System.out.println("±Û ¸ñ·Ï º¸±â");
+//		System.out.println("ê¸€ ëª©ë¡ ë³´ê¸°");
 //		List<BoardVO> boardList = boardDAO.getBoardList(vo);
 //		mav.addObject("boardList", boardList);
 //		mav.setViewName("getBoardList.jsp");
 //		return mav;
 //	}
-	
 	@ModelAttribute("conditionMap")
 	public Map<String, String> searchConditionMap() {
 		Map<String, String> conditionMap = new HashMap<String, String>();
-		conditionMap.put("Á¦¸ñ", "TITLE");
-		conditionMap.put("³»¿ë", "CoNTENT");
+		conditionMap.put("ì œëª©", "TITLE");
+		conditionMap.put("ë‚´ìš©", "CoNTENT");
 		return conditionMap;
 	}
-	
-	
 	@RequestMapping("/getBoardList.do")
 	public String getBoardList(BoardVO vo , BoardDAO boardDAO, Model model /*command object*/) {
 		// TODO Auto-generated method stub
-		System.out.println("±Û ¸ñ·Ï º¸±â");
+		System.out.println("ê¸€ ëª©ë¡ ë³´ê¸°");
 		model.addAttribute("boardList", boardDAO.getBoardList(vo));
 		return "getBoardList.jsp";
 	}
 //	@RequestMapping("/getBoardList.do")
 //	public String getBoardList(@RequestParam(value="searchCondition",defaultValue="TITLE",required=false)String condition, @RequestParam(value="searchKeyword",defaultValue="",required=false)String keyword, BoardDAO boardDAO, Model model) {
 //		// TODO Auto-generated method stub
-//		System.out.println("°Ë»ö Á¶°Ç : " + condition);
-//		System.out.println("°Ë»ö ´Ü¾î : " + keyword);
+//		System.out.println("ê²€ìƒ‰ ì¡°ê±´ : " + condition);
+//		System.out.println("ê²€ìƒ‰ ë‹¨ì–´ : " + keyword);
 //		//model.addAttribute("boardList", boardDAO.getBoardList(vo));
 //		return "getBoardList.jsp";
 //	}
@@ -69,7 +80,7 @@ public class BoardController {
 //	@RequestMapping("/getBoard.do")
 //	public ModelAndView getBoard(BoardVO vo , BoardDAO boardDAO, ModelAndView mav /*command object*/) {
 //		// TODO Auto-generated method stub
-//		System.out.println("±Û »ó¼¼ º¸±â");
+//		System.out.println("ê¸€ ìƒì„¸ ë³´ê¸°");
 //		BoardVO board = boardDAO.getBoard(vo);
 //		mav.addObject("board", board);
 //		mav.setViewName("getBoard.jsp");
@@ -78,14 +89,15 @@ public class BoardController {
 	@RequestMapping("/getBoard.do")
 	public String getBoard(BoardVO vo , BoardDAO boardDAO, Model model /*command object*/) {
 		// TODO Auto-generated method stub
-		System.out.println("±Û »ó¼¼ º¸±â");
-		model.addAttribute("board", boardDAO.getBoard(vo)); //ÀÌ º¸µå°¡ ¼¼¼Ç¾îÆ®¸®Æ©Æ®¿¡ ÀúÀåµÊ
+		System.out.println("ê¸€ ìƒì„¸ ë³´ê¸°");
+		model.addAttribute("board", boardDAO.getBoard(vo)); //ì´ ë³´ë“œê°€ ì„¸ì…˜ì–´íŠ¸ë¦¬íŠœíŠ¸ì— ì €ì¥ë¨
 		return "getBoard.jsp";
 	}
+	
 	@RequestMapping("/deleteBoard.do")
 	public String deleteBoard(BoardVO vo , BoardDAO boardDAO /*command object*/) {
 		// TODO Auto-generated method stub
-		System.out.println("±Û »èÁ¦ Ã³¸®");
+		System.out.println("ê¸€ ì‚­ì œ ì²˜ë¦¬");
 		boardDAO.deleteBoard(vo);
 		return "redirect:getBoardList.do";
 	}
