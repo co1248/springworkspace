@@ -1,0 +1,22 @@
+# login.jsp
+message.user.login.title=عربي
+message.user.login.id=هوية شخصية
+message.user.login.password=كلمه السر
+message.user.login.loginBtn=زر تسجيل الدخول
+
+message.user.login.language.en=إنجليزي
+message.user.login.language.ko=الهانغول
+message.user.login.language.ar=عربي
+
+# getBoardList.jsp
+message.board.list.mainTitle=قائمة المشاركة
+message.board.list.welcomeMsg=سيدي المحترم! مرحبا بكم في لوحة الإعلانات.
+message.board.list.search.condition.title=لقب
+message.board.list.search.condition.content=محتويات
+message.board.list.search.condition.btn=بحث
+message.board.list.table.head.seq=عدد
+message.board.list.table.head.title=لقب
+message.board.list.table.head.writer=كاتب
+message.board.list.table.head.regDate=تاريخ التسجيل
+message.board.list.table.head.cnt=الآراء
+message.board.list.link.insertBoard=تسجيل وظيفة جديدة
