@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "MapViewDAO">
+    <select id = "getMapView" resultType = "mapView">
+		<![CDATA[
+        select * from map_view where mapseq = #{mapSeq}
+        ]]>
+    </select>
+    <select id="getMapSeq" resultType="mapView">
+    	<![CDATA[
+    	select DISTINCT mapname,mapseq from map_view where userseqid=#{userSeqId}
+    	]]>
+    </select>
+    
+</mapper>
