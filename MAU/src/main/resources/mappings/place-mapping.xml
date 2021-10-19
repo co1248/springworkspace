@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "PlaceDAO">
+	
+    <select id = "getPlace" resultType = "place">
+		<![CDATA[
+        select * from place where placeseq = #{placeSeq}
+        ]]>
+    </select>
+    
+    <select id = "insertPlace" resultType = "place">
+		<![CDATA[
+        insert into place (placeseq,placeid,placesouthwest,placenortheast,placename,placeaddr) values(MAUPLACESEQ.nextval,#{placeId},#{placeSouthWest},#{placeNorthEast},#{placeName},#{placeAddr})
+        ]]>
+    </select>
+    
+</mapper>
