@@ -8,10 +8,10 @@
         select * from mapplace where mapseq = #{mapSeq}
         ]]>
     </select>
-    <select id = "insertMapPlace" resultType = "mapPlace">
+    <insert id = "insertMapPlace">
 		<![CDATA[
         insert into mapplace values(#{mapSeq},#{placeSeq})
         ]]>
-    </select>
+    </insert>
 
 </mapper>

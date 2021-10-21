@@ -14,4 +14,30 @@
     	]]>
     </select>
     
+    <select id="getRandomMap" resultType="mapView">
+	    <![CDATA[
+    	select DISTINCT mapicon,mapname,mapseq from map_view
+    	]]>
+    </select>
+    
+    <select id="getGuiderPlace" resultType="mapView">
+	    <![CDATA[
+    	select * from map_view where userseqid = #{userSeqId}
+    	]]>
+    </select>
+    
+     <select id="getBySeq" resultType="mapView">
+	    <![CDATA[
+    	select DISTINCT mapicon,mapname,mapseq from map_view where mapseq=#{mapSeq}
+    	]]>
+    </select>
+    
+    <select id="getPlaceCnt" resultType="mapView">
+    	<![CDATA[
+    	select DISTINCT placecnt from place_cnt where mapseq=#{mapSeq}
+    	]]>
+    </select>
+    
+    
+    
 </mapper>

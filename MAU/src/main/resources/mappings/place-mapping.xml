@@ -4,15 +4,21 @@
 
 <mapper namespace = "PlaceDAO">
 	
-    <select id = "getPlace" resultType = "place">
+    <select id = "getPlace" resultType="place">
 		<![CDATA[
         select * from place where placeseq = #{placeSeq}
         ]]>
     </select>
     
-    <select id = "insertPlace" resultType = "place">
+    <insert id = "insertPlace">
 		<![CDATA[
-        insert into place (placeseq,placeid,placesouthwest,placenortheast,placename,placeaddr) values(MAUPLACESEQ.nextval,#{placeId},#{placeSouthWest},#{placeNorthEast},#{placeName},#{placeAddr})
+         insert into place values(MAUPLACESEQ.nextval,#{placeId},#{placeNorthEast},#{placeSouthWest},#{placeName},#{placeAddr})
+        ]]>
+    </insert>
+    
+    <select id = "getPlaceSeq" resultType="place">
+		<![CDATA[
+        select * from place where placeSeq = (SELECT max(placeSeq) FROM place)
         ]]>
     </select>
     

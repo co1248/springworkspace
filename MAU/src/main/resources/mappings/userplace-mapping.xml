@@ -8,10 +8,10 @@
         select * from userplace where mapseq = #{mapSeq}
         ]]>
     </select>
-    <select id = "insertUserPlace" resultType = "userPlace">
+    <insert id = "insertUserPlace">
 		<![CDATA[
         insert into userplace values((select nvl(max(userPlaceSeq), 0) + 1 from userplace),#{userSeqId},1,#{placeSeq},#{mapSeq})
         ]]>
-    </select>
+    </insert>
 
 </mapper>
