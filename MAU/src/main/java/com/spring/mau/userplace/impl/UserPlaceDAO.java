@@ -12,8 +12,7 @@ public class UserPlaceDAO {
 	private SqlSessionTemplate mybatis;
 	
 	public void insertUserPlace(UserPlaceVO vo) {
-		System.out.println("UserPlaceDAO==>insertUserPlacee 실행");
+		System.out.println("UserPlaceDAO==>insertUserPlace 실행");
 		mybatis.insert("UserPlaceDAO.insertUserPlace", vo);
-		mybatis.commit();
 	}
 }

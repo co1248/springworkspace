@@ -21,5 +21,25 @@ public class MapViewDAO {
 		System.out.println("MapViewDAO==>getMapSeq 실행");
 		return mybatis.selectList("MapViewDAO.getMapSeq",vo);
 	}
+	
+	public List<MapViewVO> getRandomMap(MapViewVO vo) {
+		System.out.println("MapViewDAO==>getRandomMap 실행");
+		return mybatis.selectList("MapViewDAO.getRandomMap",vo);
+	}
+	
+	public List<MapViewVO> getGuiderPlace(MapViewVO vo) {
+		System.out.println("MapViewDAO==>getGuiderPlace 실행");
+		return mybatis.selectList("MapViewDAO.getGuiderPlace",vo);
+	}
+	
+	public MapViewVO getBySeq(MapViewVO vo) {
+		System.out.println("MapViewDAO==>getBySeq 실행");
+		return mybatis.selectOne("MapViewDAO.getBySeq",vo);
+	}
+	
+	public MapViewVO getPlaceCnt(MapViewVO vo) {
+		System.out.println("MapViewDAO==>getPlaceCnt 실행");
+		return mybatis.selectOne("MapViewDAO.getPlaceCnt",vo);
+	}
 
 }

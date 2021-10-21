@@ -16,5 +16,15 @@ public class PlaceServiceImpl implements PlaceService {
 		// TODO Auto-generated method stub
 		placeDAO.insertPlace(vo);
 	}
+	@Override
+	public PlaceVO getPlace(PlaceVO vo) {
+		// TODO Auto-generated method stub
+		return placeDAO.getPlace(vo);
+	}
+	@Override
+	public PlaceVO getPlaceSeq(PlaceVO vo) {
+		// TODO Auto-generated method stub
+		return placeDAO.getPlaceSeq(vo);
+	}
 
 }

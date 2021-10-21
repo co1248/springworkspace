@@ -33,12 +33,12 @@ public class LoginController {
 				session.setAttribute("userSeqId", userService.getUser(vo).getUserSeqId());
 				session.setAttribute("loginUser", userService.getUser(vo));
 			}
-			return "index.jsp"; 
+			return "redirect:index"; 
 		}else if(userService.getUser(vo) != null) {
 //			session.setAttribute("userNickName", userService.getUser(vo).getUserNickName());
 			session.setAttribute("userSeqId", userService.getUser(vo).getUserSeqId());
 			session.setAttribute("loginUser", userService.getUser(vo));
-			return "index.jsp"; 
+			return "redirect:index"; 
 		}else{
 			return "";
 		}

@@ -23,5 +23,26 @@ public class MapViewServiceImpl implements MapViewService {
 		// TODO Auto-generated method stub
 		return mapViewDAO.getMapSeq(vo);
 	}
+	@Override
+	public List<MapViewVO> getRandomMap(MapViewVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapViewDAO.getRandomMap(vo);
+	}
+	@Override
+	public List<MapViewVO> getGuiderPlace(MapViewVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapViewDAO.getGuiderPlace(vo);
+	}
+	@Override
+	public MapViewVO getBySeq(MapViewVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapViewDAO.getBySeq(vo);
+	}
+	@Override
+	public MapViewVO getPlaceCnt(MapViewVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapViewDAO.getPlaceCnt(vo);
+	}
+
 
 }

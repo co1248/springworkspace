@@ -14,6 +14,14 @@ public class PlaceDAO {
 	public void insertPlace(PlaceVO vo) {
 		System.out.println("PlaceDAO==>insertPlace 실행");
 		mybatis.insert("PlaceDAO.insertPlace", vo);
-		mybatis.commit();
+	}
+	public PlaceVO getPlace(PlaceVO vo) {
+		System.out.println("getPlace 실행");
+		return mybatis.selectOne("PlaceDAO.getPlace", vo); 
+	}
+	
+	public PlaceVO getPlaceSeq(PlaceVO vo) {
+		System.out.println("PlaceDAO==>getPlaceSeq 실행");
+		return (PlaceVO)mybatis.selectOne("PlaceDAO.getPlaceSeq",vo);
 	}
 }

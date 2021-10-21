@@ -1,7 +1,8 @@
 package com.spring.mau.mapview;
 
 public class MapViewVO {
-	private int mapSeq,userSeqId,placeSeq;
+	private int mapSeq,userSeqId,placeSeq,placeCnt,maxSeq;
+
 	private String mapIcon,mapName,placeSouthWest,placeNorthEast,placeName,placeAddr,userIcon,userInform,userNickName;
 	public int getMapSeq() {
 		return mapSeq;
@@ -14,6 +15,18 @@ public class MapViewVO {
 	}
 	public void setUserSeqId(int userSeqId) {
 		this.userSeqId = userSeqId;
+	}
+	public int getPlaceCnt() {
+		return placeCnt;
+	}
+	public void setPlaceCnt(int placeCnt) {
+		this.placeCnt = placeCnt;
+	}
+	public int getMaxSeq() {
+		return maxSeq;
+	}
+	public void setMaxSeq(int maxSeq) {
+		this.maxSeq = maxSeq;
 	}
 	public int getPlaceSeq() {
 		return placeSeq;

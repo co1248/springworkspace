@@ -14,6 +14,5 @@ public class MapPlaceDAO {
 	public void insertMapPlace(MapPlaceVO vo) {
 		System.out.println("MapPlaceDAO==>insertMapPlace 실행");
 		mybatis.insert("MapPlaceDAO.insertMapPlace", vo);
-		mybatis.commit();
 	}
 }
