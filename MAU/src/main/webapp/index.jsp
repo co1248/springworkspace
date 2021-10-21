@@ -16,9 +16,9 @@
 
     <meta charset="UTF-8">
 <title>MAU</title>
-<link rel="icon" type="image/png" sizes="16x16"  href="${pageContext.request.contextPath}/image/logo/mauicon.png">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="theme-color" content="#ffffff">
+    <link rel="icon" type="image/png" sizes="16x16"  href="${pageContext.request.contextPath}/image/logo/mauicon.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
   </head>
   <body>
   <div class="p-3 mb-2 text-info " style="float: none; margin:100 auto; background-color:  #FFFE83;" >
@@ -212,99 +212,7 @@
     </div>
 </div>
 <!--card end-->
-
-<!--card2 start 지도 보여줄 예정-->
-<div style="margin-top: 58px; text-align : center;"><h1>
-    <img src="https://visualpharm.com/assets/198/Location-595b40b85ba036ed117da637.svg" class="card-img-top" width="50px"  height="50px" alt="...">가이드지도
-</h1><br></div>
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-  <div class="col">
-    <div class="card border-info h-100 text-center">
-      <img src="https://visualpharm.com/assets/320/World%20Map-595b40b75ba036ed117d6df7.svg" class="card-img-top" width="50px"  height="50px" alt="...">
-      <div class="card-body">
-        <h5 class="card-title center">녹차 맛집</h5>
-        <p class="card-text">녹차는 맛있다</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card border-info h-100 text-center">
-      <img src="https://visualpharm.com/assets/320/World%20Map-595b40b75ba036ed117d6df7.svg" class="card-img-top" height="50px" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">녹차 맛집</h5>
-        <p class="card-text">녹차는 맛있다</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card border-info h-100 text-center">
-      <img src="https://visualpharm.com/assets/320/World%20Map-595b40b75ba036ed117d6df7.svg" class="card-img-top" height="50px" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">녹차 맛집</h5>
-        <p class="card-text">녹차는 맛있다</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card border-info h-100 text-center">
-      <img src="https://visualpharm.com/assets/320/World%20Map-595b40b75ba036ed117d6df7.svg" class="card-img-top" height="50px" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">소주 맛집</h5>
-        <p class="card-text">취했다</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card border-info h-100 text-center">
-      <img src="https://visualpharm.com/assets/320/World%20Map-595b40b75ba036ed117d6df7.svg" class="card-img-top" height="50px" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">소주 맛집</h5>
-        <p class="card-text">취했다</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card border-info h-100 text-center">
-      <img src="https://visualpharm.com/assets/320/World%20Map-595b40b75ba036ed117d6df7.svg" class="card-img-top" height="50px" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">소주 맛집</h5>
-        <p class="card-text">취했다</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card border-info h-100 text-center">
-      <img src="https://visualpharm.com/assets/320/World%20Map-595b40b75ba036ed117d6df7.svg" class="card-img-top" height="50px" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">만두 맛집</h5>
-        <p class="card-text">중국전통</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card border-info h-100 text-center">
-      <img src="https://visualpharm.com/assets/320/World%20Map-595b40b75ba036ed117d6df7.svg" class="card-img-top" height="50px" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">만두 맛집</h5>
-        <p class="card-text">중국전통</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card border-info h-100 text-center">
-      <img src="https://visualpharm.com/assets/320/World%20Map-595b40b75ba036ed117d6df7.svg" class="card-img-top" height="50px" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">만두 맛집</h5>
-        <p class="card-text">중국전통</p>
-      </div>
-    </div>
-  </div>
-</div>
-<!--card2 end-->
-
-
-
-
+<%@include file="/index/randomMap.jsp"%>
 
    </div>
     <form id="form2" name="form2" action="${pageContext.request.contextPath}/login" method="post" >

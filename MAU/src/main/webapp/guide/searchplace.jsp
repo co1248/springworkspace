@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -12,13 +13,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
     <meta charset="UTF-8">
 <title>MAU</title>
-<link rel="icon" type="image/png" sizes="16x16"  href="../image/logo/mauicon.png">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="theme-color" content="#ffffff">
-   
-    <style>
+    <link rel="icon" type="image/png" sizes="16x16"  href="${pageContext.request.contextPath}/image/logo/mauicon.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+<style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:950px;}
@@ -55,14 +56,15 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
-</style>
+</style>  
+
 </head>
-<body>
+  <body>
   <div class="p-3 mb-2 text-info " style="float: none; margin:100 auto; background-color:  #FFFE83;" >
     <!-- Optional JavaScript; choose one of the two! -->
     <nav class="navbar navbar-light" style="background-color:  #FFFE83;">
         <div class="container-fluid">
-          <a style="font-family: 'Rajdhani', sans-serif;" class="navbar-brand" href="index.jsp"><img src="../image/logo/mau.png" alt="mau" height="50px"></a>
+          <a style="font-family: 'Rajdhani', sans-serif;" class="navbar-brand" href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/image/logo/mau.png" alt="mau" height="50px"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -72,25 +74,40 @@
             MAU</h5>
               <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
+            <c:choose>
+      <c:when test="${empty sessionScope.loginUser}">   
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">홈으로</a>
+                  <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/index">홈으로</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">로그인</a>
-                </li>
+               <a class="nav-link" href="javascript:kakaoLogin();">로그인</a>
+              </ul>
+            </div>
+      </c:when>
+      <c:otherwise>
+         <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">나의 가이드 관리</a>
+                  <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/index">홈으로</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="#">${sessionScope.loginUser.userNickName}(No.${sessionScope.loginUser.userSeqId})님 환영합니다.</a>
+                  </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mypage">나의 가이드 관리</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">내 정보 변경</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/updateform?userSeqId=${sessionScope.loginUser.userSeqId}">내 정보 변경</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">로그아웃</a>
+                   <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
                   </li>
               </ul>
             </div>
+      </c:otherwise>
+   </c:choose>
           </div>
         </div>
       </nav>
@@ -110,7 +127,7 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="" id="keyword" size="15"> 
+                    키워드 : <input type="text" value="<%=request.getParameter("keyword") %>" id="keyword" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
@@ -122,6 +139,7 @@
 </div>
 
 <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=e31943b9bfc138a7aaae61fa825c403c&libraries=services"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 
 //마커를 담을 배열입니다
@@ -343,20 +361,56 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
-
+ 
  // 검색결과 목록에서 장소를 선택하면 값을 받아오는 함수입니다.
-function select_place(place_id, place_name, road_address_name,x , y){
-	alert(place_id);
+var placeId;
+var placeSouthWest;
+var placeNorthEast;
+var placeName;
+var placeAddr;
+function select_place(place_id, place_name, address_name,x , y){
+	/*alert(place_id);
 	alert(place_name);
 	alert(road_address_name);
 	alert(x);
-	alert(y);
-	document.getElementById("placeId").value = place_id;
-	document.getElementById("placeSouthWest").value = x;
-	document.getElementById("placeNorthEast").value = y;
-	document.getElementById("placeName").value = place_name;
-	document.getElementById("placeAddr").value = road_address_name;
+	alert(y); */
+	$('#modal-group-1').modal('show');//제이쿼리 import해야 실행됨
+	placeId = place_id;
+	placeSouthWest = x;
+	placeNorthEast = y;
+	placeName = place_name;
+	placeAddr = address_name; 
 };
-</script>
+function add_place(placeId, placeSouthWest, placeNorthEast , placeName, placeAddr){
+	   /*alert(placeSouthWest));
+	    alert(placeSouthWest);
+	    alert(placeNorthEast);
+	    alert(placeName);
+	    alert(placeAddr);*/
+	    $("#placeId").val(placeId);
+	    $("#placeSouthWest").val(placeSouthWest);
+	    $("#placeNorthEast").val(placeNorthEast);
+	    $("#placeName").val(placeName);
+	    $("#placeAddr").val(placeAddr);
+	    $('#modal-group-1').modal('hide');
+	    $('#modal-group-2').modal('show');
+	    //플레이스 컨트롤러에서 장소에 인서트한다. + 유저플레이스,맵플레이스도 같이 인서트
+	};
+	function next_step(){
+	    $('#modal-group-2').modal('hide');
+	    $('#modal-group-3').modal('show');
+	};
+	function last_step(){
+	    $("#formplace").submit();
+	};
+	</script>
+	<%@ include file = "inputplaceModal.jsp" %><!-- 장소등록 모달 -->
+	<form id = "formplace" name="formplace" method="post" action="${pageContext.request.contextPath}/guideMap/${mapSeq}">
+	   <input type="hidden" name="placeId" id="placeId" value="">
+	   <input type="hidden" name="placeSouthWest" id="placeSouthWest" value="">
+	   <input type="hidden" name="placeNorthEast" id="placeNorthEast" value="">
+	   <input type="hidden" name="placeName" id="placeName" value="">
+	   <input type="hidden" name="placeAddr" id="placeAddr" value="">
+</form>
 </body>
 </html>

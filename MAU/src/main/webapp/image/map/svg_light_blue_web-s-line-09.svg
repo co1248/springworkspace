@@ -1,0 +1,20 @@
+
+
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 529.6 583.47">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #00aeef;
+        stroke-miterlimit: 10;
+        stroke-width: 5px;
+      }
+    </style>
+  </defs>
+  <title>web-s-line-09</title>
+  <g>
+    <path  class=" PPIRFOAU_0 cls-1 " d="M113.76,95.58a123.76,123.76,0,1,0,174.2,17A123.7,123.7,0,0,0,113.76,95.58Z" transform="translate(-10.42 -9.16)"></path>
+    <path  class=" PPIRFOAU_1 cls-1 " d="M78.37,52.53C1.83,115.51-9.18,228.6,53.79,305.12c54.3,66.09,145.85,83.17,219.16,46.24l38,45-7.54,6.41A12.38,12.38,0,0,0,302,420.26l140.56,165.5A12.39,12.39,0,0,0,460,587.18l73.15-62.13a12.39,12.39,0,0,0,1.42-17.46L394,342.1a12.39,12.39,0,0,0-17.46-1.42l-5.28,4.48-37.2-44.07c50.37-64.77,51.19-157.94-3.1-224A179.46,179.46,0,0,0,78.37,52.53Zm209.6,60a123.76,123.76,0,1,1-174.2-17A123.81,123.81,0,0,1,288,112.53Z" transform="translate(-10.42 -9.16)"></path>
+  </g>
+<style>.PPIRFOAU_0{stroke-dasharray:3523 3525;stroke-dashoffset:3524;animation:PPIRFOAU_draw 2000ms ease-out 0ms forwards;}.PPIRFOAU_0{stroke-dasharray:778 780;stroke-dashoffset:779;animation:PPIRFOAU_draw 2000ms ease-out 100ms forwards;}.PPIRFOAU_1{stroke-dasharray:2567 2569;stroke-dashoffset:2568;animation:PPIRFOAU_draw 2000ms ease-out 100ms forwards;}@keyframes PPIRFOAU_draw{100%{stroke-dashoffset:0;}}@keyframes PPIRFOAU_fade{0%{stroke-opacity:1;}94.44444444444444%{stroke-opacity:1;}100%{stroke-opacity:0;}}</style></svg>
+

@@ -1,0 +1,21 @@
+
+
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 579.3 497.34">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #00aeef;
+        stroke-miterlimit: 10;
+        stroke-width: 5px;
+      }
+    </style>
+  </defs>
+  <title>web-s-line-10</title>
+  <path  class=" SILSTVTW_0 cls-1 " cx="99.22" cy="266.7" r="96.72" d="M2.5,266.7A96.72,96.72 0,1,1 195.94,266.7A96.72,96.72 0,1,1 2.5,266.7"></path>
+  <path  class=" SILSTVTW_1 cls-1 " cx="498.36" cy="80.94" r="78.44" d="M419.92,80.94A78.44,78.44 0,1,1 576.8,80.94A78.44,78.44 0,1,1 419.92,80.94"></path>
+  <path  class=" SILSTVTW_2 cls-1 " cx="498.36" cy="416.4" r="78.44" d="M419.92,416.4A78.44,78.44 0,1,1 576.8,416.4A78.44,78.44 0,1,1 419.92,416.4"></path>
+  <path  class=" SILSTVTW_3 cls-1 " x1="187.28" y1="226.64" x2="429.06" y2="111.78" d="M187.28,226.64L429.06,111.78"></path>
+  <path  class=" SILSTVTW_4 cls-1 " x1="182.46" y1="315.96" x2="419.92" y2="416.4" d="M182.46,315.96L419.92,416.4"></path>
+<style>.SILSTVTW_0{stroke-dasharray:3523 3525;stroke-dashoffset:3524;animation:SILSTVTW_draw 2000ms ease-out 0ms forwards;}.SILSTVTW_0{stroke-dasharray:608 610;stroke-dashoffset:609;animation:SILSTVTW_draw 2000ms ease-out 100ms forwards;}.SILSTVTW_1{stroke-dasharray:493 495;stroke-dashoffset:494;animation:SILSTVTW_draw 2000ms ease-out 100ms forwards;}.SILSTVTW_2{stroke-dasharray:493 495;stroke-dashoffset:494;animation:SILSTVTW_draw 2000ms ease-out 100ms forwards;}.SILSTVTW_3{stroke-dasharray:268 270;stroke-dashoffset:269;animation:SILSTVTW_draw 2000ms ease-out 100ms forwards;}.SILSTVTW_4{stroke-dasharray:258 260;stroke-dashoffset:259;animation:SILSTVTW_draw 2000ms ease-out 100ms forwards;}@keyframes SILSTVTW_draw{100%{stroke-dashoffset:0;}}@keyframes SILSTVTW_fade{0%{stroke-opacity:1;}94.44444444444444%{stroke-opacity:1;}100%{stroke-opacity:0;}}</style></svg>
+
