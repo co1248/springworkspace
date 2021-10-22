@@ -1,5 +1,7 @@
 package com.spring.mau.place.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,5 +25,10 @@ public class PlaceDAO {
 	public PlaceVO getPlaceSeq(PlaceVO vo) {
 		System.out.println("PlaceDAO==>getPlaceSeq 실행");
 		return (PlaceVO)mybatis.selectOne("PlaceDAO.getPlaceSeq",vo);
+	}
+	
+	public PlaceVO getPlaceId(PlaceVO vo) {
+		System.out.println("PlaceDAO==>getPlaceId 실행");
+		return (PlaceVO)mybatis.selectOne("PlaceDAO.getPlaceId",vo);
 	}
 }

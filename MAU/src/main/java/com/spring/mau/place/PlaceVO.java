@@ -3,6 +3,7 @@ package com.spring.mau.place;
 public class PlaceVO {
 	private int placeSeq, placeId;
 	private String placeSouthWest, placeNorthEast, placeName, placeAddr;
+	
 	public int getPlaceSeq() {
 		return placeSeq;
 	}

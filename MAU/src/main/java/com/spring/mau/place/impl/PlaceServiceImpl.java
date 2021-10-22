@@ -1,5 +1,7 @@
 package com.spring.mau.place.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,11 @@ public class PlaceServiceImpl implements PlaceService {
 	public PlaceVO getPlaceSeq(PlaceVO vo) {
 		// TODO Auto-generated method stub
 		return placeDAO.getPlaceSeq(vo);
+	}
+	@Override
+	public PlaceVO getPlaceId(PlaceVO vo) {
+		// TODO Auto-generated method stub
+		return placeDAO.getPlaceId(vo);
 	}
 
 }
