@@ -1,5 +1,11 @@
+<%@page import="com.spring.mau.mapview.MapViewVO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	MapViewVO map = (MapViewVO)request.getAttribute("map");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +21,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-center">
-            <div class="place_name">장소이름</div>
-            <div>맵아이콘 맵이름에<br>선택한 장소를 저장하시겠습니까?</div>
+            <div class="place_name" style="font-size : large; color : #F3B922; font-weight: bold ;"><h2>여기</h2></div>
+            <div><%=map.getMapIcon()%> <%=map.getMapName()%>에<br>선택한 장소를 저장하시겠습니까?</div>
             <div><br>해당장소는 공유됩니다.<br>공유를 원하지 않으시면 장소에서 비공개할 수 있습니다.(가이더지도만뜸)</div>
       </div>
       <div class="modal-footer">

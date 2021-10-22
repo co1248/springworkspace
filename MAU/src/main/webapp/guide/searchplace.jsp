@@ -56,13 +56,12 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
-</style>  
-
-</head>
+</style>
+  </head>
   <body>
-  <div class="p-3 mb-2 text-info " style="float: none; margin:100 auto; background-color:  #FFFE83;" >
+  <div class="p-3 mb-2 " style="float: none; margin:100 auto; color: #3384C6; background-color:  #FEFFED;" >
     <!-- Optional JavaScript; choose one of the two! -->
-    <nav class="navbar navbar-light" style="background-color:  #FFFE83;">
+    <nav class="navbar navbar-light" color: #3384C6; style="background-color:  #FEFFED;">
         <div class="container-fluid">
           <a style="font-family: 'Rajdhani', sans-serif;" class="navbar-brand" href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/image/logo/mau.png" alt="mau" height="50px"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -96,7 +95,7 @@
                     <a class="nav-link" href="#">${sessionScope.loginUser.userNickName}(No.${sessionScope.loginUser.userSeqId})님 환영합니다.</a>
                   </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="mypage">나의 가이드 관리</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/mypage">나의 가이드 관리</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/updateform?userSeqId=${sessionScope.loginUser.userSeqId}">내 정보 변경</a>
@@ -375,11 +374,12 @@ function select_place(place_id, place_name, address_name,x , y){
 	alert(x);
 	alert(y); */
 	$('#modal-group-1').modal('show');//제이쿼리 import해야 실행됨
+	$('#modal-group-1 .place_name').text(place_name);
 	placeId = place_id;
 	placeSouthWest = x;
 	placeNorthEast = y;
 	placeName = place_name;
-	placeAddr = address_name; 
+	placeAddr = address_name;
 };
 function add_place(placeId, placeSouthWest, placeNorthEast , placeName, placeAddr){
 	   /*alert(placeSouthWest));
@@ -411,6 +411,6 @@ function add_place(placeId, placeSouthWest, placeNorthEast , placeName, placeAdd
 	   <input type="hidden" name="placeNorthEast" id="placeNorthEast" value="">
 	   <input type="hidden" name="placeName" id="placeName" value="">
 	   <input type="hidden" name="placeAddr" id="placeAddr" value="">
-</form>
+    </form>
 </body>
 </html>

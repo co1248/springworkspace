@@ -17,19 +17,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	
-    <title>MAU</title>
+
+    <meta charset="UTF-8">
+<title>MAU</title>
     <link rel="icon" type="image/png" sizes="16x16"  href="${pageContext.request.contextPath}/image/logo/mauicon.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
   </head>
   <body>
-    
-
+  <div class="p-3 mb-2 " style="float: none; margin:100 auto; color: #3384C6; background-color:  #FEFFED;" >
     <!-- Optional JavaScript; choose one of the two! -->
-    <div class="p-3 mb-2 text-info " style="float: none; margin:100 auto; background-color:  #FFFE83;" >
-    <!-- Optional JavaScript; choose one of the two! -->
-    <nav class="navbar navbar-light" style="background-color:  #FFFE83;">
+    <nav class="navbar navbar-light" color: #3384C6; style="background-color:  #FEFFED;">
         <div class="container-fluid">
           <a style="font-family: 'Rajdhani', sans-serif;" class="navbar-brand" href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/image/logo/mau.png" alt="mau" height="50px"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -41,38 +39,40 @@
             MAU</h5>
               <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
+            <c:choose>
+      <c:when test="${empty sessionScope.loginUser}">   
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="index">홈으로</a>
+                  <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/index">홈으로</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">로그인</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">나의 가이드 관리</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">내 정보 변경</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">로그아웃</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="guiderMap">가이드맵</a>
-                  </li>
-                  <%for(int i = 0; i<placeList.size(); i++){%>
-                  <li class="nav-item">
-                    <a><%=placeList.get(i).getPlaceSeq() %></a>
-                  </li>
-                  <%} %>
-                  <%for(int i = 0; i<placeList.size(); i++){%>
-                  <li class="nav-item">
-                    <a><%=placeList.get(i).getPlaceNorthEast() %></a>
-                  </li>
-                  <%} %>
+               <a class="nav-link" href="javascript:kakaoLogin();">로그인</a>
               </ul>
             </div>
+      </c:when>
+      <c:otherwise>
+         <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/index">홈으로</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="#">${sessionScope.loginUser.userNickName}(No.${sessionScope.loginUser.userSeqId})님 환영합니다.</a>
+                  </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/mypage">나의 가이드 관리</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/updateform?userSeqId=${sessionScope.loginUser.userSeqId}">내 정보 변경</a>
+                  </li>
+                   <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
+                  </li>
+              </ul>
+            </div>
+      </c:otherwise>
+   </c:choose>
           </div>
         </div>
       </nav>
@@ -97,25 +97,21 @@
 	<img id="mapbutton" src="../image/map/blue_web-pict-48.png" alt="현재위치" height="50px">
 </div>
 <!-- 지도공유 -->
-<div class="map-footer search">
-	<div class="wrapper shadow">
-		<div class="text">
-			<div id="share-place-btn" class="share-btn shadow link" onclick="trackOutboundLink('place_page','share','share-link');">
-			    <img id="mapbutton" src="../image/map/blue_web-pict-10.png" alt="지도공유" height="50px">
-			</div>
+<div class="map-footer share">
+	<div class="text">
+		<div id="share-place-btn" class="share-btn link" onclick="trackOutboundLink('place_page','share','share-link');">
+			<img id="mapbutton" src="../image/map/blue_web-pict-10.png" alt="지도공유" height="50px">
 		</div>
 	</div>
 </div>
 <!-- 장소 검색창(키워드) -->
 <div class="map-footer search">
-	<div class="wrapper shadow">
-		<form method="post" action="${pageContext.request.contextPath}/guideMap/search/${mapSeq}">
-		<div class="text">
-			<input type="text" autocomplete="off" id="search" name="keyword" placeholder="여기에서 장소를 검색하고 등록해 보세요"></input>
-			<button class="float-button"  id="mapbutton"><img id="mapbutton" src="../image/map/blue_web-pict-21.png" alt="장소찾기" height="50px"></button>
-		</div>
-		</form>
+	<form method="post" action="${pageContext.request.contextPath}/guideMap/search/${mapSeq}">
+	<div class="text">
+		<input type="text" autocomplete="off" id="search" name="keyword" placeholder="여기에서 장소를 검색하고 등록해 보세요"></input>
+		<button class=""  id="mapbutton"><img id="mapbutton" src="../image/map/blue_web-pict-21.png" alt="장소찾기" height="50px"></button>
 	</div>
+	</form>
 </div>
 
 </div>
@@ -123,6 +119,8 @@
 <input type="hidden" name ="placeName" value ="<%=placeList.get(i).getPlaceName().toString() %>"><%=placeList.get(i).getPlaceName() %></input>
 <input type="hidden" name ="SouthWest" value ="<%=placeList.get(i).getPlaceSouthWest() %>">
 <input type="hidden" name ="NorthEast" value ="<%=placeList.get(i).getPlaceNorthEast() %>">
+<input type="hidden" name ="userSeqId" value ="<%=placeList.get(i).getUserSeqId() %>">//(가이드지도)
+<input type="hidden" name ="userIcon" value ="<%=placeList.get(i).getUserIcon() %>">
 <input type="hidden" name ="time" value ="time">
 <%} %>
 
@@ -136,24 +134,27 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
 var cnt =$("input[name=SouthWest]").length;
 var south = new Array(cnt);
 var east = new Array(cnt);
 var name; //= $("input[name=placeName]");//new Array(cnt);
 /* name[2]=$("input[name=placeName]").val();
 console.log(name[2]); */
-
+var userSeqId;//(가이드지도)
+var userIcon;
+var seq=[];
 var positions=[];
 
 for(var i=0;i<cnt;i++){
 	south[i]=$("input[name=SouthWest]").eq(i).val();
 	east[i]=$("input[name=NorthEast]").eq(i).val();
 	name=($("input[name=placeName]").eq(i).val());
+	userSeqId=($("input[name=userSeqId]").eq(i).val());//(가이드지도)
+	userIcon=($("input[name=userIcon]").eq(i).val());
 	console.log(east[i]);
 	console.log(name);
 	positions.push({
-		content:'<div>'+name+'</div>',
+		content:'<div><a href="${pageContext.request.contextPath}/guiding/guider/'+userSeqId+'">'+userIcon+'</a>   <a href="#">'+name+'</a></div>',//(가이드지도)
 		latlng: new kakao.maps.LatLng(south[i],east[i])
 	});
 	
@@ -168,17 +169,16 @@ for (var i = 0; i < positions.length; i ++) {
         map: map, // 마커를 표시할 지도
         position: positions[i].latlng // 마커의 위치
     });
+    
+    
 
     // 마커에 표시할 인포윈도우를 생성합니다 
     var infowindow = new kakao.maps.InfoWindow({
         content: positions[i].content // 인포윈도우에 표시할 내용
     });
 
-    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+ // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다(가이드지도)
+    infowindow.open(map, marker); 
 }
 
 // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
