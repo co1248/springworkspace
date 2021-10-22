@@ -89,8 +89,8 @@
 	  <div class="col" align="center">
 	    <h4><b>나의 지도</b></h4>
           	<button class="btn btn-primary" style="border-radius:20px; color: white;background-color: #3384C6; width: 60%; height:120px; margin-top: 20px;"  type="button" onclick="location.href='guiding/guider/<%=user.getUserSeqId() %>'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님의 지도 (내 장소)<br><%=user.getUserInform() %></button>
-          	<button class="btn btn-primary" style="border-radius:20px; color: white;background-color: #3384C6; width: 60%; height:120px; margin-top: 20px;"  type="button" onclick="location.href='guiding/guider/<%=user.getUserSeqId() %>'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님이 좋아하는 장소<br>몇개의 장소(장소즐찾되면연결예정)</button><br><br>
-          	<button class="btn btn-primary" style="border-radius:20px; color: white;background-color: #3384C6; width: 60%; height:80px; margin-top: 10px;"  type="button" onclick="location.href='guiding/guider/<%=user.getUserSeqId() %>'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님이 좋아하는 지도<br>몇개의 지도(맵즐찾되면연결예정,일단가이드지도)</button>
+          	<button class="btn btn-primary" style="border-radius:20px; color: white;background-color: #3384C6; width: 60%; height:120px; margin-top: 20px;"  type="button" onclick="location.href='myfavorite'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님이 좋아하는 장소<br>몇개의 장소(장소즐찾되면연결예정)</button><br><br>
+          	<button class="btn btn-primary" style="border-radius:20px; color: white;background-color: #3384C6; width: 60%; height:80px; margin-top: 10px;"  type="button" onclick="location.href='#'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님이 좋아하는 지도<br>몇개의 지도(맵즐찾되면연결예정,일단가이드지도)</button>
           	<%for(int i = 0; i<guide.size();i++){ %>
 			<button class="btn btn-primary" style="border-radius:20px; color: white;background-color: #3384C6; width: 60%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='guideMap/<%=guide.get(i).getMapSeq() %>'"><%=guide.get(i).getMapIcon()%> <%=guide.get(i).getMapName()%></button>
 		<%} %>   
