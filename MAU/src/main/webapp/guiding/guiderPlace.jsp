@@ -65,7 +65,6 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
-.map_rightb {position:absolute;bottom:0;right:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;border-radius: 10px;}
 input[type="checkbox"]+label {
     display: block;
     width: 50px;
@@ -164,11 +163,16 @@ background: #3384C6;
     <div id="map" style="width:100%;height:950px;position:relative;overflow:hidden;"></div>
 
     <div id="menu_wrap" >
-   	<div style="display: flex;">
-   		<h1 style="font-size: 3em;">찜하기</h1>
-   		<input type="checkbox" id="myCheck" name="myCheck"<%if(chk!=null){ %>checked<%} %>>
-		<label for="myCheck"></label>
-   	</div>
+
+<div class="custom_geolocation bg-white shadow"	onclick="geolocation()"> 
+	<img src="/static/img/icon-geolocation.svg?q=1627023708" alt="현재위치">
+</div>
+
+<div class="map-footer here-map re-search-btn">
+	<div class="wrapper shadow">
+		<div class="text">여기에서 다시 장소 찾기</div>
+	</div>
+</div>
    <%for(int i=0; i<placeList.size();i++){ %>
 <div class="card text-dark bg-warning mb-3 card" style="max-width: 18rem; height: 80px; font-size: 1.2em; cursor: pointer; " onclick="location.href='${pageContext.request.contextPath}/detailInfo/'+<%=placeList.get(i).getPlaceSeq()%>">
   <div class="card-header"><%=placeList.get(i).getPlaceName() %></div>
@@ -179,15 +183,7 @@ background: #3384C6;
 <%} %>
     </div>
 </div>
-    <!-- 장소 검색창(키워드) -->
-<div class = "map_rightb">
-<form method="post" action="${pageContext.request.contextPath}/guideMap/search/${mapSeq}">
-	<div class="input-group mb-3">
-				<input type="text" class="form-control rounded" autocomplete="off" name="keyword" placeholder="여기에서 장소를 검색하고 등록!"  aria-label="Recipient's username" aria-describedby="basic-addon2">
-				<button class="btn btn-outline-secondary"  id="mapbutton"><img id="mapbutton" src="../image/map/search.png" alt="장소찾기" height="50px"></button>
-		</div>
-		</form>
-	</div><!-- map_rightb end -->
+    
 </div>
 <%for(int i = 0; i< placeList.size();i++){%>
 <input type="hidden" name ="placeName" value ="<%=placeList.get(i).getPlaceName().toString() %>">
@@ -196,40 +192,12 @@ background: #3384C6;
 <input type="hidden" name ="seq" value ="<%=placeList.get(i).getPlaceSeq() %>">
 
 <%} %>
-<%if(user!=null) {%>
-<form method="get" id="mapFavorite">
-<input type="hidden" name="mapSeq" value="<%=favorite.getMapSeq()%>">
-<input type="hidden" name="userSeqId" value="<%=favorite.getUserSeqId()%>">
-</form>
-<%} %>
-<!-- 로그인안했을때 모달 창 -->
-<div id="dialog-confirm" title="알람">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>좋아요를 누르시려면 로그인이 필요합니다<br>로그인을 하시겠습니까?</p>
-</div>
 
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e31943b9bfc138a7aaae61fa825c403c"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
-$('input:checkbox[name=myCheck]').on('click',function(){
-	var user = '<%=session.getAttribute("loginUser")%>';
-	if(user=='null'){
-		var result = confirm("로그인이 필요합니다");
-		if(result){
-			alert("로긴");
-		}
-		return false;
-	}else{
-		var chk = $(this).is(":checked");
-		if(chk){
-			$('#mapFavorite').attr('action','${pageContext.request.contextPath}/insertMapFavorite');
-			$('#mapFavorite').submit();
-		}else{
-			$('#mapFavorite').attr('action','${pageContext.request.contextPath}/deleteMapFavorite');
-			$('#mapFavorite').submit();
-		}
-	}
-});
+
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 

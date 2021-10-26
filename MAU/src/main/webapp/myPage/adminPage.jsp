@@ -1,8 +1,13 @@
+<%@page import="com.spring.mau.map.MapVO"%>
+<%@page import="java.util.List"%>
 <%@page import="com.spring.mau.user.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <% UserVO user=(UserVO)session.getAttribute("loginUser"); %>
+    <% UserVO user = (UserVO)session.getAttribute("loginUser"); 
+    List<MapVO> AllUsersGuiderMap = (List<MapVO>)request.getAttribute("AllUsersGuiderMap");
+    List<MapVO> AllUsersGuideMap = (List<MapVO>)request.getAttribute("AllUsersGuideMap");
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -79,107 +84,31 @@
           </div>
         </div>
       </nav>
-      <div style="margin-top: 58px; text-align : center;"><h1>당신만의 장소를 공유하세요</h1><br></div>
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    -->
-    
- <!--guide map carousel start-->
- <div id="carouselExampleInterval" class="carousel slided" data-bs-ride="carousel">
-    <div class="carousel-inner">
-		<div class="carousel-item active text-center" data-bs-interval="2000">
-		  <img src="${pageContext.request.contextPath}/image/logo/mauicon.png" height="50px"><br>가이드 지도 넣을거야<br>5명의 가이더
-		</div>
-		<div class="carousel-item text-center" data-bs-interval="2000">
-		  <img src="${pageContext.request.contextPath}/image/logo/mauicon.png" height="50px"><br>서울 핫한 빵집<br>4명의 가이더
-		</div>
-		<div class="carousel-item text-center" data-bs-interval="2000">
-		  <img src="${pageContext.request.contextPath}/image/logo/mauicon.png" height="50px"><br>서울 빵지순례<br>3명의 가이더
-		</div>
-		<div class="carousel-item text-center" data-bs-interval="2000">
-		  <img src="${pageContext.request.contextPath}/image/logo/mauicon.png" height="50px"><br>줄서서 먹는 빵집<br>2명의 가이더
-		</div>
-		<div class="carousel-item text-center" data-bs-interval="2000">
-		  <img src="${pageContext.request.contextPath}/image/logo/mauicon.png" height="50px"><br>강남 빵집<br>1명의 가이더
-		</div>
-   </div>
-   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-</div> 
-<!--guide map carousel end-->
-<!--guide map search start-->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-<div class="container">
-    <br/>
-	<div class="row justify-content-center">
-                        <div class="col-12 col-md-10 col-lg-8">
-								<form class="card card-sm" action="${pageContext.request.contextPath}/search" method="post">                                <div class="card-body row no-gutters align-items-center">
-                                    <div class="col-auto">
-                                        <i class="fas fa-search h4 text-body"></i>
-                                    </div>
-                                    <!--end of col-->
-                                    <div class="col">
-                                        <input class="form-control form-control-lg form-control-borderless" name="search"type="search" placeholder="지도를 검색하세요.">
-                                    </div>
-                                    <!--end of col-->
-                                    <div class="col-auto">
-                                        <button class="btn btn-lg btn-success" type="submit">Search</button>
-                                    </div>
-                                    <!--end of col-->
-                                </div>
-                            </form>
-                        </div>
-                        <!--end of col-->
-                    </div>
-</div>
-<!--card start 열혈가이더 넣을 예정-->
-<%@include file="/index/hotuserMap.jsp"%>
-
-<!--card end-->
-<!--지도에서 장소찾기start-->
-<div class="container"><br>
-  <div class="row">
-    <div class="col text-center">
-      <button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #F3B922; width:70%; height: 60px;"  type="button" onclick="location.href='/mau/here?lat=37.566826&lng=126.9786567&retry=true'">지도에서 장소 찾기</button>
-    </div>
-  </div>
-</div>
-<!--지도에서 장소찾기 end-->
-<!-- index 차트 start -->
-<%@include file="/index/randomMap.jsp"%>
-<%@include file="/index/newestMap.jsp"%>
-<%@include file="/index/favoriteMap.jsp"%>
-<%@include file="/index/favoritePlace.jsp"%>
-<%@include file="/index/favoriteGuide.jsp"%>
-<%@include file="/index/randomGuide.jsp"%>
+      <div>
+      <h1>모든 가이더맵(공유O)</h1>
+      <%for(int i=0; i<AllUsersGuiderMap.size();i++){ %>
+      		<a href="${pageContext.request.contextPath}/guiderMap/<%=AllUsersGuiderMap.get(i).getMapSeq()%>"><%=AllUsersGuiderMap.get(i).getMapName() %></a>
+      		<button onclick="location.href='mapDelete/<%=AllUsersGuiderMap.get(i).getMapSeq()%>'">X</button>
+      		<button onclick="location.href='mapUpdateForm/<%=AllUsersGuiderMap.get(i).getMapSeq()%>'">수정</button><br>
+      <%} %>
+      </div>
+      <div>
+      <h1>모든 가이드맵(공유O)</h1>
+      <%for(int i=0; i<AllUsersGuideMap.size();i++){ %>
+      		<a href="${pageContext.request.contextPath}/guiderMap/<%=AllUsersGuideMap.get(i).getMapSeq()%>"><%=AllUsersGuideMap.get(i).getMapName() %></a>
+      		<button onclick="location.href='mapDelete/<%=AllUsersGuideMap.get(i).getMapSeq()%>'">X</button>
+      		<button onclick="location.href='mapUpdateForm/<%=AllUsersGuideMap.get(i).getMapSeq()%>'">수정</button><br>
+      <%} %>
+      </div>
 
 <!-- index 차트 end -->
-<!--가이드지도 만들기start-->
-<div class="container"><br>
-  <div class="row">
-    <div class="col text-center">
-      <button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #F3B922; width:70%; height: 60px;"  type="button" onclick="location.href='createGuideMapForm'">가이드지도 만들기</button>
-    </div>
-  </div>
-</div>
    </div>
     <form id="form2" name="form2" action="${pageContext.request.contextPath}/login" method="post" >
       <input type="hidden" name="userId" id="userId" value=""/>
       <input type="hidden" name="userNickName" id="userNickName" value=""/>
    </form>
   </body>
-	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>

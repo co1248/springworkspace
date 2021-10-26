@@ -79,7 +79,7 @@
 	      <div class="mb-3" align="center">
 	      
 	  <label for="formGroupExampleInput" class="form-label"><b>가이드 주제</b></label>
-	  <input style="width: 300px; border-radius: 50px;" type="text" class="form-control" name="mapName"id="formGroupExampleInput" placeholder="가이드지도의 이름을 지어주세요!">
+	  <input style="width: 300px; border-radius: 50px;" type="text" class="form-control" name="mapName"id="formGroupExampleInput" placeholder="가이드지도의 이름을 지어주세요!" required>
 	</div>
 	<div class="help">
 					<dl>
@@ -111,7 +111,7 @@
 				</div>
 	<div class="mb-3" align="center">
 	  <label for="formGroupExampleInput2" class="form-label"><b>메유콘</b></label>
-	  <input  style="width: 300px; border-radius: 50px;" type="text" class="form-control" name ="mapIcon"id="formGroupExampleInput2" placeholder="입력칸에 우클릭으로 그림 이모티콘을 선택하세요">
+	  <input  style="width: 300px; border-radius: 50px;" type="text" class="form-control" name ="mapIcon"id="formGroupExampleInput2" placeholder="입력칸에 우클릭으로 그림 이모티콘을 선택하세요" required>
 	</div>
 	
 	<div class="mb-3" align="center">   
@@ -134,7 +134,7 @@
 		<input type="radio" name="kateGory" value="숙박">숙박
 		<input type="radio" name="kateGory" value="병원">병원
 		<input type="radio" name="kateGory" value="약국">약국
-		<input type="radio" name="kateGory" value="동네">동네
+		<input type="radio" name="kateGory" value="동네" checked>동네
 		<input type="radio" name="kateGory" value="기타">기타
 	</div>
 	

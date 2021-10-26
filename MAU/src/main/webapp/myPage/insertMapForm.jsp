@@ -69,18 +69,18 @@
 	      <div class="mb-3" align="center">
 	      
 	  <label for="formGroupExampleInput" class="form-label"><b>가이더맵 이름</b></label>
-	  <input style="width: 300px; border-radius: 50px;" type="text" class="form-control" name="mapName"id="formGroupExampleInput" placeholder="가이더맵의 이름을 지어주세요!">
+	  <input style="width: 300px; border-radius: 50px;" type="text" class="form-control" name="mapName"id="formGroupExampleInput" placeholder="가이더맵의 이름을 지어주세요!" required>
 	</div>
 	<div class="mb-3" align="center">
 	  <label for="formGroupExampleInput2" class="form-label"><b>메유콘</b></label>
-	  <input  style="width: 300px; border-radius: 50px;" type="text" class="form-control" name ="mapIcon"id="formGroupExampleInput2" placeholder="입력칸에 우클릭으로 이모지를 선택하세요">
+	  <input  style="width: 300px; border-radius: 50px;" type="text" class="form-control" name ="mapIcon"id="formGroupExampleInput2" placeholder="입력칸에 우클릭으로 이모지를 선택하세요" required>
 	</div>
 	<div class="mb-3" align="center">
 	  <label for="formGroupExampleInput3" class="form-label"><b>키워드</b></label>
-	  <input  style="width: 300px; border-radius: 50px;" type="text" class="form-control" name="keyWord" id="formGroupExampleInput3" placeholder="키워드를 입력해주세요!">
+	  <input  style="width: 300px; border-radius: 50px;" type="text" class="form-control" name="keyWord" id="formGroupExampleInput3" placeholder="키워드를 입력해주세요!" required>
 	</div>
 	<div class="mb-3" align="center">
-	 <input type="radio" name="kateGory" value="음식점">음식점
+	 <input type="radio" name="kateGory" value="음식점" checked>음식점
 			<input type="radio" name="kateGory" value="편의점">편의점
 			<input type="radio" name="kateGory" value="어린이집">어린이집
 			<input type="radio" name="kateGory" value="학교">학교

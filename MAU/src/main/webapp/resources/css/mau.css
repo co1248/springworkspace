@@ -61,7 +61,7 @@
 
 .info-box {
     width: 690px;
-    height: 250px;
+    /* height: 250px; */
     float: left;
     color: #666666;
     font-family: 'S-CoreDream-9Black';
@@ -169,4 +169,19 @@
 #info-map {
     height: 280px;
     width: 500px;
+}
+
+/* 즐겨찾기 */
+input[type="checkbox"]+label {
+    display: block;
+    position: relative;
+    width: 35px;
+    bottom: 82px;
+    height: 35px;
+    background: url(/mau/image/favoriteCheck/heart_off.png) no-repeat 0 0px/ contain;
+    left: 130px;
+}
+
+input[type='checkbox']:checked+label {
+    background: url(/mau/image/favoriteCheck/heart_on.png) no-repeat 0 0px/ contain;
 }

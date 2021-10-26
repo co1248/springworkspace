@@ -1,9 +1,17 @@
 <%@page import="com.spring.mau.mapview.MapViewVO"%>
+<%@page import="com.spring.mau.map.MapVO"%>
+<%@page import="com.spring.mau.user.UserVO"%>
+<%@page import="com.spring.mau.mapfavorite.MapFavoriteVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	List<MapViewVO> placeList = (List<MapViewVO>)request.getAttribute("placeList");
+    MapVO favorite = (MapVO)request.getAttribute("mapFavorite");
+    MapFavoriteVO chk = (MapFavoriteVO)request.getAttribute("chk");
+    int mapSeq= (int)request.getAttribute("mapSeq");
+    UserVO user = (UserVO)session.getAttribute("loginUser");
+    MapVO placegetMap = (MapVO)request.getAttribute("placegetMap");
 %>
 <!DOCTYPE html>
 <html>
@@ -23,6 +31,50 @@
     <link rel="icon" type="image/png" sizes="16x16"  href="${pageContext.request.contextPath}/image/logo/mauicon.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
+    <style>/* (가이더지도) */
+.customoverlay {position:relative;bottom:-20px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.customoverlay a:nth-of-type(2) {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+.customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
+.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap {position:relative;width:100%;height:950px;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.bg_white {background:#fff;}
+#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+#menu_wrap .option{text-align: center;}
+#menu_wrap .option p {margin:10px 0;}  
+#menu_wrap .option button {margin-left:5px;}
+.map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.map_rightb {position:absolute;bottom:0;right:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;border-radius: 10px;}
+#pagination {margin:10px auto;text-align: center;}
+#pagination a {display:inline-block;margin-right:10px;}
+#pagination .on {font-weight: bold; cursor: default;color:#777;}
+input[type="checkbox"]+label {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background: url(${pageContext.request.contextPath}/image/favoriteCheck/heart_off.png) no-repeat 0 0px / contain;
+}
+
+input[type='checkbox']:checked+label {
+    background: url(${pageContext.request.contextPath}/image/favoriteCheck/heart_on.png) no-repeat 0 0px / contain;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+.card div{
+background: #FEFFED;
+border-radius: 20px;
+}
+.card:hover div{
+background: #3384C6;
+
+}
+</style>
+
   </head>
   <body>
   <div class="p-3 mb-2 " style="float: none; margin:100 auto; color: #3384C6; background-color:  #FEFFED;" >
@@ -87,51 +139,81 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
 <!-- map start -->
-    <div id="map" style="width:100%;height:950px; "></div>
-<!-- 지도즐겨찾기 -->
-<div class=""onclick="#"> 
-	<img id="mapbutton" src="../image/map/blue_web-pict-35.png" alt="지도즐겨찾기" height="50px">
-</div>
-<!-- 내위치 -->
-<div class="" onclick="geolocation()"> 
-	<img id="mapbutton" src="../image/map/blue_web-pict-48.png" alt="현재위치" height="50px">
-</div>
-<!-- 지도공유 -->
-<div class="map-footer share">
-	<div class="text">
-		<div id="share-place-btn" class="share-btn link" onclick="trackOutboundLink('place_page','share','share-link');">
-			<img id="mapbutton" src="../image/map/blue_web-pict-10.png" alt="지도공유" height="50px">
-		</div>
-	</div>
-</div>
-<!-- 장소 검색창(키워드) -->
-<div class="map-footer search">
-	<form method="post" action="${pageContext.request.contextPath}/guideMap/search/${mapSeq}">
-	<div class="text">
-		<input type="text" autocomplete="off" id="search" name="keyword" placeholder="여기에서 장소를 검색하고 등록해 보세요"></input>
-		<button class=""  id="mapbutton"><img id="mapbutton" src="../image/map/blue_web-pict-21.png" alt="장소찾기" height="50px"></button>
-	</div>
-	</form>
-</div>
+    <div class="map_wrap">
+    <div id="map" style="width:100%;height:950px;position:relative;overflow:hidden;"></div>
 
+    <div id="menu_wrap" >
+<!-- 지도이름 -->
+<div>
+<button class="btn btn-primary"  style="border-radius:20px; font-size : 15px; border-style: none; color: black;background-color: #F3B922; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='/mau/guideMap/<%=mapSeq %>'"><%=placegetMap.getMapIcon()%> <%=placegetMap.getMapName()%></button><br><br>
+</div>
+<!-- 지도즐겨찾기 -->
+   	<div style="display: flex;">
+   		<!-- <h1 style="font-size: 3em;">찜하기</h1> -->
+   		<input type="checkbox" id="myCheck" name="myCheck"<%if(chk!=null){ %>checked<%} %>>
+		<label for="myCheck"></label>
+    </div>
+    </div><!-- menu_wrap end -->
+<!-- 내위치 -->
+<div class="map_leftb">
+	<div class="" onclick="geolocation()"> 
+		<img id="mapbutton" src="../image/map/mylocation.png" alt="현재위치" height="50px">
+	</div><br>
+<!-- 지도공유 -->
+	<div class="share-box">
+	   <div class="share-btn link" onclick="copy_url()">
+			<img id="mapbutton" src="../image/map/share.png" alt="지도공유" height="50px">
+			<input type="hidden" name="url" id="SharePlaceUrl" value="http://localhost:8181/mau/guideMap/<%=mapSeq%>">
+	   </div>
+	</div>
+</div><!-- map_leftb end -->
+<!-- 장소 검색창(키워드) -->
+<div class = "map_rightb">
+<form method="post" action="${pageContext.request.contextPath}/guideMap/search/${mapSeq}">
+	<div class="input-group mb-3">
+				<input type="text" class="form-control rounded" autocomplete="off" name="keyword" placeholder="여기에서 장소를 검색하고 등록!"  aria-label="Recipient's username" aria-describedby="basic-addon2">
+				<button class="btn btn-outline-secondary"  id="mapbutton"><img id="mapbutton" src="../image/map/search.png" alt="장소찾기" height="50px"></button>
+		</div>
+		</form>
+	</div><!-- map_rightb end -->
+</div><!-- map_wrap end -->
 </div>
 <%for(int i = 0; i< placeList.size();i++){%>
-<input type="hidden" name ="placeName" value ="<%=placeList.get(i).getPlaceName().toString() %>"><%=placeList.get(i).getPlaceName() %></input>
+<input type="hidden" name ="placeName" value ="<%=placeList.get(i).getPlaceName().toString() %>"><%-- <%=placeList.get(i).getPlaceName() %> </input>--%>
 <input type="hidden" name ="SouthWest" value ="<%=placeList.get(i).getPlaceSouthWest() %>">
 <input type="hidden" name ="NorthEast" value ="<%=placeList.get(i).getPlaceNorthEast() %>">
-<input type="hidden" name ="userSeqId" value ="<%=placeList.get(i).getUserSeqId() %>">//(가이드지도)
+<input type="hidden" name ="userSeqId" value ="<%=placeList.get(i).getUserSeqId() %>"><!-- (가이드지도) -->
 <input type="hidden" name ="userIcon" value ="<%=placeList.get(i).getUserIcon() %>">
-<input type="hidden" name ="time" value ="time">
+<input type="hidden" name ="placeSeq" value ="<%=placeList.get(i).getPlaceSeq() %>">
+<%} %>
+<%if(user!=null) {%>
+<form method="get" id="mapFavorite">
+<input type="hidden" name="mapSeq" value="<%=favorite.getMapSeq()%>">
+<input type="hidden" name="userSeqId" value="<%=favorite.getUserSeqId()%>">
+</form>
 <%} %>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e31943b9bfc138a7aaae61fa825c403c"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
+
+$('input:checkbox[name=myCheck]').on('click',function(){
+	var chk = $(this).is(":checked");
+	if(chk){
+		$('#mapFavorite').attr('action','${pageContext.request.contextPath}/insertMap1Favorite');
+		$('#mapFavorite').submit();
+	}else{
+		$('#mapFavorite').attr('action','${pageContext.request.contextPath}/deleteMap1Favorite');
+		$('#mapFavorite').submit();
+	}
+});
+
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-    mapOption = { 
-        center: new kakao.maps.LatLng(37.51822, 126.90471), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };
+mapOption = { 
+center: new kakao.maps.LatLng(37.51822, 126.90471), // 지도의 중심좌표
+level: 8 // 지도의 확대 레벨
+};
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 var cnt =$("input[name=SouthWest]").length;
@@ -142,68 +224,71 @@ var name; //= $("input[name=placeName]");//new Array(cnt);
 console.log(name[2]); */
 var userSeqId;//(가이드지도)
 var userIcon;
+var placeSeq;
 var seq=[];
 var positions=[];
-
+var points=[];
 for(var i=0;i<cnt;i++){
-	south[i]=$("input[name=SouthWest]").eq(i).val();
-	east[i]=$("input[name=NorthEast]").eq(i).val();
-	name=($("input[name=placeName]").eq(i).val());
-	userSeqId=($("input[name=userSeqId]").eq(i).val());//(가이드지도)
-	userIcon=($("input[name=userIcon]").eq(i).val());
-	console.log(east[i]);
-	console.log(name);
-	positions.push({
-		content:'<div><a href="${pageContext.request.contextPath}/guiding/guider/'+userSeqId+'">'+userIcon+'</a>   <a href="#">'+name+'</a></div>',//(가이드지도)
-		latlng: new kakao.maps.LatLng(south[i],east[i])
-	});
-	
-	
-	
+south[i]=$("input[name=SouthWest]").eq(i).val();
+east[i]=$("input[name=NorthEast]").eq(i).val();
+name=($("input[name=placeName]").eq(i).val());
+placeSeq=($("input[name=placeSeq]").eq(i).val());
+userSeqId=($("input[name=userSeqId]").eq(i).val());//(가이드지도)
+userIcon=($("input[name=userIcon]").eq(i).val());
+console.log(east[i]);
+console.log(name);
+positions.push({
+	content:'<div class="customoverlay"><a href="${pageContext.request.contextPath}/guiding/guider/'+userSeqId+'">' + userIcon + '</a>   <a data-toggle="modal" href="${pageContext.request.contextPath}/detailInfo/' + placeSeq + '"><span class="title">' + name + '</span></a></div>',
+	latlng: new kakao.maps.LatLng(south[i],east[i])
+});
+points.push(positions[i].latlng);//마커들을 기점으로 다시 지도의 중심좌표 설정으로 인한 코드
+}
+
+var bounds = new kakao.maps.LatLngBounds();
+
+function setBounds(){
+	map.setBounds(bounds);
 }
 
 console.log(positions);
+if(points!=null){
 for (var i = 0; i < positions.length; i ++) {
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
         position: positions[i].latlng // 마커의 위치
+        
     });
-    
-    
+    bounds.extend(points[i]);
+    console.log(marker);
+	// 커스텀 오버레이를 생성합니다
+	var customOverlay = new kakao.maps.CustomOverlay({
+	    position: positions[i].latlng,
+	    content: positions[i].content,
+	    xAnchor: 0.5,
+	    yAnchor: 2.1
+	});
 
-    // 마커에 표시할 인포윈도우를 생성합니다 
-    var infowindow = new kakao.maps.InfoWindow({
-        content: positions[i].content // 인포윈도우에 표시할 내용
-    });
-
- // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다(가이드지도)
-    infowindow.open(map, marker); 
+	customOverlay.setMap(map, marker);  
+	map.setBounds(bounds);
 }
 
-// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
-function makeOverListener(map, marker, infowindow) {
-    return function() {
-        infowindow.open(map, marker);
-    };
+}else{
+	for (var i = 0; i < positions.length; i ++) {
+	    // 마커를 생성합니다
+	    seq = positions[i].seq;
+	    var marker = new kakao.maps.Marker({
+	        map: map, // 마커를 표시할 지도
+	        position: positions[i].latlng // 마커의 위치
+	    });
+	    bounds.extend(points[i]);
+		console.log(marker);
+	    // 마커에 표시할 인포윈도우를 생성합니다 
+	    infowindow = new kakao.maps.InfoWindow({
+	        content: positions[i].content // 인포윈도우에 표시할 내용
+	    });
 }
-
-// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
-function makeOutListener(infowindow) {
-    return function() {
-        infowindow.close();
-    };
 }
-kakao.maps.event.addListener(marker, 'click', function() {
-    // 마커 위에 인포윈도우를 표시합니다 
-   window.open("${pageContext.request.contextPath}/detail",'popup','width=300px,height=300px');
-});
-
-//마커들의 위치로 지도의 크기를 재정의 합니다.	
-map.setBounds(bounds);
-
-
-
 // 현재 위치 버튼을 누르면 현지 위치로 중심을 바꾸고 지도를 확대하는 함수입니다
 function geolocation() {
 
@@ -251,36 +336,14 @@ function displayMarker(locPosition) {
 	map.setCenter(locPosition);   
 	map.setLevel(5);   
 }    
+//장소 url 공유
+function copy_url() {
+	var copy_url = jQuery('#SharePlaceUrl').val();
+	navigator.clipboard.writeText(copy_url).then(() => { 
+		alert('URL이 복사되었습니다.'); return false; });
+	}
+<%-- <%@include file="/detailInfo/detailview.jsp"%> --%>
 
-/* 아래와 같이도 할 수 있습니다 */
-/*
-for (var i = 0; i < positions.length; i ++) {
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: positions[i].latlng // 마커의 위치
-    });
-
-    // 마커에 표시할 인포윈도우를 생성합니다 
-    var infowindow = new kakao.maps.InfoWindow({
-        content: positions[i].content // 인포윈도우에 표시할 내용
-    });
-
-    // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
-    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-    (function(marker, infowindow) {
-        // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다 
-        kakao.maps.event.addListener(marker, 'mouseover', function() {
-            infowindow.open(map, marker);
-        });
-
-        // 마커에 mouseout 이벤트를 등록하고 마우스 아웃 시 인포윈도우를 닫습니다
-        kakao.maps.event.addListener(marker, 'mouseout', function() {
-            infowindow.close();
-        });
-    })(marker, infowindow);
-}
-*/
 </script>
   </body>
 </html>

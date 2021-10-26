@@ -1,3 +1,7 @@
+<%@page import="com.spring.mau.place.PlaceVO"%>
+<%@page import="com.spring.mau.mapfavorite.MapFavoriteVO"%>
+<%@page import="com.spring.mau.map.MapVO"%>
+<%@page import="com.spring.mau.user.UserVO"%>
 <%@page import="com.spring.mau.mapview.MapViewVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -56,16 +60,41 @@
 #placesList .item .marker_15 {background-position: 0 -654px;}
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}</style>
+#pagination .on {font-weight: bold; cursor: default;color:#777;}
+input[type="checkbox"]+label {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background: url(${pageContext.request.contextPath}/image/favoriteCheck/heart_off.png) no-repeat 0 0px / contain;
+}
+
+input[type='checkbox']:checked+label {
+    background: url(${pageContext.request.contextPath}/image/favoriteCheck/heart_on.png) no-repeat 0 0px / contain;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+.card div{
+background: #FEFFED;
+border-radius: 20px;
+}
+.card:hover div{
+background: #3384C6;
+
+}
+.modal {width: 50%; height: 50%; display: none; background-color: rgba(0, 0,0,0.4); }
+
+</style>
 <title>MAU</title>
     <link rel="icon" type="image/png" sizes="16x16"  href="${pageContext.request.contextPath}/image/logo/mauicon.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
   </head>
   <body>
-  <div class="p-3 mb-2 text-info " style="float: none; margin:100 auto; background-color:  #FFFE83;" >
+   <div class="p-3 mb-2 " style="float: none; margin:100 auto; color: #3384C6; background-color:  #FEFFED;" >
     <!-- Optional JavaScript; choose one of the two! -->
-    <nav class="navbar navbar-light" style="background-color:  #FFFE83;">
+    <nav class="navbar navbar-light" color: #3384C6; style="background-color:  #FEFFED;">
         <div class="container-fluid">
           <a style="font-family: 'Rajdhani', sans-serif;" class="navbar-brand" href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/image/logo/mau.png" alt="mau" height="50px"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -114,8 +143,10 @@
           </div>
         </div>
       </nav>
-   
-  
+
+  	<div class="modal" style="width: 60%; height: 950px; margin: 0 auto;">
+  	<div id = "detail"></div>
+</div>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     
@@ -129,7 +160,7 @@
 
     <div id="menu_wrap" >
    <%for(int i=0; i<placeList.size();i++){ %>
-<div class="card text-dark bg-warning mb-3" style="max-width: 18rem; height: 80px; font-size: 1.2em;">
+<div class="card text-dark bg-warning mb-3 card" style="max-width: 18rem; height: 80px; font-size: 1.2em; cursor: pointer; " onclick="location.href='${pageContext.request.contextPath}/detailInfo/'+<%=placeList.get(i).getPlaceSeq()%>">
   <div class="card-header"><%=placeList.get(i).getPlaceName() %></div>
   <div class="card-body">
     <h5 class="card-title"><%=placeList.get(i).getPlaceAddr() %></h5>
@@ -138,23 +169,25 @@
 <%} %>
     </div>
 </div>
+    
 </div>
 <%for(int i = 0; i< placeList.size();i++){%>
-<input type="hidden" name ="placeName" value ="<%=placeList.get(i).getPlaceName().toString() %>"><%=placeList.get(i).getPlaceName() %></input>
+<input type="hidden" name ="placeName" value ="<%=placeList.get(i).getPlaceName().toString() %>">
 <input type="hidden" name ="SouthWest" value ="<%=placeList.get(i).getPlaceSouthWest() %>">
 <input type="hidden" name ="NorthEast" value ="<%=placeList.get(i).getPlaceNorthEast() %>">
 <input type="hidden" name ="seq" value ="<%=placeList.get(i).getPlaceSeq() %>">
+
 <%} %>
-
-
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e31943b9bfc138a7aaae61fa825c403c"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
+
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
         center: new kakao.maps.LatLng(37.51822, 126.90471), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 8 // 지도의 확대 레벨
     };
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
@@ -162,51 +195,39 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 var cnt =$("input[name=SouthWest]").length;
 var south = new Array(cnt);
 var east = new Array(cnt);
-var name; //= $("input[name=placeName]");//new Array(cnt);
-/* name[2]=$("input[name=placeName]").val();
-console.log(name[2]); */
+var name;
 var seq=[];
 var positions=[];
-
+var points=[];
 for(var i=0;i<cnt;i++){
-	south[i]=$("input[name=SouthWest]").eq(i).val();
-	east[i]=$("input[name=NorthEast]").eq(i).val();
-	name=($("input[name=placeName]").eq(i).val());
-	seq=($("input[name=seq]").eq(i).val());
-	console.log(east[i]);
-	console.log(name);
-	positions.push({
+	south[i]=$("input[name=SouthWest]").eq(i).val();//좌표 배열 만들기
+	east[i]=$("input[name=NorthEast]").eq(i).val();//좌표 배열 만들기
+	name=($("input[name=placeName]").eq(i).val());//가게 이름들 저장
+	seq=($("input[name=seq]").eq(i).val());//각 마커에 placeSeq 저장
+	positions.push({//포지션 배열에 push로 key,value값 전달
 		seq: seq,
 		content:'<div>'+name+'</div>',
 		latlng: new kakao.maps.LatLng(south[i],east[i])
 	});
-	
-	
-	
+	points.push(positions[i].latlng);//마커들을 기점으로 다시 지도의 중심좌표 설정으로 인한 코드
 }
 
+/* for(var i=0;i<cnt;i++){
+	south[i]=$("input[name=SouthWest]").eq(i).val();
+	east[i]=$("input[name=NorthEast]").eq(i).val();
+	points.push(new kakao.maps.LatLng(south[i],east[i]));
+	
+} */
 
-// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-/* var positions = [
-    {
-        content: '<div>카카오</div>', 
-        latlng: new kakao.maps.LatLng(33.450705, 126.570677)
-    },
-    {
-        content: '<div>생태연못</div>', 
-        latlng: new kakao.maps.LatLng(33.450936, 126.569477)
-    },
-    {
-        content: '<div>텃밭</div>', 
-        latlng: new kakao.maps.LatLng(33.450879, 126.569940)
-    },
-    {
-        content: '<div>근린공원</div>',
-        latlng: new kakao.maps.LatLng(33.451393, 126.570738)
-    }
-   
-]; */
+var bounds = new kakao.maps.LatLngBounds();
+
+function setBounds(){
+	map.setBounds(bounds);
+}
+
 console.log(positions);
+if(points!=null){
+
 for (var i = 0; i < positions.length; i ++) {
     // 마커를 생성합니다
     seq = positions[i].seq;
@@ -214,12 +235,13 @@ for (var i = 0; i < positions.length; i ++) {
         map: map, // 마커를 표시할 지도
         position: positions[i].latlng // 마커의 위치
     });
+    bounds.extend(points[i]);
 	console.log(marker);
     // 마커에 표시할 인포윈도우를 생성합니다 
     infowindow = new kakao.maps.InfoWindow({
         content: positions[i].content // 인포윈도우에 표시할 내용
     });
-    
+    map.setBounds(bounds);
 
 
 
@@ -230,15 +252,52 @@ for (var i = 0; i < positions.length; i ++) {
     kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 
     kakao.maps.event.addListener(marker, 'click', ClickListener(seq,map,marker,infowindow));
+
     
-    
-    kakao.maps.event.addListener($('.card'), 'mouseover', makeOverListener(map, marker, infowindow));
- 
-    
+}
+
+}else{
+	for (var i = 0; i < positions.length; i ++) {
+	    // 마커를 생성합니다
+	    seq = positions[i].seq;
+	    var marker = new kakao.maps.Marker({
+	        map: map, // 마커를 표시할 지도
+	        position: positions[i].latlng // 마커의 위치
+	    });
+	    bounds.extend(points[i]);
+		console.log(marker);
+	    // 마커에 표시할 인포윈도우를 생성합니다 
+	    infowindow = new kakao.maps.InfoWindow({
+	        content: positions[i].content // 인포윈도우에 표시할 내용
+	    });
+
+
+
+	    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+	    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+	    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+	    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+	    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+
+	    kakao.maps.event.addListener(marker, 'click', ClickListener(seq,map,marker,infowindow));
+	    
+	    
+	    //kakao.maps.event.addListener($('.card'), 'mouseover', makeOverListener(map, marker, infowindow));
+	    
+	    
+}
 }
 
 function ClickListener(seq,map, marker, infowindow) {
     return function() {
+    	/* const modal = document.querySelector('.modal');
+    	modal.style.display='block';
+           $(".modal").modal("show",function(){
+        	   $("detail").on("show",function(){
+        		   location.href="${pageContext.request.contextPath}/detailInfo/"+seq;
+        	   });
+           });  */
+            
     	window.open("${pageContext.request.contextPath}/detailInfo/"+seq, "PopupWin", "width=500,height=600");
         console.log(seq);
     };
@@ -258,36 +317,6 @@ function makeOutListener(infowindow) {
     };
 }
 
-
-/* 아래와 같이도 할 수 있습니다 */
-/*
-for (var i = 0; i < positions.length; i ++) {
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: positions[i].latlng // 마커의 위치
-    });
-
-    // 마커에 표시할 인포윈도우를 생성합니다 
-    var infowindow = new kakao.maps.InfoWindow({
-        content: positions[i].content // 인포윈도우에 표시할 내용
-    });
-
-    // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
-    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-    (function(marker, infowindow) {
-        // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다 
-        kakao.maps.event.addListener(marker, 'mouseover', function() {
-            infowindow.open(map, marker);
-        });
-
-        // 마커에 mouseout 이벤트를 등록하고 마우스 아웃 시 인포윈도우를 닫습니다
-        kakao.maps.event.addListener(marker, 'mouseout', function() {
-            infowindow.close();
-        });
-    })(marker, infowindow);
-}
-*/
 </script>
   </body>
 </html>

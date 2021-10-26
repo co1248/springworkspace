@@ -405,7 +405,11 @@ function add_place(placeId, placeSouthWest, placeNorthEast , placeName, placeAdd
 	};
 	</script>
 	<%@ include file = "inputplaceModal.jsp" %><!-- 장소등록 모달 -->
+	<%if(map.getMapType()==1){ %>
 	<form id = "formplace" name="formplace" method="post" action="${pageContext.request.contextPath}/guideMap/${mapSeq}">
+	<%}else{ %>
+	<form id = "formplace" name="formplace" method="post" action="${pageContext.request.contextPath}/guiderMap/${mapSeq}">
+	<%} %>
 	   <input type="hidden" name="placeId" id="placeId" value="">
 	   <input type="hidden" name="placeSouthWest" id="placeSouthWest" value="">
 	   <input type="hidden" name="placeNorthEast" id="placeNorthEast" value="">

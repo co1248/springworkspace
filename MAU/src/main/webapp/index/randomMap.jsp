@@ -3,7 +3,7 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <div style="margin-top: 58px; text-align : center;"><h1>
-    <img src="https://visualpharm.com/assets/198/Location-595b40b85ba036ed117da637.svg" class="card-img-top" width="50px"  height="50px" alt="...">가이드지도
+    <img src="https://visualpharm.com/assets/198/Location-595b40b85ba036ed117da637.svg" class="card-img-top" width="50px"  height="50px" alt="...">랜덤 가이더지도
 	</h1><br></div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
     <c:forEach items="${randomMap}" var="randomMap" begin="0" end="8" step="1">
@@ -19,6 +19,7 @@
 	  </div>
 		
 	</c:forEach>
+	</div>
 	
 <!-- <div style="margin-top: 58px; text-align : center;"><h1>
     <img src="https://visualpharm.com/assets/198/Location-595b40b85ba036ed117da637.svg" class="card-img-top" width="50px"  height="50px" alt="...">가이드지도
