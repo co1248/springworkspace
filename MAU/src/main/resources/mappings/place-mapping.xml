@@ -27,4 +27,21 @@
         select * from place where placeId = #{placeId}
         ]]>
     </select>
+    
+     <select id = "getPlacebyId" resultType="place">
+      <![CDATA[
+        select placeSeq from placefavorite where userSeqId = #{userSeqId}
+        ]]>
+    </select>
+    
+    <select id = "getPlaceList" resultType="place">
+        SELECT *
+      from
+      (SELECT p.*, (( ACOS(
+      SIN(#{placeSouthWest} * 3.14 / 180) * SIN(placeSouthWest * 3.14 / 180) + COS(#{placeSouthWest} * 3.14 / 180) * COS(placeSouthWest* 3.14 / 180) * COS((#{placeNorthEast} - placeNorthEast) * 3.14 / 180)) * 180 / 3.14) * 60 * 1.1515) as distance
+      from place p)
+      <![CDATA[where distance <=1]]>
+    </select>
+    
+    
 </mapper>

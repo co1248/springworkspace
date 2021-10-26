@@ -5,12 +5,12 @@
 <mapper namespace = "MapDAO">
     <insert id = "insertMap">
 		<![CDATA[
-        insert into map values(maumapseq.nextval,#{mapName},#{mapIcon},#{userSeqId},#{keyWord},#{kateGory},#{shareYn},0,0)
+        insert into map values(maumapseq.nextval,#{mapName},#{mapIcon},#{userSeqId},#{keyWord},#{kateGory},#{shareYn},0,0,null)
         ]]>
     </insert>
     <insert id = "insertGuideMap">
 		<![CDATA[
-        insert into map values(maumapseq.nextval,#{mapName},#{mapIcon},#{userSeqId},#{keyWord},#{kateGory},1,1,0)
+        insert into map values(maumapseq.nextval,#{mapName},#{mapIcon},#{userSeqId},#{keyWord},#{kateGory},1,1,0,null)
         ]]>
     </insert>
     <select id="getMapList" resultType="maps">
@@ -30,5 +30,46 @@
     	select * from map where userseqid=#{userSeqId} and maptype = 0
     	]]>
     </select>
-
+    <select id="getMap" resultType="maps">
+       <![CDATA[
+       select * from map where mapSeq=#{mapSeq}
+       ]]>
+    </select>
+    <select id="getguiderMapListAll" resultType="maps">
+    	<![CDATA[
+    	select * from map where maptype = 1 and shareyn=1
+    	]]>
+    </select>
+    
+    <select id="getguideMapListAll" resultType="maps">
+    	<![CDATA[
+    	select * from map where maptype = 0 and shareyn=1
+    	]]>
+    </select>
+    
+    
+    <delete id="deleteMap">
+	    <![CDATA[
+	    delete from map where mapseq=#{mapSeq}
+	    ]]>
+    </delete>
+	<update id="updateMap">
+	update map set mapname=#{mapName} where mapseq = #{mapSeq}
+	</update>
+	
+	    <select id = "searchMap" resultType="maps">
+        SELECT * FROM map WHERE (mapName LIKE '%'||#{search}||'%' or keyWord LIKE '%'||#{search}||'%')
+    </select>
+    
+    <select id = "searchMapCategory" resultType="maps">
+        SELECT * FROM map WHERE (mapName LIKE '%'||#{search}||'%' or keyWord LIKE '%'||#{search}||'%') and kateGory like '%'||#{searchKategory}||'%'
+    </select>
+    
+    <select id="getPlaceCnt" resultType="maps">
+       <![CDATA[
+       select placeCnt from mapplace_cnt where mapSeq=#{mapSeq}
+       ]]>
+    </select> 
+	
+	
 </mapper>

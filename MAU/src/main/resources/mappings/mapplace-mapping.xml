@@ -14,5 +14,14 @@
         WHERE NOT EXISTS (SELECT * FROM mapplace WHERE mapseq = #{mapSeq} AND placeseq = #{placeSeq})
         ]]>
     </insert>
-
+	<delete id="deleteMapPlace">
+		<![CDATA[
+		delete from mapplace where mapseq=#{mapSeq}
+		]]>
+	</delete>
+	<select id="getMapPlaceSeq" resultType="mapPlace">
+		<![CDATA[
+		select DISTINCT mapseq from mapplace where mapseq=#{mapSeq}
+		]]>
+	</select>
 </mapper>
