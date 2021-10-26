@@ -21,7 +21,7 @@ public class LogoutController {
 		
 		session.invalidate();
 		
-		return "redirect:index.jsp";
+		return "redirect:index";
 	}
 	
 	

@@ -16,5 +16,15 @@ public class UserPlaceServiceImpl implements UserPlaceService {
 		// TODO Auto-generated method stub
 		userPlaceDAO.insertUserPlace(vo);
 	}
+	@Override
+	public UserPlaceVO getUserPlaceMapSeq(UserPlaceVO vo) {
+		// TODO Auto-generated method stub
+		return userPlaceDAO.getUserPlaceMapSeq(vo);
+	}
+	@Override
+	public void deleteUserPlace(UserPlaceVO vo) {
+		// TODO Auto-generated method stub
+		userPlaceDAO.deleteUserPlace(vo);
+	}
 
 }

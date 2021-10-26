@@ -44,5 +44,50 @@ public class MapViewServiceImpl implements MapViewService {
 		return mapViewDAO.getPlaceCnt(vo);
 	}
 
+	@Override
+	public List<MapViewVO> getNewestMap(MapViewVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapViewDAO.getNewestMap(vo);
+	}
+	@Override
+	public List<MapViewVO> getHotUser(MapViewVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapViewDAO.getHotUser(vo);
+	}
+	@Override
+	public List<MapViewVO> favoriteMap(MapViewVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapViewDAO.favoriteMap(vo);
+	}
+	@Override
+	public List<MapViewVO> favoritePlace(MapViewVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapViewDAO.favoritePlace(vo);
+	}
+	@Override
+	public MapViewVO getBySeq2(MapViewVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapViewDAO.getBySeq2(vo);
+	}
+	@Override
+	public List<MapViewVO> favoriteGuide(MapViewVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapViewDAO.favoriteGuide(vo);
+	}
+	@Override
+	public List<MapViewVO> getRandomGuide(MapViewVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapViewDAO.getRandomGuide(vo);
+	}
+	@Override
+	public List<MapViewVO> getkeyword(MapViewVO mvo) {
+		// TODO Auto-generated method stub
+		return mapViewDAO.getkeyword(mvo);
+	}
+	@Override
+	public MapViewVO getPlace2(MapViewVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapViewDAO.getPlace2(vo);
+	}
 
 }

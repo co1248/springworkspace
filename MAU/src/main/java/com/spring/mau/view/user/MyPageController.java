@@ -70,4 +70,5 @@ public class MyPageController {
 				return new ModelAndView("myPage/insertGuideMapForm.jsp");
 			}
 	}
+	
 }

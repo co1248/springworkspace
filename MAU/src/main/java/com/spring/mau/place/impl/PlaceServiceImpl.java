@@ -33,5 +33,16 @@ public class PlaceServiceImpl implements PlaceService {
 		// TODO Auto-generated method stub
 		return placeDAO.getPlaceId(vo);
 	}
+	@Override
+	public List<PlaceVO> getPlacebyId(PlaceVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return placeDAO.getPlacebyId(vo);
+	}
+	
+	@Override
+	public List<PlaceVO> getPlaceList(PlaceVO vo) {
+		// TODO Auto-generated method stub
+		return placeDAO.getPlaceList(vo);
+	}
 
 }

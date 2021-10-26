@@ -1,9 +1,47 @@
 package com.spring.mau.mapview;
 
 public class MapViewVO {
-	private int mapSeq,userSeqId,placeSeq,placeCnt,maxSeq;
+	private int mapSeq,userSeqId,placeSeq,placeCnt,maxSeq,mCnt,pCnt,mapType,shareYn;
 
-	private String mapIcon,mapName,placeSouthWest,placeNorthEast,placeName,placeAddr,userIcon,userInform,userNickName;
+	private String mapIcon,mapName,placeSouthWest,placeNorthEast,placeName,placeAddr,userIcon,userInform,userNickName,keyword,kategory;
+	
+	
+	public int getMapType() {
+		return mapType;
+	}
+	public void setMapType(int mapType) {
+		this.mapType = mapType;
+	}
+	public int getShareYn() {
+		return shareYn;
+	}
+	public void setShareYn(int shareYn) {
+		this.shareYn = shareYn;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	public String getKategory() {
+		return kategory;
+	}
+	public void setKategory(String kategory) {
+		this.kategory = kategory;
+	}
+	public int getmCnt() {
+		return mCnt;
+	}
+	public void setmCnt(int mCnt) {
+		this.mCnt = mCnt;
+	}
+	public int getpCnt() {
+		return pCnt;
+	}
+	public void setpCnt(int pCnt) {
+		this.pCnt = pCnt;
+	}
 	public int getMapSeq() {
 		return mapSeq;
 	}

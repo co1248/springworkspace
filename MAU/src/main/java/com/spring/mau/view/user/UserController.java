@@ -34,7 +34,6 @@ public class UserController {
 	@RequestMapping(value="/update",method=RequestMethod.POST)
 	public String login(UserVO vo,HttpSession session,HttpServletResponse response) {
 		userService.updateUser(vo);
-		
 		return "/index";
 	}
 

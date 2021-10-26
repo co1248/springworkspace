@@ -15,4 +15,13 @@ public class UserPlaceDAO {
 		System.out.println("UserPlaceDAO==>insertUserPlace 실행");
 		mybatis.insert("UserPlaceDAO.insertUserPlace", vo);
 	}
+	
+	public UserPlaceVO getUserPlaceMapSeq(UserPlaceVO vo) {
+		System.out.println("UserPlaceDAO==>getUserPlaceMapSeq 실행");
+		return mybatis.selectOne("UserPlaceDAO.getUserPlaceMapSeq", vo);
+	}
+	public void deleteUserPlace(UserPlaceVO vo) {
+		System.out.println("UserPlaceDAO==>deleteUserPlace 실행");
+		mybatis.delete("UserPlaceDAO.deleteUserPlace", vo);
+	}
 }

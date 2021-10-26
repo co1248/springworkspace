@@ -33,4 +33,39 @@ public class MapDAO {
 		System.out.println("가이더맵(개인테마지도) 가져오기");
 		return mybatis.selectList("MapDAO.getguiderMapList", vo);
 	}
+	public MapVO getMap(MapVO vo) {
+		System.out.println("맵시퀀스로 맵 가져오기");
+		return mybatis.selectOne("MapDAO.getMap", vo);
+	}
+	public List<MapVO> getguiderMapListAll() {
+		System.out.println("가이더맵(공유가능) 가져오기");
+		return mybatis.selectList("MapDAO.getguiderMapListAll");
+	}
+	public List<MapVO> getguideMapListAll() {
+		System.out.println("가이드맵(공유가능) 가져오기");
+		return mybatis.selectList("MapDAO.getguideMapListAll");
+	}
+	
+	public void deleteMap(MapVO vo) {
+		System.out.println("맵지우기");
+		mybatis.delete("MapDAO.deleteMap",vo);
+	}
+	
+	public void updateMap(MapVO vo) {
+		System.out.println("맵수정하기");
+		mybatis.update("MapDAO.updateMap",vo);
+	}
+	public List<MapVO> searchMap(MapVO vo) {
+		System.out.println("맵검색");
+		return mybatis.selectList("MapDAO.searchMap", vo);
+	}
+	
+	public List<MapVO> searchMapCategory(MapVO vo) {
+		System.out.println("맵카테고리검색");
+		return mybatis.selectList("MapDAO.searchMapCategory", vo);
+	}
+	public MapVO getPlaceCnt(MapVO vo) {
+		System.out.println("맵시퀀스로 맵 가져오기");
+		return mybatis.selectOne("MapDAO.getPlaceCnt", vo);
+	}
 }

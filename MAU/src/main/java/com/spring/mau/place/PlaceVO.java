@@ -1,9 +1,9 @@
 package com.spring.mau.place;
 
 public class PlaceVO {
-	private int placeSeq, placeId;
-	private String placeSouthWest, placeNorthEast, placeName, placeAddr;
-	
+	private int placeSeq, placeId,userSeqId;
+	private String  placeName, placeAddr;
+	private double placeSouthWest, placeNorthEast;
 	public int getPlaceSeq() {
 		return placeSeq;
 	}
@@ -16,17 +16,11 @@ public class PlaceVO {
 	public void setPlaceId(int placeId) {
 		this.placeId = placeId;
 	}
-	public String getPlaceSouthWest() {
-		return placeSouthWest;
+	public int getUserSeqId() {
+		return userSeqId;
 	}
-	public void setPlaceSouthWest(String placeSouthWest) {
-		this.placeSouthWest = placeSouthWest;
-	}
-	public String getPlaceNorthEast() {
-		return placeNorthEast;
-	}
-	public void setPlaceNorthEast(String placeNorthEast) {
-		this.placeNorthEast = placeNorthEast;
+	public void setUserSeqId(int userSeqId) {
+		this.userSeqId = userSeqId;
 	}
 	public String getPlaceName() {
 		return placeName;
@@ -40,4 +34,18 @@ public class PlaceVO {
 	public void setPlaceAddr(String placeAddr) {
 		this.placeAddr = placeAddr;
 	}
+	public double getPlaceSouthWest() {
+		return placeSouthWest;
+	}
+	public void setPlaceSouthWest(double placeSouthWest) {
+		this.placeSouthWest = placeSouthWest;
+	}
+	public double getPlaceNorthEast() {
+		return placeNorthEast;
+	}
+	public void setPlaceNorthEast(double placeNorthEast) {
+		this.placeNorthEast = placeNorthEast;
+	}
+	
+	
 }

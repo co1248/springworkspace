@@ -31,4 +31,14 @@ public class PlaceDAO {
 		System.out.println("PlaceDAO==>getPlaceId 실행");
 		return (PlaceVO)mybatis.selectOne("PlaceDAO.getPlaceId",vo);
 	}
+	
+	public List<PlaceVO> getPlacebyId(PlaceVO vo) {
+		System.out.println("PlaceDAO==>getPlacebyId 실행");
+		return mybatis.selectList("PlaceDAO.getPlacebyId",vo);
+	}
+	
+	public List<PlaceVO> getPlaceList(PlaceVO vo) {
+		System.out.println("getPlaceList 실행");
+		return mybatis.selectList("PlaceDAO.getPlaceList",vo); 
+	}
 }

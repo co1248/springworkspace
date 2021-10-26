@@ -36,6 +36,45 @@ public class MapServiceImpl implements MapService {
 		// TODO Auto-generated method stub
 		return mapDao.getguiderMapList(vo);
 	}
-
+	@Override
+	public MapVO getMap(MapVO vo) {
+		// TODO Auto-generated method stub
+		return mapDao.getMap(vo);
+	}
+	@Override
+	public List<MapVO> getguiderMapListAll() {
+		// TODO Auto-generated method stub
+		return mapDao.getguiderMapListAll();
+	}
+	@Override
+	public List<MapVO> getguideMapListAll() {
+		// TODO Auto-generated method stub
+		return mapDao.getguideMapListAll();
+	}
+	@Override
+	public void deleteMap(MapVO vo) {
+		// TODO Auto-generated method stub
+		mapDao.deleteMap(vo);
+	}
+	@Override
+	public void updateMap(MapVO vo) {
+		// TODO Auto-generated method stub
+		mapDao.updateMap(vo);
+	}
+	@Override
+	public List<MapVO> searchMap(MapVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapDao.searchMap(vo);
+	}
+	@Override
+	public List<MapVO> searchMapCategory(MapVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapDao.searchMapCategory(vo);
+	}
+	@Override
+	public MapVO getPlaceCnt(MapVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapDao.getPlaceCnt(vo);
+	}
 
 }

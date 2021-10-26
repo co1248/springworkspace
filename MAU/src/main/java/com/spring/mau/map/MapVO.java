@@ -1,8 +1,28 @@
 package com.spring.mau.map;
 
 public class MapVO {
-	private String mapName,mapIcon,keyWord,kateGory;
-	private int mapSeq,userSeqId,shareYn,mapType,mapCnt;
+	private String mapName,mapIcon,keyWord,kateGory,search,searchKategory;
+	private int mapSeq,userSeqId,shareYn,mapType,mapCnt,placeCnt;
+
+	
+	public int getPlaceCnt() {
+		return placeCnt;
+	}
+	public void setPlaceCnt(int placeCnt) {
+		this.placeCnt = placeCnt;
+	}
+	public String getSearchKategory() {
+		return searchKategory;
+	}
+	public void setSearchKategory(String searchKategory) {
+		this.searchKategory = searchKategory;
+	}
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
 	public String getMapName() {
 		return mapName;
 	}
