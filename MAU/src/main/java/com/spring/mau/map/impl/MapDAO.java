@@ -68,4 +68,16 @@ public class MapDAO {
 		System.out.println("맵시퀀스로 맵 가져오기");
 		return mybatis.selectOne("MapDAO.getPlaceCnt", vo);
 	}
+	public List<MapVO> getMapSeq(MapVO vo) {
+		System.out.println("시퀀스 가져오기");
+		return mybatis.selectList("MapDAO.getMapSeq", vo);
+	}
+	public MapVO getfvcnt(MapVO vo) {
+		System.out.println("즐찾 맵개수 가져오기");
+		return mybatis.selectOne("MapDAO.getfvcnt",vo);
+	}
+	public MapVO getplcnt(MapVO vo) {
+		System.out.println("즐찾 장소개수 가져오기");
+		return mybatis.selectOne("MapDAO.getplcnt",vo);
+	}
 }

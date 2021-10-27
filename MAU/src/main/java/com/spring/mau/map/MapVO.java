@@ -2,9 +2,22 @@ package com.spring.mau.map;
 
 public class MapVO {
 	private String mapName,mapIcon,keyWord,kateGory,search,searchKategory;
-	private int mapSeq,userSeqId,shareYn,mapType,mapCnt,placeCnt;
+	private int mapSeq,userSeqId,shareYn,mapType,mapCnt,placeCnt,fvCnt,plCnt;
 
 	
+
+	public int getPlCnt() {
+		return plCnt;
+	}
+	public void setPlCnt(int plCnt) {
+		this.plCnt = plCnt;
+	}
+	public int getFvCnt() {
+		return fvCnt;
+	}
+	public void setFvCnt(int fvCnt) {
+		this.fvCnt = fvCnt;
+	}
 	public int getPlaceCnt() {
 		return placeCnt;
 	}

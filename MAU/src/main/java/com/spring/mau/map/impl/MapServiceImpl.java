@@ -76,5 +76,21 @@ public class MapServiceImpl implements MapService {
 		// TODO 자동 생성된 메소드 스텁
 		return mapDao.getPlaceCnt(vo);
 	}
+	
+	@Override
+	public List<MapVO> getMapSeq(MapVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapDao.getMapSeq(vo);
+	}
+	@Override
+	public MapVO getfvcnt(MapVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapDao.getfvcnt(vo);
+	}
+	@Override
+	public MapVO getplcnt(MapVO vo) {
+		// TODO 자동 생성된 메소드 스텁
+		return mapDao.getplcnt(vo);
+	}
 
 }

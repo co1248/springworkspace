@@ -1,8 +1,11 @@
 package com.spring.mau.view.mapview;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +36,17 @@ public class MapViewController {
 	@Autowired
 	private MapFavoriteService mapFavoriteService;
 	@RequestMapping("/guiderMap/{mapSeq}")
-	public ModelAndView getGuiderMap (@PathVariable("mapSeq") int mapSeq,HttpSession session, MapFavoriteVO favorite,MapViewVO vo, Model model ) {
+	public ModelAndView getGuiderMap (@PathVariable("mapSeq") int mapSeq,HttpSession session,MapVO mapvo, MapFavoriteVO favorite,MapViewVO vo, Model model ) {
 		// TODO Auto-generated method stub
 		System.out.println("개인지도 상세 보기(가이더지도)");
 		vo.setMapSeq(mapSeq);
 		MapFavoriteVO chk=null;
 		List<MapViewVO> placeList = mapViewService.getMap(vo);
 		favorite.setMapSeq(mapSeq);
+		mapvo.setMapSeq(mapSeq);
 		MapVO mapFavorite = mapFavoriteService.getFavoriteUserSeqId(favorite);
-		
+		MapVO placegetMap = mapService.getMap(mapvo);
+		model.addAttribute("placegetMap", placegetMap);
 		UserVO user = (UserVO)session.getAttribute("loginUser");
 		if(user!=null) {
 			favorite.setUserSeqId(user.getUserSeqId());
@@ -95,28 +100,42 @@ public class MapViewController {
 		return new ModelAndView("../guiderPlace.jsp");
 	}
 	
-	@RequestMapping(value="/search",method=RequestMethod.POST)
-	public ModelAndView search(HttpServletRequest request,MapViewVO vo,MapVO vo2, Model model,HttpSession session) {
-		// TODO Auto-generated method stub
-		System.out.println("검색");
-		String search = request.getParameter("search");
-		vo2.setSearch(search);
-		System.out.println(search);
-		String a = "전체";
-		List<MapVO> searchMap = mapService.searchMap(vo2);
-		for(MapVO vo3 : searchMap) {
-			vo3.setSearch(search);
-			vo3.setSearchKategory(a);
-			int cnt = mapService.getPlaceCnt(vo3).getPlaceCnt();
-			vo3.setPlaceCnt(cnt);
-		}
-		
-		session.setAttribute("search", search);
-		session.setAttribute("kategory", a);
-		session.setAttribute("searchList", searchMap);
-		model.addAttribute("searchMap", searchMap);
-		return new ModelAndView("/index/searchAll.jsp");
-	}
+	   @RequestMapping(value="/search",method=RequestMethod.POST)
+	   public ModelAndView search(HttpServletRequest request,HttpServletResponse response,MapViewVO vo,MapVO vo2, Model model,HttpSession session) throws IOException {
+	      // TODO Auto-generated method stub
+	      System.out.println("검색");
+	      String search = request.getParameter("search");
+	      vo2.setSearch(search);
+	      System.out.println(search);
+	      String a = "전체";
+	      if(search.equals("")) {
+	          response.setContentType("text/html; charset=UTF-8");
+	               PrintWriter out = response.getWriter();
+	               out.println("<script>alert('검색어를 입력하세요'); history.go(-1);</script>");
+	               out.flush();
+	      }else {
+	         List<MapVO> searchMap = mapService.searchMap(vo2);
+	         for(MapVO vo3 : searchMap) {
+	            vo3.setSearch(search);
+//	            vo3.setSearchKategory(a);
+	            System.out.println(search);
+	            int cnt = mapService.getPlaceCnt(vo3).getPlaceCnt();
+	            vo3.setPlaceCnt(cnt);
+	            
+	            session.setAttribute("search", search);
+	            session.setAttribute("kategory", a);
+	            session.setAttribute("searchList", searchMap);
+	            model.addAttribute("searchMap", searchMap);
+	            return new ModelAndView("/index/searchAll.jsp");
+	         }
+	      }
+	      
+//	      session.setAttribute("search", search);
+//	      session.setAttribute("kategory", a);
+//	      session.setAttribute("searchList", searchMap);
+//	      model.addAttribute("searchMap", searchMap);
+	      return new ModelAndView("/index/searchAll.jsp");
+	   }
 	
 	@RequestMapping(value={"/searchCategory/{searchkeyword}/{search}"},method=RequestMethod.GET)
 	public ModelAndView searchCategory(@PathVariable("searchkeyword")String searchkeyword,@PathVariable("search")String search,HttpServletRequest request,MapViewVO vo,MapVO vo2, Model model,HttpSession session) {

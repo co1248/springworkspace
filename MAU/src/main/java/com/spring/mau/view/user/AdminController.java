@@ -51,7 +51,7 @@ public class AdminController {
 				return new ModelAndView("myPage/adminPage.jsp");
 			}
 	}
-	@RequestMapping("/mapDelete/{mapSeq}")
+	@RequestMapping("/adminMapDelete/{mapSeq}")
 	public ModelAndView deleteMap(@PathVariable("mapSeq") int mapSeq,UserPlaceVO userplacevo,MapVO mapvo,MapPlaceVO mapplacevo,MapFavoriteVO mapfavoritevo, Model model,HttpSession session) {
 		System.out.println("맵삭제하기");
 		System.out.println("등록된장소 삭제");
@@ -81,10 +81,9 @@ public class AdminController {
 		model.addAttribute("mapInfo",mapInfo);
 		return new ModelAndView("../myPage/updateMapForm.jsp");
 	}
-	@RequestMapping("/mapUpdate/{mapSeq}")
+	@RequestMapping("/AdminMapUpdate/{mapSeq}")
 	public ModelAndView UpdateMap(@PathVariable("mapSeq") int mapSeq,MapVO mapvo, Model model,HttpSession session) {
 		System.out.println("맵수정하기");
-		System.out.println("등록된장소 삭제");
 		UserVO user = (UserVO)session.getAttribute("loginUser");
 		if(user.getAdminNum()==1) {
 		mapService.updateMap(mapvo);

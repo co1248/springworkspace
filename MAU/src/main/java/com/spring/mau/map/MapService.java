@@ -16,4 +16,7 @@ public interface MapService {
 	List<MapVO> searchMap(MapVO vo);
 	List<MapVO> searchMapCategory(MapVO vo);
 	MapVO getPlaceCnt(MapVO vo);
+	List<MapVO> getMapSeq(MapVO vo);
+	MapVO getfvcnt(MapVO vo);
+	MapVO getplcnt(MapVO vo);
 }

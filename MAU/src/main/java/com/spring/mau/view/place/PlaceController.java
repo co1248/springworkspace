@@ -17,12 +17,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.mau.map.MapService;
+import com.spring.mau.map.MapVO;
 import com.spring.mau.mapplace.MapPlaceService;
 import com.spring.mau.mapplace.MapPlaceVO;
 import com.spring.mau.mapview.MapViewService;
 import com.spring.mau.mapview.MapViewVO;
 import com.spring.mau.place.PlaceService;
 import com.spring.mau.place.PlaceVO;
+import com.spring.mau.review.ReviewService;
+import com.spring.mau.review.ReviewVO;
 import com.spring.mau.userplace.UserPlaceService;
 import com.spring.mau.userplace.UserPlaceVO;
 
@@ -37,9 +41,12 @@ public class PlaceController {
 	private MapPlaceService mapPlaceService;
 	@Autowired
 	private MapViewService mapViewService;
-	
+	@Autowired
+	private MapService mapService;
+	@Autowired
+	private ReviewService reviewService;
 	@RequestMapping(value="/guideMap/{mapSeq}", method = RequestMethod.POST)
-	public void insertPlace (@PathVariable("mapSeq") int mapSeq, PlaceVO vo, UserPlaceVO vo2, MapPlaceVO vo3, HttpServletRequest request, HttpServletResponse response) {
+	public void insertPlace (@PathVariable("mapSeq") int mapSeq, PlaceVO vo, UserPlaceVO vo2, MapPlaceVO vo3, HttpServletRequest request, HttpServletResponse response, ReviewVO rvo) {
 		// TODO Auto-generated method stub
 		System.out.println("장소등록");
 	      int placeId = Integer.parseInt(request.getParameter("placeId"));
@@ -78,9 +85,26 @@ public class PlaceController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//모달창 리뷰 등록 처리
+		System.out.println("모달창 리뷰 등록!");
+		String modalReview = request.getParameter("modalReview2");
+		System.out.println(modalReview);
+		String modalPlaceState = request.getParameter("modalPlaceState2");
+		System.out.println(modalPlaceState);
+	
+		PlaceVO placeSeq = placeService.getPlaceSeq(vo);
+		int plceSeq2 =placeSeq.getPlaceSeq();
+		rvo.setPlaceSeq(plceSeq2);
+		rvo.setUserSeqId(userSeqId);
+		rvo.setReview(modalReview);
+		rvo.setPlaceState(modalPlaceState);
+		reviewService.insertReview(rvo);
+		System.out.println("모달 댓글 성공!");
+		
 	}
 	@RequestMapping(value="/guiderMap/{mapSeq}", method = RequestMethod.POST)
-	public void insertGuiderPlace (@PathVariable("mapSeq") int mapSeq, PlaceVO vo, UserPlaceVO vo2, MapPlaceVO vo3, HttpServletRequest request, HttpServletResponse response) {
+	public void insertGuiderPlace (@PathVariable("mapSeq") int mapSeq, PlaceVO vo, UserPlaceVO vo2, MapPlaceVO vo3, HttpServletRequest request, HttpServletResponse response,ReviewVO rvo) {
 		// TODO Auto-generated method stub
 		System.out.println("장소등록");
 	      int placeId = Integer.parseInt(request.getParameter("placeId"));
@@ -119,9 +143,41 @@ public class PlaceController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	      //모달창 리뷰 등록 처리
+	      PlaceVO placeId_new = placeService.getPlaceId(vo);
+	      int placeId_newone = placeId_new.getPlaceId();
+	      int placeId_already = vo.getPlaceId();
+	      if(placeId_newone == placeId_already) {
+	         System.out.println("기존 장소에 리뷰 등록처리");
+	         String modalReview = request.getParameter("modalReview2");
+	         System.out.println(modalReview);
+	         String modalPlaceState = request.getParameter("modalPlaceState2");
+	         System.out.println(modalPlaceState);
+	         rvo.setPlaceSeq(placeId_already);
+	         rvo.setUserSeqId(userSeqId);
+	         rvo.setReview(modalReview);
+	         rvo.setPlaceState(modalPlaceState);
+	         System.out.println("기존 장소에 모달 댓글 성공!");
+	         
+	      }else {
+	         System.out.println("모달창 리뷰 등록 처리");
+	         String modalReview = request.getParameter("modalReview2");
+	         System.out.println(modalReview);
+	         String modalPlaceState = request.getParameter("modalPlaceState2");
+	         System.out.println(modalPlaceState);
+	      
+	         PlaceVO placeSeq = placeService.getPlaceSeq(vo);
+	         int plceSeq2 =placeSeq.getPlaceSeq();
+	         rvo.setPlaceSeq(plceSeq2);
+	         rvo.setUserSeqId(userSeqId);
+	         rvo.setReview(modalReview);
+	         rvo.setPlaceState(modalPlaceState);
+	         reviewService.insertReview(rvo);
+	         System.out.println("새로운 장소에 모달 댓글 성공!");
+	      }
 	}
 	@RequestMapping(value="/guideMap/search/{mapSeq}", method = RequestMethod.POST)
-	public ModelAndView searchPlace (@PathVariable("mapSeq") int mapSeq, PlaceVO vo,MapViewVO vo2,HttpServletRequest request, Model model) {
+	public ModelAndView searchPlace (@PathVariable("mapSeq") int mapSeq, PlaceVO vo,MapViewVO vo2,HttpServletRequest request, Model model,MapVO mapvo) {
 		// TODO Auto-generated method stub
 		System.out.println("장소검색");
 		String keyword = request.getParameter("keyword");
@@ -129,8 +185,9 @@ public class PlaceController {
 		
 		vo2.setMapSeq(mapSeq);
 		MapViewVO map = mapViewService.getBySeq(vo2);
+		MapVO mapType = mapService.getMap(mapvo);
 		model.addAttribute("map", map);
-		
+		model.addAttribute("mapType",mapType);
 		return new ModelAndView("/guide/searchplace.jsp");
 	}
 	

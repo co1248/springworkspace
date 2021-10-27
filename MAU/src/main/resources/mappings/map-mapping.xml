@@ -70,6 +70,20 @@
        select placeCnt from mapplace_cnt where mapSeq=#{mapSeq}
        ]]>
     </select> 
+    
+    <select id="getMapSeq" resultType="maps">
+       <![CDATA[
+       select mapseq from mapfavorite where userseqid=#{userSeqId}
+       ]]>
+    </select>
+    
+    <select id="getfvcnt" resultType="maps">
+         select count(mapseq) fvcnt from mapfavorite where userseqid=#{userSeqId}
+    </select>
+    
+    <select id="getplcnt" resultType="maps">
+         select count(placeseq) plcnt from placefavorite where userseqid=#{userSeqId}
+    </select>
 	
 	
 </mapper>
