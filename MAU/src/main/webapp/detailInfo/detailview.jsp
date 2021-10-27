@@ -98,16 +98,20 @@
                 <div id="modal_place_name" class="place_name_text">
                 	<%=place.getPlaceName()%>
          		</div>   
-         		<!-- 장소 즐겨찾기 -->
+         		<div id="modal_place_name" class="place_name_text">
+                	<%=place.getPlaceAddr()%>
+         		</div>  
+         		<div><!-- 장소 즐겨찾기 -->
                  	<input type="checkbox" id="myCheck" name="myCheck" style="display: none;"
                  	<%if(chk!=null){ %>checked<%}%>>
 					<label for="myCheck"></label> 
-         		<%if(user!=null) {%>
+         			<%if(user!=null) {%>
 					<form method="get" id="placeFavorite">
 					<input type="hidden" name="placeSeq" value="<%=place.getPlaceSeq()%>">
 					<input type="hidden" name="userSeqId" value="<%=user.getUserSeqId()%>">
 					</form>
-				<%} %>
+					<%} %>
+				</div>
 				<script>
 				$('input:checkbox[name=myCheck]').on('click',function(){
 					var chk = $(this).is(":checked");
@@ -135,10 +139,12 @@
 								<input type="file" name="photoUpload"/>
 								<input type="submit" value="업로드">
 							 </form>
-                        </div><!-- 사진 출력 부분 -->
-                            	<%for(int i=0; i< photo.size(); i++) { %>
-	                            	<img src="‪http://loacalhost:8181/mau/uploadImg/<%=place.getPlaceSeq()%>/img/<%=photo.get(i).getPhotoName()%>">
-                            	<%}%>
+                        </div>
+                        <!-- 사진 출력 부분 -->
+                            <%for(int i=0; i< photo.size(); i++) { %>
+	                            <%-- <img src="‪http://loacalhost:8181/uploadImg/<%=photo.get(i).getPhotoName()%>"> --%>
+                           			<img src ="C:/img/emoji.PNG">
+                            <%}%>
                     </div>
                 </div>
                 <div class="row">
@@ -162,7 +168,7 @@
                         <div class="title">어디에 있나요?</div>
                         <a id="static_map">
                             <div id="info-map" class="map-box border-radius shadow">
-                            <div id="map" style="width:100%;height:230px;"></div>
+                            <div id="map" style="width:100%; height:230px;"></div>
                             <input type="hidden" name ="SouthWest" value ="<%=place.getPlaceSouthWest() %>">
                      		<input type="hidden" name ="NorthEast" value ="<%=place.getPlaceNorthEast() %>">
                      <!-- <p><em>마커를 클릭해주세요!</em></p>  -->
@@ -224,7 +230,7 @@
                       <div class="title_2">이 장소 공유하기</div>
                         <div class="share-box">
                              <div class="share-btn shadow link" onclick="copy_url()" style="margin-right: 10px; border-radius: 50%; width: 30px; height: 30px;">
-                            	<img src="${pageContext.request.contextPath}/resources/images/icon-share.png" style="position: relative; right:20px; bottom:20px;"></button>
+                            	<img src="${pageContext.request.contextPath}/resources/images/icon-share.png" style="position: relative; right:20px; bottom:20px;">
                             	<input type="hidden" name="url" id="SharePlaceUrl" value="http://localhost:8181/mau/detailInfo/<%=place.getPlaceSeq() %>">
                             </div>
                             <!-- <input type="text" id="SharePlaceUrl"> -->
@@ -279,7 +285,7 @@
                         </div>
                     </div>
 					<!-- 댓글 달기 / 이모티콘 -->
-                    <div class="info-box">
+                       <div class="info-box">
                         <div class="title">직접 의견을 남겨보세요!</div>
                         <div class="emoji-list">
                             <div class="uk-width-1-5">
@@ -374,7 +380,7 @@
         </div>
         	<!-- 카카오 맵으로 자세히 보기 -->
             <div class="uk-modal-footer info-footer">
-                <a id="modal_place_info_url" class="go-kakao-btn" onclick="trackOutboundLink('place_page','outbound','go-to-kakaomap');">
+                <a id="modal_place_info_url" class="go-kakao-btn">
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary" type="button" onclick="location.href='https://place.map.kakao.com/<%=place.getPlaceId()%>'">카카오맵으로 자세히 보기</button>
                       </div>

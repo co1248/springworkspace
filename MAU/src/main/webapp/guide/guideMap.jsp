@@ -39,7 +39,7 @@
 .customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:950px;}
+.map_wrap {position:relative;width:100%;height:800px;}
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
@@ -140,7 +140,7 @@ background: #3384C6;
     -->
 <!-- map start -->
     <div class="map_wrap">
-    <div id="map" style="width:100%;height:950px;position:relative;overflow:hidden;"></div>
+    <div id="map" style="width:100%;height:800px;position:relative;overflow:hidden;"></div>
 
     <div id="menu_wrap" >
 <!-- 지도이름 -->

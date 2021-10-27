@@ -77,10 +77,11 @@
       </nav>
       <form action="createGuideMap" method="post" style="text-align: center;">
 	      <div class="mb-3" align="center">
+	      <h1>가이드지도 만들기</h1><br>
 	      
 	  <label for="formGroupExampleInput" class="form-label"><b>가이드 주제</b></label>
 	  <input style="width: 300px; border-radius: 50px;" type="text" class="form-control" name="mapName"id="formGroupExampleInput" placeholder="가이드지도의 이름을 지어주세요!" required>
-	</div>
+	</div><br>
 	<div class="help">
 					<dl>
 						<dt>
@@ -112,7 +113,7 @@
 	<div class="mb-3" align="center">
 	  <label for="formGroupExampleInput2" class="form-label"><b>메유콘</b></label>
 	  <input  style="width: 300px; border-radius: 50px;" type="text" class="form-control" name ="mapIcon"id="formGroupExampleInput2" placeholder="입력칸에 우클릭으로 그림 이모티콘을 선택하세요" required>
-	</div>
+	</div><br>
 	
 	<div class="mb-3" align="center">   
 	<label class="form-label"><b>카테고리</b></label><br>
@@ -136,12 +137,12 @@
 		<input type="radio" name="kateGory" value="약국">약국
 		<input type="radio" name="kateGory" value="동네" checked>동네
 		<input type="radio" name="kateGory" value="기타">기타
-	</div>
+	</div><br>
 	
     <div class="mb-3" align="center">
 	  <label for="formGroupExampleInput3" class="form-label"><b>키워드(선택)</b></label>
 	  <input  style="width: 300px; border-radius: 50px;" type="text" class="form-control" name="keyWord" id="formGroupExampleInput3" placeholder="검색용 키워드를 입력해주세요!">
-	</div>
+	</div><br>
 	<div class="help">
 				<dl>
 					<dt>
@@ -150,10 +151,10 @@
 					</dt>
 					<dd>- 키워드는 콤마(,)로 구분해주세요.</dd>
 				</dl>
-			</div>
+			</div><br>
 			
 	* 가이드 지도는 모두에게 공개됩니다.<br>
-	* 가이드 지도는 관리자만 삭제 가능합니다.<br><br>
+	* 가이드 지도는 관리자만 삭제 가능합니다.<br><br><br>
 	<%-- <%if(user.getAdminNum()==0){ %>
 			<input type="hidden" name = "mapType" value=0>
 			<%}else{ %>

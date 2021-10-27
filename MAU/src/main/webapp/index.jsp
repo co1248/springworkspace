@@ -23,7 +23,7 @@
     <meta name="theme-color" content="#ffffff">
   </head>
   <body>
-  <div class="p-3 mb-2 " style="float: none; margin:100 auto; color: #3384C6; background-color:  #FEFFED;" >
+  <div class="p-3 mb-2 " style="float: none; margin:100 auto; color: #000000; background-color:  #FEFFED;" >
     <!-- Optional JavaScript; choose one of the two! -->
     <nav class="navbar navbar-light" color: #3384C6; style="background-color:  #FEFFED;">
         <div class="container-fluid">
@@ -92,20 +92,60 @@
  <!--guide map carousel start-->
  <div id="carouselExampleInterval" class="carousel slided" data-bs-ride="carousel">
     <div class="carousel-inner">
-		<div class="carousel-item active text-center" data-bs-interval="2000">
-		  <img src="${pageContext.request.contextPath}/image/logo/mauicon.png" height="50px"><br>가이드 지도 넣을거야<br>5명의 가이더
+		<div class="carousel-item active text-center" style="color:#3384C6;" data-bs-interval="2000">
+		<c:forEach items="${randomGuide}" var="randomGuide" begin="0" end="0" step="1">
+				 <div class="col" onclick="location.href='guideMap/'+${randomGuide.mapSeq}">
+			   	 	<p class="card-img-top" style="font-size:30px">${randomGuide.mapIcon}</p>
+			        <div class="card-body">
+			        <h5 class="card-title"><b>${randomGuide.mapName}</b></h5>
+			        <p class="card-text">${randomGuide.placeCnt} 개의 장소</p>
+	     			</div>
+	  			 </div>
+			</c:forEach>
 		</div>
-		<div class="carousel-item text-center" data-bs-interval="2000">
-		  <img src="${pageContext.request.contextPath}/image/logo/mauicon.png" height="50px"><br>서울 핫한 빵집<br>4명의 가이더
+		<div class="carousel-item text-center" style="color:#3384C6;" data-bs-interval="2000">
+		<c:forEach items="${randomGuide}" var="randomGuide" begin="1" end="1" step="1">
+				 <div class="col" onclick="location.href='guideMap/'+${randomGuide.mapSeq}">
+			   	 	<p class="card-img-top" style="font-size:30px">${randomGuide.mapIcon}</p>
+			        <div class="card-body">
+			        <h5 class="card-title"><b>${randomGuide.mapName}</b></h5>
+			        <p class="card-text">${randomGuide.placeCnt} 개의 장소</p>
+	     			</div>
+	  			 </div>
+			</c:forEach>
 		</div>
-		<div class="carousel-item text-center" data-bs-interval="2000">
-		  <img src="${pageContext.request.contextPath}/image/logo/mauicon.png" height="50px"><br>서울 빵지순례<br>3명의 가이더
+		<div class="carousel-item text-center" style="color:#3384C6;" data-bs-interval="2000">
+		<c:forEach items="${randomGuide}" var="randomGuide" begin="2" end="2" step="1">
+				 <div class="col" onclick="location.href='guideMap/'+${randomGuide.mapSeq}">
+			   	 	<p class="card-img-top" style="font-size:30px">${randomGuide.mapIcon}</p>
+			        <div class="card-body">
+			        <h5 class="card-title"><b>${randomGuide.mapName}</b></h5>
+			        <p class="card-text">${randomGuide.placeCnt} 개의 장소</p>
+	     			</div>
+	  			 </div>
+			</c:forEach>
 		</div>
-		<div class="carousel-item text-center" data-bs-interval="2000">
-		  <img src="${pageContext.request.contextPath}/image/logo/mauicon.png" height="50px"><br>줄서서 먹는 빵집<br>2명의 가이더
+		<div class="carousel-item text-center" style="color:#3384C6;" data-bs-interval="2000">
+		<c:forEach items="${randomGuide}" var="randomGuide" begin="3" end="3" step="1">
+				 <div class="col" onclick="location.href='guideMap/'+${randomGuide.mapSeq}">
+			   	 	<p class="card-img-top" style="font-size:30px">${randomGuide.mapIcon}</p>
+			        <div class="card-body">
+			        <h5 class="card-title"><b>${randomGuide.mapName}</b></h5>
+			        <p class="card-text">${randomGuide.placeCnt} 개의 장소</p>
+	     			</div>
+	  			 </div>
+			</c:forEach>
 		</div>
-		<div class="carousel-item text-center" data-bs-interval="2000">
-		  <img src="${pageContext.request.contextPath}/image/logo/mauicon.png" height="50px"><br>강남 빵집<br>1명의 가이더
+		<div class="carousel-item text-center" style="color:#3384C6;" data-bs-interval="2000">
+		<c:forEach items="${randomGuide}" var="randomGuide" begin="4" end="4" step="1">
+				 <div class="col" onclick="location.href='guideMap/'+${randomGuide.mapSeq}">
+			   	 	<p class="card-img-top" style="font-size:30px">${randomGuide.mapIcon}</p>
+			        <div class="card-body">
+			        <h5 class="card-title"><b>${randomGuide.mapName}</b></h5>
+			        <p class="card-text">${randomGuide.placeCnt} 개의 장소</p>
+	     			</div>
+	  			 </div>
+			</c:forEach>
 		</div>
    </div>
    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
@@ -165,14 +205,6 @@
 <%@include file="/index/randomGuide.jsp"%>
 
 <!-- index 차트 end -->
-<!--가이드지도 만들기start-->
-<div class="container"><br>
-  <div class="row">
-    <div class="col text-center">
-      <button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #F3B922; width:70%; height: 60px;"  type="button" onclick="location.href='createGuideMapForm'">가이드지도 만들기</button>
-    </div>
-  </div>
-</div>
    </div>
     <form id="form2" name="form2" action="${pageContext.request.contextPath}/login" method="post" >
       <input type="hidden" name="userId" id="userId" value=""/>

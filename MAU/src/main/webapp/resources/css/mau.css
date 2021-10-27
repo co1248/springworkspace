@@ -179,7 +179,7 @@ input[type="checkbox"]+label {
     bottom: 82px;
     height: 35px;
     background: url(/mau/image/favoriteCheck/heart_off.png) no-repeat 0 0px/ contain;
-    left: 130px;
+	left: 97%;
 }
 
 input[type='checkbox']:checked+label {

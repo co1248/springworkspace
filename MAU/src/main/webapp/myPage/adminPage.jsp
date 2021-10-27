@@ -88,7 +88,7 @@
       <h1>모든 가이더맵(공유O)</h1>
       <%for(int i=0; i<AllUsersGuiderMap.size();i++){ %>
       		<a href="${pageContext.request.contextPath}/guiderMap/<%=AllUsersGuiderMap.get(i).getMapSeq()%>"><%=AllUsersGuiderMap.get(i).getMapName() %></a>
-      		<button onclick="location.href='mapDelete/<%=AllUsersGuiderMap.get(i).getMapSeq()%>'">X</button>
+      		<button onclick="location.href='adminMapDelete/<%=AllUsersGuiderMap.get(i).getMapSeq()%>'">X</button>
       		<button onclick="location.href='mapUpdateForm/<%=AllUsersGuiderMap.get(i).getMapSeq()%>'">수정</button><br>
       <%} %>
       </div>
@@ -96,8 +96,8 @@
       <h1>모든 가이드맵(공유O)</h1>
       <%for(int i=0; i<AllUsersGuideMap.size();i++){ %>
       		<a href="${pageContext.request.contextPath}/guiderMap/<%=AllUsersGuideMap.get(i).getMapSeq()%>"><%=AllUsersGuideMap.get(i).getMapName() %></a>
-      		<button onclick="location.href='mapDelete/<%=AllUsersGuideMap.get(i).getMapSeq()%>'">X</button>
-      		<button onclick="location.href='mapUpdateForm/<%=AllUsersGuideMap.get(i).getMapSeq()%>'">수정</button><br>
+      		<button onclick="location.href='adminMapDelete/<%=AllUsersGuideMap.get(i).getMapSeq()%>'">X</button>
+      		<button onclick="location.href='adminMapUpdateForm/<%=AllUsersGuideMap.get(i).getMapSeq()%>'">수정</button><br>
       <%} %>
       </div>
 

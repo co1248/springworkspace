@@ -8,7 +8,7 @@
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-	List<MapViewVO> placeList = (List<MapViewVO>)request.getAttribute("placeList");
+   List<MapViewVO> placeList = (List<MapViewVO>)request.getAttribute("placeList");
 %>
 <!DOCTYPE html>
 <html>
@@ -144,8 +144,8 @@ background: #3384C6;
         </div>
       </nav>
 
-  	<div class="modal" style="width: 60%; height: 950px; margin: 0 auto;">
-  	<div id = "detail"></div>
+     <div class="modal" style="width: 60%; height: 950px; margin: 0 auto;">
+     <div id = "detail"></div>
 </div>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -200,29 +200,29 @@ var seq=[];
 var positions=[];
 var points=[];
 for(var i=0;i<cnt;i++){
-	south[i]=$("input[name=SouthWest]").eq(i).val();//좌표 배열 만들기
-	east[i]=$("input[name=NorthEast]").eq(i).val();//좌표 배열 만들기
-	name=($("input[name=placeName]").eq(i).val());//가게 이름들 저장
-	seq=($("input[name=seq]").eq(i).val());//각 마커에 placeSeq 저장
-	positions.push({//포지션 배열에 push로 key,value값 전달
-		seq: seq,
-		content:'<div>'+name+'</div>',
-		latlng: new kakao.maps.LatLng(south[i],east[i])
-	});
-	points.push(positions[i].latlng);//마커들을 기점으로 다시 지도의 중심좌표 설정으로 인한 코드
+   south[i]=$("input[name=SouthWest]").eq(i).val();//좌표 배열 만들기
+   east[i]=$("input[name=NorthEast]").eq(i).val();//좌표 배열 만들기
+   name=($("input[name=placeName]").eq(i).val());//가게 이름들 저장
+   seq=($("input[name=seq]").eq(i).val());//각 마커에 placeSeq 저장
+   positions.push({//포지션 배열에 push로 key,value값 전달
+      seq: seq,
+      content:'<div>'+name+'</div>',
+      latlng: new kakao.maps.LatLng(south[i],east[i])
+   });
+   points.push(positions[i].latlng);//마커들을 기점으로 다시 지도의 중심좌표 설정으로 인한 코드
 }
 
 /* for(var i=0;i<cnt;i++){
-	south[i]=$("input[name=SouthWest]").eq(i).val();
-	east[i]=$("input[name=NorthEast]").eq(i).val();
-	points.push(new kakao.maps.LatLng(south[i],east[i]));
-	
+   south[i]=$("input[name=SouthWest]").eq(i).val();
+   east[i]=$("input[name=NorthEast]").eq(i).val();
+   points.push(new kakao.maps.LatLng(south[i],east[i]));
+   
 } */
 
 var bounds = new kakao.maps.LatLngBounds();
 
 function setBounds(){
-	map.setBounds(bounds);
+   map.setBounds(bounds);
 }
 
 console.log(positions);
@@ -236,7 +236,7 @@ for (var i = 0; i < positions.length; i ++) {
         position: positions[i].latlng // 마커의 위치
     });
     bounds.extend(points[i]);
-	console.log(marker);
+   console.log(marker);
     // 마커에 표시할 인포윈도우를 생성합니다 
     infowindow = new kakao.maps.InfoWindow({
         content: positions[i].content // 인포윈도우에 표시할 내용
@@ -257,48 +257,48 @@ for (var i = 0; i < positions.length; i ++) {
 }
 
 }else{
-	for (var i = 0; i < positions.length; i ++) {
-	    // 마커를 생성합니다
-	    seq = positions[i].seq;
-	    var marker = new kakao.maps.Marker({
-	        map: map, // 마커를 표시할 지도
-	        position: positions[i].latlng // 마커의 위치
-	    });
-	    bounds.extend(points[i]);
-		console.log(marker);
-	    // 마커에 표시할 인포윈도우를 생성합니다 
-	    infowindow = new kakao.maps.InfoWindow({
-	        content: positions[i].content // 인포윈도우에 표시할 내용
-	    });
+   for (var i = 0; i < positions.length; i ++) {
+       // 마커를 생성합니다
+       seq = positions[i].seq;
+       var marker = new kakao.maps.Marker({
+           map: map, // 마커를 표시할 지도
+           position: positions[i].latlng // 마커의 위치
+       });
+       bounds.extend(points[i]);
+      console.log(marker);
+       // 마커에 표시할 인포윈도우를 생성합니다 
+       infowindow = new kakao.maps.InfoWindow({
+           content: positions[i].content // 인포윈도우에 표시할 내용
+       });
 
 
 
-	    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-	    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-	    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-	    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-	    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+       // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+       // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+       // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+       kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+       kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 
-	    kakao.maps.event.addListener(marker, 'click', ClickListener(seq,map,marker,infowindow));
-	    
-	    
-	    //kakao.maps.event.addListener($('.card'), 'mouseover', makeOverListener(map, marker, infowindow));
-	    
-	    
+       kakao.maps.event.addListener(marker, 'click', ClickListener(seq,map,marker,infowindow));
+       
+       
+       //kakao.maps.event.addListener($('.card'), 'mouseover', makeOverListener(map, marker, infowindow));
+       
+       
 }
 }
 
 function ClickListener(seq,map, marker, infowindow) {
     return function() {
-    	/* const modal = document.querySelector('.modal');
-    	modal.style.display='block';
+       /* const modal = document.querySelector('.modal');
+       modal.style.display='block';
            $(".modal").modal("show",function(){
-        	   $("detail").on("show",function(){
-        		   location.href="${pageContext.request.contextPath}/detailInfo/"+seq;
-        	   });
+              $("detail").on("show",function(){
+                 location.href="${pageContext.request.contextPath}/detailInfo/"+seq;
+              });
            });  */
             
-    	window.open("${pageContext.request.contextPath}/detailInfo/"+seq, "PopupWin", "width=500,height=600");
+       window.open("${pageContext.request.contextPath}/detailInfo/"+seq, "PopupWin", "width=500,height=600");
         console.log(seq);
     };
 }

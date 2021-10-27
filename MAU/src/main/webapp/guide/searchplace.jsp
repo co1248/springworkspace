@@ -1,6 +1,8 @@
+<%@page import="com.spring.mau.map.MapVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%MapVO mapType = (MapVO)request.getAttribute("mapType"); %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -22,7 +24,7 @@
 <style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:950px;}
+.map_wrap {position:relative;width:100%;height:800px;}
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
@@ -120,7 +122,7 @@
     -->
 
 <div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+    <div id="map" style="width:100%;height:800px;position:relative;overflow:hidden;"></div>
 
     <div id="menu_wrap" class="bg_white">
         <div class="option">
@@ -367,6 +369,8 @@ var placeSouthWest;
 var placeNorthEast;
 var placeName;
 var placeAddr;
+var	modalReview;
+var modalPlaceState;
 function select_place(place_id, place_name, address_name,x , y){
 	/*alert(place_id);
 	alert(place_name);
@@ -396,6 +400,18 @@ function add_place(placeId, placeSouthWest, placeNorthEast , placeName, placeAdd
 	    $('#modal-group-2').modal('show');
 	    //플레이스 컨트롤러에서 장소에 인서트한다. + 유저플레이스,맵플레이스도 같이 인서트
 	};
+	
+	function add_review() {
+		modalReview = $("#modalReview").val();
+		modalPlaceState = $("#modalPlaceState").val(); 
+		$("#modalReview2").val(modalReview);
+		$('#modalPlaceState2').val(modalPlaceState);
+		alert("모달리뷰 :" + modalReview);
+		alert("모달이모지 :" + modalPlaceState);
+	    $('#modal-group-2').modal('hide');
+	    $('#modal-group-3').modal('show');
+	};
+
 	function next_step(){
 	    $('#modal-group-2').modal('hide');
 	    $('#modal-group-3').modal('show');
@@ -405,7 +421,7 @@ function add_place(placeId, placeSouthWest, placeNorthEast , placeName, placeAdd
 	};
 	</script>
 	<%@ include file = "inputplaceModal.jsp" %><!-- 장소등록 모달 -->
-	<%if(map.getMapType()==1){ %>
+	<%if(mapType.getMapType()==1){ %>
 	<form id = "formplace" name="formplace" method="post" action="${pageContext.request.contextPath}/guideMap/${mapSeq}">
 	<%}else{ %>
 	<form id = "formplace" name="formplace" method="post" action="${pageContext.request.contextPath}/guiderMap/${mapSeq}">
@@ -415,6 +431,8 @@ function add_place(placeId, placeSouthWest, placeNorthEast , placeName, placeAdd
 	   <input type="hidden" name="placeNorthEast" id="placeNorthEast" value="">
 	   <input type="hidden" name="placeName" id="placeName" value="">
 	   <input type="hidden" name="placeAddr" id="placeAddr" value="">
+	   <input type="hidden" name="modalReview2" id="modalReview2" value="">
+	   <input type="hidden" name="modalPlaceState2" id="modalPlaceState2" value="">
     </form>
 </body>
 </html>

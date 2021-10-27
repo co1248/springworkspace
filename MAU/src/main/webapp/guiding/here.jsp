@@ -21,16 +21,18 @@
 
     <meta charset="UTF-8">
     <style type="text/css">
-    .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.map_wrap {position:relative;width:100%;height:800px;}
+#menu_wrap {position:absolute;top:0px;left:0;bottom:0;width:250px;height:500px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.center {position:absolute;top:400px;left:50%;bottom:0;margin:0;padding:0;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.map_centerb {position:absolute;bottom:6%;left:45%;margin:0 0 0 0;padding:0;overflow-y:auto;z-index: 1;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
 #menu_wrap .option p {margin:10px 0;}  
 #menu_wrap .option button {margin-left:5px;}
-/* .map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;} */
 #placesList li {list-style: none;}
 #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
 #placesList .item span {display: block;margin-top:4px;}
@@ -141,7 +143,7 @@ background: #3384C6;
         </div>
       </nav>
 
-  	<div class="modal" style="width: 60%; height: 950px; margin: 0 auto;">
+  	<div class="modal" style="width: 60%; height: 800px; margin: 0 auto;">
   	<div id = "detail"></div>
 </div>
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -153,12 +155,8 @@ background: #3384C6;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
     <div class="map_wrap">
-    <div id="map" style="width:100%;height:950px;position:relative;overflow:hidden;"></div>
+    <div id="map" style="width:100%;height:800px;position:relative;overflow:hidden;"></div>
 
-<!-- 지도이름 -->
-<div>
-<button class="btn btn-primary"  style="border-radius:20px; font-size : 15px; border-style: none; color: black;background-color: #F3B922; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='/mau/here?lat=37.566826&lng=126.9786567&retry=true'">지도에서 장소 찾기</button><br><br>
-</div>
 <!-- 중간표시 -->
 <div class="container full-height">
 	<div id="map" style="width:100%;height:100%;">
@@ -168,19 +166,24 @@ background: #3384C6;
 	</div>
 </div>
 <!-- 내위치 -->
+	<!-- 내위치 -->
 <div class="map_leftb">
 	<div class="" onclick="geolocation()"> 
 		<img id="mapbutton" src="./image/map/mylocation.png" alt="현재위치" height="50px">
-	</div><br><p id="result"></p>
-<!-- 여기에서 다시 장소 찾기 -->
-<div class="here-map re-search-btn">
-	<div class="wrapper shadow">
-		<div class="text">여기에서 다시 장소 찾기</div>
+	</div><br>
 	</div>
+<!-- 여기에서 다시 장소 찾기 -->
+<div class="map_centerb re-search-btn">
+	<button class="btn btn-primary"  style="border-radius:20px; font-size : 15px; border-style: none; color: white;background-color: #F3B922;  height:60px; padding: 20px"  type="button" onclick="location.href='#'">
+		<div class="text">여기에서 다시 장소 찾기</div>
+	</button>
 </div>
 	
     <div id="menu_wrap" >
-
+<!-- 지도이름(지도에서 장소 찾기) -->
+<div>
+<button class="btn btn-primary"  style="border-radius:20px; font-size : 15px; border-style: none; color: black;background-color: #F3B922; width: 70%; height:60px;"  type="button" onclick="location.href='/mau/here?lat=37.566826&lng=126.9786567&retry=true'">지도에서 장소 찾기</button><br><br>
+</div>
 
    <%for(int i=0; i<herePlaceList.size();i++){ %>
 <div class="card text-dark bg-warning mb-3 card" style="max-width: 18rem; height: 80px; font-size: 1.2em; cursor: pointer; " onclick="location.href='${pageContext.request.contextPath}/detailInfo/'+<%=herePlaceList.get(i).getPlaceSeq()%>">
@@ -398,82 +401,14 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
     // 지도의 중심좌표를 얻어옵니다 
     var latlng = map.getCenter(); 
 
-    var message = '<p>지도 레벨은 ' + level + ' 이고</p>';
-    message += '<p>중심 좌표는 위도 ' + latlng.getLat() + ', 경도 ' + latlng.getLng() + '입니다</p>';
+    /* var message = '<p>지도 레벨은 ' + level + ' 이고</p>';
+    message += '<p>중심 좌표는 위도 ' + latlng.getLat() + ', 경도 ' + latlng.getLng() + '입니다</p>'; */
 
     var resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = message;
+    /* resultDiv.innerHTML = message; */
 
 });
 
-
-/* //현재위치를 가져오고, 근처의 장소까지 가져옵니다 (get_places() 포함)
-
-function geolocation(option) {
-    // 이 객체를 getCurrentPosition() 메서드의 세번째 인자로 전달한다.
-    var options = {
-        // 가능한 경우, 높은 정확도의 위치(예를 들어, GPS 등) 를 읽어오려면 true로 설정
-        // 그러나 이 기능은 배터리 지속 시간에 영향을 미친다. 
-        enableHighAccuracy: false, // 대략적인 값이라도 상관 없음: 기본값
-        
-        // 위치 정보가 충분히 캐시되었으면, 이 프로퍼티를 설정하자, 
-        // 위치 정보를 강제로 재확인하기 위해 사용하기도 하는 이 값의 기본 값은 0이다.
-        maximumAge: 30000,     // 5분이 지나기 전까지는 수정되지 않아도 됨
-        
-        // 위치 정보를 받기 위해 얼마나 오랫동안 대기할 것인가?
-        // 기본값은 Infinity이므로 getCurrentPosition()은 무한정 대기한다.
-        timeout: 15000    // 15초 이상 기다리지 않는다.
-    }
- 
-    if(navigator.geolocation) // geolocation 을 지원한다면 위치를 요청한다. 
-        navigator.geolocation.getCurrentPosition(success, error, options);
-    else
-        alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.");
-    
-    // geolocation 요청이 실패하면 이 함수를 호출한다.
-    function error(e) {
-        // 오류 객체에는 수치 코드와 텍스트 메시지가 존재한다.
-        // 코드 값은 다음과 같다.
-        // 1: 사용자가 위치 정보를 공유 권한을 제공하지 않음.
-        // 2: 브라우저가 위치를 가져올 수 없음.
-        // 3: 타임아웃이 발생됨.
-        alert("Geolocation 오류 "+e.code +": " + e.message);
-    }
-    
-    // geolocation 요청이 성공하면 이 함수가 호출된다.
-    function success(pos) {
-        
-
-        var lat = pos.coords.latitude, // 위도
-			lng = pos.coords.longitude; // 경도
-			
-        var locPosition = new kakao.maps.LatLng(lat, lng); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-        
-        // 마커를 표시합니다
-        displayMarker(locPosition);
-
-        // 현재위치부터 특정 거리의 위경도값 구하기
-        distance = parseFloat(0.0035)
-        latlng_info = { 
-            "lat_plus" : parseFloat(lat + distance),
-            "lat_minus" : parseFloat(lat - distance),
-            "lng_plus" : parseFloat(lng + distance),
-            "lng_minus" : parseFloat(lng - distance)
-		};
-		
-		if(option == "getplaces"){
-			get_places();
-		};
-    }    
-}*/
-$( '#map' ).mousedown(function() {
-	$(".center").show();
-	$(".re-search-btn").show();
-});
-$( '#map' ).bind("touchstart",function(e){
-	$(".center").show();
-	$(".re-search-btn").show();
-});   
 
 $( '.re-search-btn' ).click( function() {
 	var center = map.getCenter(); 
@@ -482,273 +417,8 @@ $( '.re-search-btn' ).click( function() {
 	
 	location.href="/mau/here?lat="+lat+"&lng="+lng+"&retry=true";
 
-
 } );
 
-/*
-//현재위치, 첫 접근일 경우
-geolocation("getplaces");
-
-
-
-
-
-
-
-function get_places() {
-
-	// AJAX
-
-	$.ajax({
-		url: "/find_places",
-		dataType: 'JSON',
-		data: latlng_info,
-		success: function(data) {
-			
-
-			// 검색된 장소가 하나도 없는지 체크합니다.
-			if ( data.length ) {
-
-
-				// 한 공간에 같은 테마로 큐레이션한 경우를 제거합니다. (중복제거)
-				data = _.uniqBy(data, function(obj){
-							return obj.place_id + obj.ask_id;
-						});
-						
-
-				// 중복 큐레이션을 찾아 중복되면 ask_set 에 테마 정보를 담습니다.
-
-				var resultArr = [];
-
-				for(var i = 0; i < data.length; i++){
-					var idx = getKeyPlaceId(resultArr, data[i]);
-					
-					// 마커가 ask인지 mytheme인지 구분
-					var type_url = ""
-					if (data[i].marker_type == "ask") {
-						type_url = "/curation/theme/"
-					}else{
-						type_url = "/mytheme/"
-					};
-
-					if(idx > -1){
-						var ask_set= [{
-										"ask_id" : data[i].ask_id, 
-										"ask_icon" :data[i].ask_icon, 
-										"ask_sentence" :data[i].ask_sentence,
-										"type_url" :type_url,
-									}];
-						if(!resultArr[idx].ask_set){
-							resultArr[idx].ask_set = new Array();
-						}
-						resultArr[idx].ask_set.push(ask_set);
-					}else{
-						resultArr.push(data[i]);
-					}
-				}
-
-				function getKeyPlaceId(arr, obj){
-					for(var i = 0; i < arr.length; i++){
-						if(arr[i].place_id === obj.place_id){
-							return i;
-						}
-					}
-					return -1;
-				}
-
-				// 여기까지
-
-
-				var ask_markers = eval(resultArr);
-
-				for (marker of ask_markers) {
-
-					// mytheme 의 myplace 와 같은 place 의 ID를 찾아와서 교체해줍니다.
-					// 이 페이지에서는 place_modal을 띄울때 myplace ID로는 찾아올 수 없습니다.
-					// DB 구조상 place.id를 바로 찾아올 수 없는 설계 오류가 있습니다.
-					if(marker.marker_type == "mytheme"){
-						$.ajax({
-							type: 'POST',
-							url: "/find_place_id",
-							async:false,
-							data: { 
-								kakao_place_id: marker.place_id, 
-							},
-							success: function(data) {
-								marker.id = data;
-							},
-							error: function(request,status,error){
-								// alert("문제가 발생했습니다! 사용자 피드백을 통해 오류를 제보해주세요.");
-							}
-						});
-					};
-
-
-					var ask_marker = {
-						content_prev:  
-							'<div class="marker_overlay shadow">'+'<div class="place_name text-',
-						content_primary: 'primary',
-						content_sub: 'sub',
-						content_next: '"><a href="https://map.kakao.com/?itemId='+marker.place_id+'" target="_blank">'+marker.place_name+'</a></div><hr>',
-						content_next_2: '<div class="avatar"><a href="/curation/curator/'+marker.user_id+'">'+marker.user_avatar+'</a></div>'+'</div>',
-						list_content:
-							'<div class="list_overlay bg-white shadow border-radius">'+
-							'<div class="place_name text-primary"><a href=\'javascript:void(0);\' onclick="restore_modal('+marker.id+');">'+marker.place_name+'</a></div>'+
-							'<div class="place_address">'+marker.place_address+'</div>',
-						list_content_next:
-							'<div class=\"read-more\" onclick="restore_modal('+marker.id+');"><img src=\"/static/img/icon-more.svg\"></div>'+
-							'</div>',
-						latlng: 
-							new kakao.maps.LatLng(marker.place_lat['__Decimal__'],marker.place_lng['__Decimal__']),
-						user_id: marker.user_id
-					};
-
-					// 마커가 ask인지 mytheme인지 구분
-					var type_url = ""
-					if (marker.marker_type == "ask") {
-						type_url = "/curation/theme/"
-					}else{
-						type_url = "/mytheme/"
-					};
-
-
-					// 마커 인포인도우 뷰의 복수 테마 리스팅을 위한 부분
-					var popup_ask_content = '<div class="theme_name"><a href="'+type_url+marker.ask_id+'">'+marker.ask_icon+' '+marker.ask_sentence+'</a></div>'
-					if(marker.ask_set){
-						for (ask of marker.ask_set) {
-							popup_ask_content += '<div class="theme_name"><a href="'+ask[0].type_url+ask[0].ask_id+'">'+ask[0].ask_icon+' '+ask[0].ask_sentence+'</a></div>';
-						};
-					};
-
-					
-					// [플레이스 리스트] 뷰의 복수 테마 리스팅을 위한 부분
-
-					var ask_content = '<div class="theme_name"><a href="'+type_url+marker.ask_id+'">'+marker.ask_icon+
-							' '+ marker.ask_sentence+'</a></div>'
-					if(marker.ask_set){
-						for (ask of marker.ask_set) {
-							ask_content += '<div class="theme_name"><a href="'+ask[0].type_url+ask[0].ask_id+'">'+ask[0].ask_icon+' '+ ask[0].ask_sentence+'</a></div>';
-						};
-					};
-
-
-
-					var content = ask_marker['content_prev']+ask_marker['content_primary']+ask_marker['content_next'] + popup_ask_content + ask_marker['content_next_2'];
-					var position = ask_marker['latlng'];
-
-					// 로그인 되어있는 경우, 내 마커는 빨간색으로 표시합니다.
-					
-						// 로그인 안한 상태
-						marker_img = imageSrc
-					
-
-					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-					var markerImage = new kakao.maps.MarkerImage(marker_img, imageSize, imageOption),
-						markerPosition = ask_marker['latlng']; // 마커가 표시될 위치입니다
-
-					// 마커를 지도에 표시합니다
-					var marker = new kakao.maps.Marker({
-							map: map, // 마커를 표시할 지도
-							position: markerPosition, // 마커의 위치,
-							image: markerImage // 마커이미지 설정
-					});
-					marker.setMap(map);
-
-					// 마커의 위치를 bounds 변수에 넣어 지도 크기를 확장합니다.
-					bounds.extend(markerPosition);
-
-
-
-					// [커스텀 오버레이]와 [플레이스 리스트] 내용을 변수에 저장합니다.
-					var list_content = ask_marker['list_content'] + ask_content + ask_marker['list_content_next'];
-
-					
-					var position = ask_marker['latlng'];
-
-					// [플레이스 리스트]를 생성합니다.
-					var placeCard = document.createElement('div');
-					placeCard.setAttribute("class", "list_item");
-					placeCard.innerHTML = list_content;
-					placesList.appendChild(placeCard);
-
-					// 커스텀 오버레이를 생성합니다
-					var customOverlay = new kakao.maps.CustomOverlay({
-						position: position,
-						content: content,
-						xAnchor: 0.5,
-						yAnchor: 1.6
-					});
-
-					(function(map, marker, customOverlay, position, placeCard) {
-
-						// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-						kakao.maps.event.addListener(marker, 'mouseover', function(){
-							customOverlay.setMap(map, marker);
-							var firstChild = placeCard.firstChild;
-							firstChild.classList.toggle( 'bg-white' );
-							firstChild.classList.toggle( 'bg-primary' );
-							firstChild.classList.toggle( 'text-white-all' );
-						});
-						kakao.maps.event.addListener(marker, 'mouseout', function(){
-							customOverlay.setMap(null);
-							var firstChild = placeCard.firstChild;
-							firstChild.classList.toggle( 'bg-white' );
-							firstChild.classList.toggle( 'bg-primary' );
-							firstChild.classList.toggle( 'text-white-all' )
-						});
-						kakao.maps.event.addListener(marker, 'click', function(){
-							$('.list_overlay').removeClass('bg-primary');
-							$('.list_overlay').removeClass('text-white-all');
-							$('.list_overlay').addClass('bg-white');
-							var firstChild = placeCard.firstChild;
-							firstChild.classList.toggle( 'bg-white' );
-							firstChild.classList.toggle( 'bg-primary' );
-							firstChild.classList.toggle( 'text-white-all' );
-							placeCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-						});
-
-						// 리스트에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-						placeCard.onmouseover =  function (){
-							$('.list_overlay').removeClass('bg-primary');
-							$('.list_overlay').removeClass('text-white-all');
-							$('.list_overlay').addClass('bg-white');
-							customOverlay.setMap(map, marker);
-						};
-						placeCard.onmouseout =  function (){
-							$('.list_overlay').removeClass('bg-primary');
-							$('.list_overlay').removeClass('text-white-all');
-							$('.list_overlay').addClass('bg-white');
-							customOverlay.setMap(null);
-						};
-						placeCard.onclick =  function (){
-							$('.list_overlay').removeClass('bg-primary');
-							$('.list_overlay').removeClass('text-white-all');
-							$('.list_overlay').addClass('bg-white');
-							customOverlay.setMap(map, marker);
-							map.panTo(position);
-							map.setLevel(4);
-						};
-
-					})(map, marker,customOverlay, position, placeCard);
-
-				}
-
-			// 마커들의 위치로 지도의 크기를 재정의 합니다.	
-			map.setBounds(bounds);
-			
-			};
-
-		
-			$('.spinner-cover').hide();
-
-
-		},
-		error: function(request,status,error){
-			// alert("code:"+request.status+"\n"+"error:"+error);
-		}
-	});
-
-} */
 </script>
   </body>
 </html>
