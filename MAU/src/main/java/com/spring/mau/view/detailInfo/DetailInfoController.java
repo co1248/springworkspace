@@ -68,9 +68,11 @@ public class DetailInfoController {
 		System.out.println("업로드 사진 리스트 가져오기");
 
 		// 장소즐찾 가져오기
+		if(user!=null) {
 		fvo.setUserSeqId(user.getUserSeqId());
 		PlaceFavoriteVO placeFavorite = placeFavoriteService.getPlaceFavorite(fvo);
 		model.addAttribute("placeFavorite", placeFavorite);
+		}
 		return new ModelAndView("../detailInfo/detailview.jsp");
 	}
 
@@ -81,7 +83,7 @@ public class DetailInfoController {
 		MultipartFile photoUpload = uvo.getPhotoUpload();
 		String fileName = photoUpload.getOriginalFilename();
 		if (!photoUpload.isEmpty()) {
-			photoUpload.transferTo(new File("C:/img/" + fileName));
+			photoUpload.transferTo(new File("C:/imgPath/" + fileName));
 			System.out.println("사진 업로드 성공!");
 		}
 //		uvo.setPhotoUpload(photoUpload);

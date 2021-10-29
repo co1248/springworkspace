@@ -23,6 +23,7 @@ import com.spring.mau.mapfavorite.MapFavoriteService;
 import com.spring.mau.mapfavorite.MapFavoriteVO;
 import com.spring.mau.mapview.MapViewService;
 import com.spring.mau.mapview.MapViewVO;
+import com.spring.mau.user.UserService;
 import com.spring.mau.user.UserVO;
 
 @Controller
@@ -32,6 +33,8 @@ public class MapViewController {
 	private MapViewService mapViewService;
 	@Autowired
 	private MapService mapService;
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private MapFavoriteService mapFavoriteService;
@@ -91,51 +94,54 @@ public class MapViewController {
 		return new ModelAndView("../guide/guideMap.jsp");
 	}
 	@RequestMapping("guiding/guider/{userSeqId}")
-	public ModelAndView getGuiderPlace (@PathVariable("userSeqId") int userSeqId,MapViewVO vo, Model model ) {
+	public ModelAndView getGuiderPlace (@PathVariable("userSeqId") int userSeqId,MapViewVO vo, UserVO vo2, Model model ) {
 		// TODO Auto-generated method stub
 		System.out.println("유저장소(지도형태로) 상세 보기(가이더장소)");
 		vo.setUserSeqId(userSeqId);
+		vo2.setUserSeqId(userSeqId);
+		UserVO userseq = userService.getDetail(vo2);
+		model.addAttribute("userseq", userseq);
 		List<MapViewVO> placeList = mapViewService.getGuiderPlace(vo);
 		model.addAttribute("placeList", placeList);
 		return new ModelAndView("../guiderPlace.jsp");
 	}
 	
-	   @RequestMapping(value="/search",method=RequestMethod.POST)
-	   public ModelAndView search(HttpServletRequest request,HttpServletResponse response,MapViewVO vo,MapVO vo2, Model model,HttpSession session) throws IOException {
-	      // TODO Auto-generated method stub
-	      System.out.println("검색");
-	      String search = request.getParameter("search");
-	      vo2.setSearch(search);
-	      System.out.println(search);
-	      String a = "전체";
-	      if(search.equals("")) {
-	          response.setContentType("text/html; charset=UTF-8");
-	               PrintWriter out = response.getWriter();
-	               out.println("<script>alert('검색어를 입력하세요'); history.go(-1);</script>");
-	               out.flush();
-	      }else {
-	         List<MapVO> searchMap = mapService.searchMap(vo2);
-	         for(MapVO vo3 : searchMap) {
-	            vo3.setSearch(search);
-//	            vo3.setSearchKategory(a);
-	            System.out.println(search);
-	            int cnt = mapService.getPlaceCnt(vo3).getPlaceCnt();
-	            vo3.setPlaceCnt(cnt);
-	            
-	            session.setAttribute("search", search);
-	            session.setAttribute("kategory", a);
-	            session.setAttribute("searchList", searchMap);
-	            model.addAttribute("searchMap", searchMap);
-	            return new ModelAndView("/index/searchAll.jsp");
-	         }
-	      }
-	      
-//	      session.setAttribute("search", search);
-//	      session.setAttribute("kategory", a);
-//	      session.setAttribute("searchList", searchMap);
-//	      model.addAttribute("searchMap", searchMap);
-	      return new ModelAndView("/index/searchAll.jsp");
-	   }
+    @RequestMapping(value="/search",method=RequestMethod.POST)
+    public ModelAndView search(HttpServletRequest request,HttpServletResponse response,MapViewVO vo,MapVO vo2, Model model,HttpSession session) throws IOException {
+       // TODO Auto-generated method stub
+       System.out.println("검색");
+       String search = request.getParameter("search");
+       vo2.setSearch(search);
+       System.out.println(search);
+       String a = "전체";
+       if(search.equals("")) {
+           response.setContentType("text/html; charset=UTF-8");
+                PrintWriter out = response.getWriter();
+                out.println("<script>alert('검색어를 입력하세요'); history.go(-1);</script>");
+                out.flush();
+       }else {
+          List<MapVO> searchMap = mapService.searchMap(vo2);
+          for(MapVO vo3 : searchMap) {
+             vo3.setSearch(search);
+//             vo3.setSearchKategory(a);
+             System.out.println(search);
+             int cnt = mapService.getPlaceCnt(vo3).getPlaceCnt();
+             vo3.setPlaceCnt(cnt);
+             
+          }
+          session.setAttribute("search", search);
+          session.setAttribute("kategory", a);
+          session.setAttribute("searchList", searchMap);
+          model.addAttribute("searchMap", searchMap);
+          return new ModelAndView("/index/searchAll.jsp");
+       }
+       
+//       session.setAttribute("search", search);
+//       session.setAttribute("kategory", a);
+//       session.setAttribute("searchList", searchMap);
+//       model.addAttribute("searchMap", searchMap);
+       return new ModelAndView("/index/searchAll.jsp");
+    }
 	
 	@RequestMapping(value={"/searchCategory/{searchkeyword}/{search}"},method=RequestMethod.GET)
 	public ModelAndView searchCategory(@PathVariable("searchkeyword")String searchkeyword,@PathVariable("search")String search,HttpServletRequest request,MapViewVO vo,MapVO vo2, Model model,HttpSession session) {

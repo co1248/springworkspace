@@ -127,7 +127,7 @@ public class MyPageController {
 	@RequestMapping("/mapDelete/{mapSeq}")
 	public ModelAndView deleteMap(@PathVariable("mapSeq") int mapSeq,UserPlaceVO userplacevo,MapVO mapvo,MapPlaceVO mapplacevo,MapFavoriteVO mapfavoritevo, Model model,HttpSession session) {
 		System.out.println("맵삭제하기");
-		System.out.println("등록된장소 삭제");
+		System.out.println("등록된지도 삭제");
 		UserVO user = (UserVO)session.getAttribute("loginUser");
 		if(user!=null) {
 		UserPlaceVO userPlaceSeq= userPlaceService.getUserPlaceMapSeq(userplacevo);

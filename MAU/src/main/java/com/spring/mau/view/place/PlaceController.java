@@ -46,136 +46,155 @@ public class PlaceController {
 	@Autowired
 	private ReviewService reviewService;
 	@RequestMapping(value="/guideMap/{mapSeq}", method = RequestMethod.POST)
-	public void insertPlace (@PathVariable("mapSeq") int mapSeq, PlaceVO vo, UserPlaceVO vo2, MapPlaceVO vo3, HttpServletRequest request, HttpServletResponse response, ReviewVO rvo) {
-		// TODO Auto-generated method stub
-		System.out.println("장소등록");
-	      int placeId = Integer.parseInt(request.getParameter("placeId"));
-	      double placeSouthWest = Double.parseDouble(request.getParameter("placeSouthWest"));
-	      double placeNorthEast = Double.parseDouble(request.getParameter("placeNorthEast"));
-	      String placeName = request.getParameter("placeName");
-	      String placeAddr = request.getParameter("placeAddr");
-		vo.setPlaceId(placeId);
-		vo.setPlaceSouthWest(placeSouthWest);
-		vo.setPlaceNorthEast(placeNorthEast);
-		vo.setPlaceName(placeName);
-		vo.setPlaceAddr(placeAddr);
-		PlaceVO plId = placeService.getPlaceId(vo);
-		PlaceVO plSeq;
-		if(plId == null) {//새로운 장소등록
-			placeService.insertPlace(vo);
-			plSeq = placeService.getPlaceSeq(vo);//새로 만들어진 장소의 시퀀스 값(placeSeq) 가져오기
-		} else {//이미있는 장소등록은 insertPlace하지 않는다.
-			plSeq = placeService.getPlaceId(vo);
-		}
-		System.out.println("유저-장소등록");
-		vo2.setPlaceSeq(plSeq.getPlaceSeq());
-		vo2.setMapSeq(mapSeq);
-		HttpSession session = request.getSession();
-		int userSeqId = (Integer)session.getAttribute("userSeqId");
-		vo2.setUserSeqId(userSeqId);
-		userPlaceService.insertUserPlace(vo2);
-		
-		System.out.println("맵-장소등록");
-		vo3.setPlaceSeq(plSeq.getPlaceSeq());
-		vo3.setMapSeq(mapSeq);
-		mapPlaceService.insertMapPlace(vo3);
-		try {
-			response.sendRedirect(mapSeq + "");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		//모달창 리뷰 등록 처리
-		System.out.println("모달창 리뷰 등록!");
-		String modalReview = request.getParameter("modalReview2");
-		System.out.println(modalReview);
-		String modalPlaceState = request.getParameter("modalPlaceState2");
-		System.out.println(modalPlaceState);
-	
-		PlaceVO placeSeq = placeService.getPlaceSeq(vo);
-		int plceSeq2 =placeSeq.getPlaceSeq();
-		rvo.setPlaceSeq(plceSeq2);
-		rvo.setUserSeqId(userSeqId);
-		rvo.setReview(modalReview);
-		rvo.setPlaceState(modalPlaceState);
-		reviewService.insertReview(rvo);
-		System.out.println("모달 댓글 성공!");
-		
-	}
-	@RequestMapping(value="/guiderMap/{mapSeq}", method = RequestMethod.POST)
-	public void insertGuiderPlace (@PathVariable("mapSeq") int mapSeq, PlaceVO vo, UserPlaceVO vo2, MapPlaceVO vo3, HttpServletRequest request, HttpServletResponse response,ReviewVO rvo) {
-		// TODO Auto-generated method stub
-		System.out.println("장소등록");
-	      int placeId = Integer.parseInt(request.getParameter("placeId"));
-	      double placeSouthWest = Double.parseDouble(request.getParameter("placeSouthWest"));
+	   public void insertPlace (@PathVariable("mapSeq") int mapSeq, PlaceVO vo, UserPlaceVO vo2, MapPlaceVO vo3, HttpServletRequest request, HttpServletResponse response, ReviewVO rvo) {
+	      // TODO Auto-generated method stub
+	      System.out.println("장소등록");
+	         int placeId = Integer.parseInt(request.getParameter("placeId"));
+	         double placeSouthWest = Double.parseDouble(request.getParameter("placeSouthWest"));
 	         double placeNorthEast = Double.parseDouble(request.getParameter("placeNorthEast"));
-	      String placeName = request.getParameter("placeName");
-	      String placeAddr = request.getParameter("placeAddr");
-		vo.setPlaceId(placeId);
-		vo.setPlaceSouthWest(placeSouthWest);
-		vo.setPlaceNorthEast(placeNorthEast);
-		vo.setPlaceName(placeName);
-		vo.setPlaceAddr(placeAddr);
-		PlaceVO plId = placeService.getPlaceId(vo);
-		PlaceVO plSeq;
-		if(plId == null) {//새로운 장소등록
-			placeService.insertPlace(vo);
-			plSeq = placeService.getPlaceSeq(vo);//새로 만들어진 장소의 시퀀스 값(placeSeq) 가져오기
-		} else {//이미있는 장소등록은 insertPlace하지 않는다.
-			plSeq = placeService.getPlaceId(vo);
-		}
-		System.out.println("유저-장소등록");
-		vo2.setPlaceSeq(plSeq.getPlaceSeq());
-		vo2.setMapSeq(mapSeq);
-		HttpSession session = request.getSession();
-		int userSeqId = (Integer)session.getAttribute("userSeqId");
-		vo2.setUserSeqId(userSeqId);
-		userPlaceService.insertUserPlace(vo2);
-		
-		System.out.println("맵-장소등록");
-		vo3.setPlaceSeq(plSeq.getPlaceSeq());
-		vo3.setMapSeq(mapSeq);
-		mapPlaceService.insertMapPlace(vo3);
-		try {
-			response.sendRedirect(mapSeq + "");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	         String placeName = request.getParameter("placeName");
+	         String placeAddr = request.getParameter("placeAddr");
+	      vo.setPlaceId(placeId);
+	      vo.setPlaceSouthWest(placeSouthWest);
+	      vo.setPlaceNorthEast(placeNorthEast);
+	      vo.setPlaceName(placeName);
+	      vo.setPlaceAddr(placeAddr);
+	      PlaceVO plId = placeService.getPlaceId(vo);
+	      PlaceVO plSeq;
+	      if(plId == null) {//새로운 장소등록
+	         placeService.insertPlace(vo);
+	         plSeq = placeService.getPlaceSeq(vo);//새로 만들어진 장소의 시퀀스 값(placeSeq) 가져오기
+	      } else {//이미있는 장소등록은 insertPlace하지 않는다.
+	         plSeq = placeService.getPlaceId(vo);
+	      }
+	      System.out.println("유저-장소등록");
+	      vo2.setPlaceSeq(plSeq.getPlaceSeq());
+	      vo2.setMapSeq(mapSeq);
+	      HttpSession session = request.getSession();
+	      int userSeqId = (Integer)session.getAttribute("userSeqId");
+	      vo2.setUserSeqId(userSeqId);
+	      userPlaceService.insertUserPlace(vo2);
+	      
+	      System.out.println("맵-장소등록");
+	      vo3.setPlaceSeq(plSeq.getPlaceSeq());
+	      vo3.setMapSeq(mapSeq);
+	      mapPlaceService.insertMapPlace(vo3);
+	      try {
+	         response.sendRedirect(mapSeq + "");
+	      } catch (IOException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
+	      
 	      //모달창 리뷰 등록 처리
-	      PlaceVO placeId_new = placeService.getPlaceId(vo);
-	      int placeId_newone = placeId_new.getPlaceId();
-	      int placeId_already = vo.getPlaceId();
-	      if(placeId_newone == placeId_already) {
-	         System.out.println("기존 장소에 리뷰 등록처리");
-	         String modalReview = request.getParameter("modalReview2");
-	         System.out.println(modalReview);
-	         String modalPlaceState = request.getParameter("modalPlaceState2");
-	         System.out.println(modalPlaceState);
-	         rvo.setPlaceSeq(placeId_already);
-	         rvo.setUserSeqId(userSeqId);
-	         rvo.setReview(modalReview);
-	         rvo.setPlaceState(modalPlaceState);
-	         System.out.println("기존 장소에 모달 댓글 성공!");
-	         
-	      }else {
-	         System.out.println("모달창 리뷰 등록 처리");
+	         System.out.println("모달창 리뷰 등록!");
 	         String modalReview = request.getParameter("modalReview2");
 	         System.out.println(modalReview);
 	         String modalPlaceState = request.getParameter("modalPlaceState2");
 	         System.out.println(modalPlaceState);
 	      
-	         PlaceVO placeSeq = placeService.getPlaceSeq(vo);
-	         int plceSeq2 =placeSeq.getPlaceSeq();
-	         rvo.setPlaceSeq(plceSeq2);
-	         rvo.setUserSeqId(userSeqId);
-	         rvo.setReview(modalReview);
-	         rvo.setPlaceState(modalPlaceState);
-	         reviewService.insertReview(rvo);
-	         System.out.println("새로운 장소에 모달 댓글 성공!");
+	         PlaceVO placeSeq = placeService.getPlaceSeq(vo); //가장 마지막 placeSeq(new)
+	         int placeSeq_new = placeSeq.getPlaceSeq(); //가장 마지막 placeSeq(new)
+	         int plceId_new =placeSeq.getPlaceId();//가장 마지막 placeId(new)
+	         
+	     
+	         PlaceVO place = placeService.getPlaceId(vo); //기존에 있는 placeSeq
+	         int placeSeq_alreday = place.getPlaceSeq();//기존에 있는 placeSeq
+	         int placeId_already = place.getPlaceId(); //기존에 있는 placeId
+	         
+	         if(plceId_new == placeId_already ) { //이미 있는 장소일 경우
+	        	 rvo.setPlaceSeq(placeSeq_new);
+	             rvo.setUserSeqId(userSeqId);
+	             rvo.setReview(modalReview);
+	             rvo.setPlaceState(modalPlaceState);
+	             reviewService.insertReview(rvo);
+	             System.out.println("모달 새로운 장소에 리뷰 성공!");
+	           
+	         }else { // 장소 없음
+	        	 System.out.println("모달 기존 장소에 리뷰 성공!");
+	             rvo.setPlaceSeq(placeSeq_alreday);
+	             rvo.setUserSeqId(userSeqId);
+	             rvo.setReview(modalReview);
+	             rvo.setPlaceState(modalPlaceState);
+	             reviewService.insertReview(rvo);
+	             System.out.println("모달 새로운 장소에 리뷰 성공!");
+	         }
+	   }
+	@RequestMapping(value="/guiderMap/{mapSeq}", method = RequestMethod.POST)
+	   public void insertGuiderPlace (@PathVariable("mapSeq") int mapSeq, PlaceVO vo, UserPlaceVO vo2, MapPlaceVO vo3, HttpServletRequest request, HttpServletResponse response,ReviewVO rvo) {
+	      // TODO Auto-generated method stub
+	      System.out.println("장소등록");
+	         int placeId = Integer.parseInt(request.getParameter("placeId"));
+	         double placeSouthWest = Double.parseDouble(request.getParameter("placeSouthWest"));
+	            double placeNorthEast = Double.parseDouble(request.getParameter("placeNorthEast"));
+	         String placeName = request.getParameter("placeName");
+	         String placeAddr = request.getParameter("placeAddr");
+	      vo.setPlaceId(placeId);
+	      vo.setPlaceSouthWest(placeSouthWest);
+	      vo.setPlaceNorthEast(placeNorthEast);
+	      vo.setPlaceName(placeName);
+	      vo.setPlaceAddr(placeAddr);
+	      PlaceVO plId = placeService.getPlaceId(vo);
+	      PlaceVO plSeq;
+	      if(plId == null) {//새로운 장소등록
+	         placeService.insertPlace(vo);
+	         plSeq = placeService.getPlaceSeq(vo);//새로 만들어진 장소의 시퀀스 값(placeSeq) 가져오기
+	      } else {//이미있는 장소등록은 insertPlace하지 않는다.
+	         plSeq = placeService.getPlaceId(vo);
 	      }
-	}
+	      System.out.println("유저-장소등록");
+	      vo2.setPlaceSeq(plSeq.getPlaceSeq());
+	      vo2.setMapSeq(mapSeq);
+	      HttpSession session = request.getSession();
+	      int userSeqId = (Integer)session.getAttribute("userSeqId");
+	      vo2.setUserSeqId(userSeqId);
+	      userPlaceService.insertUserPlace(vo2);
+	      
+	      System.out.println("맵-장소등록");
+	      vo3.setPlaceSeq(plSeq.getPlaceSeq());
+	      vo3.setMapSeq(mapSeq);
+	      mapPlaceService.insertMapPlace(vo3);
+	      try {
+	         response.sendRedirect(mapSeq + "");
+	      } catch (IOException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
+	      
+	      //모달창 리뷰 등록 처리
+	      System.out.println("모달창 리뷰 등록!");
+	      String modalReview = request.getParameter("modalReview2");
+	      System.out.println(modalReview);
+	      String modalPlaceState = request.getParameter("modalPlaceState2");
+	      System.out.println(modalPlaceState);
+	   
+	      PlaceVO placeSeq = placeService.getPlaceSeq(vo); //가장 마지막 placeSeq(new)
+	      int placeSeq_new = placeSeq.getPlaceSeq(); //가장 마지막 placeSeq(new)
+	      int plceId_new =placeSeq.getPlaceId();//가장 마지막 placeId(new)
+	      
+	  
+	      PlaceVO place = placeService.getPlaceId(vo); //기존에 있는 placeSeq
+	      int placeSeq_alreday = place.getPlaceSeq();//기존에 있는 placeSeq
+	      int placeId_already = place.getPlaceId(); //기존에 있는 placeId
+	      
+	      if(plceId_new == placeId_already ) { //이미 있는 장소일 경우
+	     	 rvo.setPlaceSeq(placeSeq_new);
+	          rvo.setUserSeqId(userSeqId);
+	          rvo.setReview(modalReview);
+	          rvo.setPlaceState(modalPlaceState);
+	          reviewService.insertReview(rvo);
+	          System.out.println("모달 새로운 장소에 리뷰 성공!");
+	        
+	      }else { // 장소 없음
+	     	 System.out.println("모달 기존 장소에 리뷰 성공!");
+	          rvo.setPlaceSeq(placeSeq_alreday);
+	          rvo.setUserSeqId(userSeqId);
+	          rvo.setReview(modalReview);
+	          rvo.setPlaceState(modalPlaceState);
+	          reviewService.insertReview(rvo);
+	          System.out.println("모달 새로운 장소에 리뷰 성공!");
+	      }
+	   }
 	@RequestMapping(value="/guideMap/search/{mapSeq}", method = RequestMethod.POST)
 	public ModelAndView searchPlace (@PathVariable("mapSeq") int mapSeq, PlaceVO vo,MapViewVO vo2,HttpServletRequest request, Model model,MapVO mapvo) {
 		// TODO Auto-generated method stub
