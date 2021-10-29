@@ -1,6 +1,7 @@
 <%@page import="com.spring.mau.user.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%
     	UserVO user = (UserVO)session.getAttribute("loginUser");
     %>
@@ -106,7 +107,7 @@
 	<br><br><br>
  	<div class="mb-3" align="center">
 	  <label for="formGroupExampleInput5" class="form-label"><b>내 소개 (선택)</b></label>
-	  <input style="width: 500px; border-radius: 50px; text-align:center;" type="text" class="form-control" name="userInform" id="formGroupExampleInput5" placeholder="자기 소개를 입력해주세요." value="${userInfo.userInform}">
+	  <input style="width: 70%; border-radius: 50px; text-align:center;" type="text" class="form-control" name="userInform" id="formGroupExampleInput5" placeholder="자기 소개를 입력해주세요." value="${userInfo.userInform}">
 	</div><br><br>
  
 	<%-- <%if(user.getAdminNum()==0){ %>

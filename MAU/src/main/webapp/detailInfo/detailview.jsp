@@ -98,9 +98,9 @@
                 <div id="modal_place_name" class="place_name_text">
                 	<%=place.getPlaceName()%>
          		</div>   
-         		<div id="modal_place_name" class="place_name_text">
-                	<%=place.getPlaceAddr()%>
-         		</div>  
+         		<div id="modal_place_addr" class="place_addr_text">
+                   <%=place.getPlaceAddr()%>
+               </div> 
          		<div><!-- 장소 즐겨찾기 -->
                  	<input type="checkbox" id="myCheck" name="myCheck" style="display: none;"
                  	<%if(chk!=null){ %>checked<%}%>>
@@ -132,19 +132,28 @@
                 <div class="img-box">
                 <div>
                     <div class="img_upload_box">
-                        <img src="" class="img_upload">+
+                        <img src="" class="img_upload">
                         <div class="size"></div>
-                        <div class="size">여기를 눌러서 장소와 관련된 사진을 올려주시면 <br> 페이지가 더 유익해질 것 같아요!
+                        <%if(photo==null){ %>
+                        <div class="size">장소와 관련된 사진을 올려주시면 <br> 페이지가 더 유익해질 것 같아요!
                     		<form action="${pageContext.request.contextPath}/uploadImg/<%=place.getPlaceSeq()%>" method="post" enctype="multipart/form-data">
 								<input type="file" name="photoUpload"/>
 								<input type="submit" value="업로드">
-							 </form>
+							 </form><br>
                         </div>
+                        <%} else {%>
                         <!-- 사진 출력 부분 -->
-                            <%for(int i=0; i< photo.size(); i++) { %>
-	                            <%-- <img src="‪http://loacalhost:8181/uploadImg/<%=photo.get(i).getPhotoName()%>"> --%>
-                           			<img src ="C:/img/emoji.PNG">
+                         <div class="size">장소와 관련된 사진을 올려주시면 <br> 페이지가 더 유익해질 것 같아요!
+                    		<form action="${pageContext.request.contextPath}/uploadImg/<%=place.getPlaceSeq()%>" method="post" enctype="multipart/form-data">
+								<input type="file" name="photoUpload"/>
+								<input type="submit" value="업로드">
+							 </form><br>
+							 <%for(int i=0; i< photo.size(); i++) { %>
+	                            <img src="/mau/imgPath/<%=photo.get(i).getPhotoName()%>" style="width:100px; height:100px;">
                             <%}%>
+                        </div>
+                            
+                        <%} %>
                     </div>
                 </div>
                 <div class="row">
@@ -260,6 +269,7 @@
                             <!-- <span>더 불러오기</span> -->
                             <table>
                             <%for(int i = 0; i<review.size();i++){ 
+                            	if(user!=null){
                             if(user.getUserSeqId()==review.get(i).getUserSeqId()){%>
                             <tr>
                             	<td><img class="img" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/<%=review.get(i).getPlaceState() %>" width="30px"></td>
@@ -274,14 +284,18 @@
                             		</form>
                             	</td>
                             </tr>
-                            <%}else{%>
-                            	 <tr>
-                            	<td><img class="img" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/<%=review.get(i).getPlaceState() %>" width="30px"></td>
-                            	<td><%=review.get(i).getReview() %></td>
-                            	</tr>
-                            	<%}} %>
-                            
-                            </table>
+                            <%}
+                            }else{%>
+                       	 <tr>
+                       	<td><img class="img" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/<%=review.get(i).getPlaceState() %>" width="30px"></td>
+                       	<td><%=review.get(i).getReview() %></td>
+                       	</tr>
+                       	<%}
+                       }%>
+                       </table>
+                            	
+                            	
+                            	
                         </div>
                     </div>
 					<!-- 댓글 달기 / 이모티콘 -->
@@ -365,7 +379,8 @@
                                <form action="${pageContext.request.contextPath}/review" method="post" name="frm">
                                    <textarea id="review" class="shadow bg-white" name="review" rows="4" cols="50" placeholder="여기에 의견을 입력해주세요." style="margin-top:30px"></textarea>
                                    <input type="hidden" id="placeSeq" name="placeSeq" value="<%=place.getPlaceSeq()%>">
-                                   <input type="hidden" id="userSeqId" name="userSeqId" value="<%=user.getUserSeqId()%>">
+                                   
+                                   <input type="hidden" id="userSeqId" name="userSeqId"<%if(user!=null){%> value="<%=user.getUserSeqId()%><%}%>">
                                    <input type="hidden" id="placeState" name="placeState" value="">
                                    <div class="submit-button disabled button shadow bg-white padding-15">
                                        <input type="submit" value="저장하기" style="width: 380px;border-style: none; background-color: white;">

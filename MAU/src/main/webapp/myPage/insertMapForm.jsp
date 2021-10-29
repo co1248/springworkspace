@@ -1,6 +1,7 @@
 <%@page import="com.spring.mau.user.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%
     	UserVO user = (UserVO)session.getAttribute("loginUser");
     %>
@@ -68,6 +69,11 @@
                    <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
                   </li>
+                  <%if(user.getAdminNum()==1){ %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/adminForm">관리자페이지</a>
+                  </li>
+                  <%} %>
               </ul>
             </div>
       </c:otherwise>

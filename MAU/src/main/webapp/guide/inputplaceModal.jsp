@@ -31,8 +31,8 @@
       </div>
       <div class="modal-body text-center">
             <div class="place_name" style="font-size : large; color : #F3B922; font-weight: bold ;"><h2>여기</h2></div>
-            <div><%if(map != null) {%><%=map.getMapIcon()%> <%=map.getMapName()%><%} else {%>첫 장소로 해당지도<%} %>에<br>선택한 장소를 저장하시겠습니까?</div>
-            <div><br>해당장소는 공유됩니다.<br>공유를 원하지 않으시면 장소에서 비공개할 수 있습니다.(가이더지도만뜸)</div>
+            <div><%if(map != null) {%><%=map.getMapIcon()%> <%=map.getMapName()%><%} else {%>첫 장소로 해당 지도<%} %>에<br>선택한 장소를 저장하시겠습니까?</div>
+            <div><br>🔥<br>이전에 등록한 장소가 있다면<br>새로 등록한 장소로 변경됩니다.<br><br>📣해당 장소는 공유됩니다.<br>개인 가이드 지도는 장소 삭제가 가능합니다.<br>함께 만드는 가이드 지도는 장소 삭제가 불가합니다.<br>🔔주제에 맞지 않을 시 관리자가 임의 삭제할 수 있습니다.<br><br></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>

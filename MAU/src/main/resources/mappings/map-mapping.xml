@@ -54,7 +54,7 @@
 	    ]]>
     </delete>
 	<update id="updateMap">
-	update map set mapname=#{mapName} where mapseq = #{mapSeq}
+	update map set mapname=#{mapName} , mapicon =#{mapIcon}, keyword= #{keyWord}, kategory= #{kateGory}, shareyn = #{shareYn} where mapseq = #{mapSeq}
 	</update>
 	
 	    <select id = "searchMap" resultType="maps">

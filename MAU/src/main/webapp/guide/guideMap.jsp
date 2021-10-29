@@ -3,6 +3,7 @@
 <%@page import="com.spring.mau.user.UserVO"%>
 <%@page import="com.spring.mau.mapfavorite.MapFavoriteVO"%>
 <%@page import="java.util.List"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -37,17 +38,17 @@
 .customoverlay a:nth-of-type(2) {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
 .customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
 .customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
-    .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:800px;}
+.map_wrap {position:relative;width:100%;height:800px;padding: 30px;}
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
 #menu_wrap .option p {margin:10px 0;}  
 #menu_wrap .option button {margin-left:5px;}
-.map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
-.map_rightb {position:absolute;bottom:0;right:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;border-radius: 10px;}
+.map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 40px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.map_rightb {position:absolute;bottom:0;right:0;width:250px;margin:10px 50px 10px 10px;padding:5px;overflow-y:auto;z-index: 1;border-radius: 10px;}
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
@@ -67,11 +68,11 @@ input[type="checkbox"] {
 }
 .card div{
 background: #FEFFED;
-border-radius: 20px;
+border-radius: 5px;
 }
 .card:hover div{
+color: white;
 background: #3384C6;
-
 }
 </style>
 
@@ -121,6 +122,11 @@ background: #3384C6;
                    <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
                   </li>
+                  <%if(user.getAdminNum()==1){ %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/adminForm">관리자페이지</a>
+                  </li>
+                  <%} %>
               </ul>
             </div>
       </c:otherwise>
@@ -145,12 +151,12 @@ background: #3384C6;
     <div id="menu_wrap" >
 <!-- 지도이름 -->
 <div>
-<button class="btn btn-primary"  style="border-radius:20px; font-size : 15px; border-style: none; color: black;background-color: #F3B922; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='/mau/guideMap/<%=mapSeq %>'"><%=placegetMap.getMapIcon()%> <%=placegetMap.getMapName()%></button><br><br>
+<button class="btn btn-primary"  style="border-radius:20px; font-size : 15px; border-style: none; color: black;background-color: #F3B922; width: 100%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='/mau/guideMap/<%=mapSeq %>'"><%=placegetMap.getMapIcon()%> <%=placegetMap.getMapName()%></button><br><br>
 </div>
 <!-- 지도즐겨찾기 -->
    	<div style="display: flex;">
    		<!-- <h1 style="font-size: 3em;">찜하기</h1> -->
-   		<input type="checkbox" id="myCheck" name="myCheck"<%if(chk!=null){ %>checked<%} %>>
+   		&nbsp&nbsp&nbsp&nbsp&nbsp<input type="checkbox" id="myCheck" name="myCheck"<%if(chk!=null){ %>checked<%} %>>
 		<label for="myCheck"></label>
     </div>
     </div><!-- menu_wrap end -->
@@ -219,9 +225,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 var cnt =$("input[name=SouthWest]").length;
 var south = new Array(cnt);
 var east = new Array(cnt);
-var name; //= $("input[name=placeName]");//new Array(cnt);
-/* name[2]=$("input[name=placeName]").val();
-console.log(name[2]); */
+var name;
 var userSeqId;//(가이드지도)
 var userIcon;
 var placeSeq;
@@ -238,7 +242,7 @@ userIcon=($("input[name=userIcon]").eq(i).val());
 console.log(east[i]);
 console.log(name);
 positions.push({
-	content:'<div class="customoverlay"><a href="${pageContext.request.contextPath}/guiding/guider/'+userSeqId+'">' + userIcon + '</a>   <a data-toggle="modal" href="${pageContext.request.contextPath}/detailInfo/' + placeSeq + '"><span class="title">' + name + '</span></a></div>',
+	content:'<div class="customoverlay"><a href="${pageContext.request.contextPath}/guiding/guider/'+userSeqId+'" >' + userIcon + '</a>   <a href="#none" target="_blank" onclick="openPop(' + placeSeq + ')"><span class="title">' + name + '</span></a></div>',
 	latlng: new kakao.maps.LatLng(south[i],east[i])
 });
 points.push(positions[i].latlng);//마커들을 기점으로 다시 지도의 중심좌표 설정으로 인한 코드
@@ -342,8 +346,11 @@ function copy_url() {
 	navigator.clipboard.writeText(copy_url).then(() => { 
 		alert('URL이 복사되었습니다.'); return false; });
 	}
-<%-- <%@include file="/detailInfo/detailview.jsp"%> --%>
-
+//장소 팝업 띄우기
+function openPop(placeSeq){
+	/* alert(placeSeq); */
+	var popup = window.open('${pageContext.request.contextPath}/detailInfo/' + placeSeq + '', '장소팝업', 'width=1000px,height=1000px,scrollbars=yes');
+}
 </script>
   </body>
 </html>

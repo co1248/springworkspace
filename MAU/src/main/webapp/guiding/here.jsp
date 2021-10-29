@@ -1,3 +1,4 @@
+<%@page import="com.spring.mau.user.UserVO"%>
 <%@page import="com.spring.mau.place.PlaceVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -5,6 +6,7 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     List<PlaceVO> herePlaceList = (List<PlaceVO>)request.getAttribute("herePlaceList");
+	UserVO user = (UserVO)session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -23,10 +25,10 @@
     <style type="text/css">
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:800px;}
+.map_wrap {position:relative;width:100%;height:800px;padding: 30px;}
 #menu_wrap {position:absolute;top:0px;left:0;bottom:0;width:250px;height:500px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
-.center {position:absolute;top:400px;left:50%;bottom:0;margin:0;padding:0;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
-.map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.center {position:absolute;top:475px;left:50%;bottom:0;margin:0;padding:0;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 40px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
 .map_centerb {position:absolute;bottom:6%;left:45%;margin:0 0 0 0;padding:0;overflow-y:auto;z-index: 1;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
@@ -76,11 +78,11 @@ input[type="checkbox"] {
 }
 .card div{
 background: #FEFFED;
-border-radius: 20px;
+border-radius: 5px;
 }
 .card:hover div{
+color: white;
 background: #3384C6;
-
 }
 .modal {width: 50%; height: 50%; display: none; background-color: rgba(0, 0,0,0.4); }
 
@@ -135,6 +137,11 @@ background: #3384C6;
                    <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
                   </li>
+                  <%if(user.getAdminNum()==1){ %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/adminForm">관리자페이지</a>
+                  </li>
+                  <%} %>
               </ul>
             </div>
       </c:otherwise>
@@ -186,7 +193,7 @@ background: #3384C6;
 </div>
 
    <%for(int i=0; i<herePlaceList.size();i++){ %>
-<div class="card text-dark bg-warning mb-3 card" style="max-width: 18rem; height: 80px; font-size: 1.2em; cursor: pointer; " onclick="location.href='${pageContext.request.contextPath}/detailInfo/'+<%=herePlaceList.get(i).getPlaceSeq()%>">
+<div class="card text-dark bg-warning mb-3 card" style="max-width: 18rem; height: 80px; font-size: 1.2em; cursor: pointer; " onclick="window.open('${pageContext.request.contextPath}/detailInfo/<%=herePlaceList.get(i).getPlaceSeq() %>', 'PopupWin', 'width=1000px,height=1000px')">
   <div class="card-header"><%=herePlaceList.get(i).getPlaceName() %></div>
   <div class="card-body">
     <h5 class="card-title"><%=herePlaceList.get(i).getPlaceAddr() %></h5>
@@ -325,7 +332,7 @@ function ClickListener(seq,map, marker, infowindow) {
         	   });
            });  */
             
-    	window.open("${pageContext.request.contextPath}/detailInfo/"+seq, "PopupWin", "width=500,height=600");
+           window.open("${pageContext.request.contextPath}/detailInfo/"+seq, "PopupWin", "width=1000px,height=1000px");
         console.log(seq);
     };
 }

@@ -74,6 +74,11 @@
                    <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
                   </li>
+                  <%if(user.getAdminNum()==1){ %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/adminForm">관리자페이지</a>
+                  </li>
+                  <%} %>
               </ul>
             </div>
       </c:otherwise>
@@ -85,37 +90,34 @@
       		<h2><b>나의 가이드 관리</b></h2>
       </div><br><br>
      
-     <div class="row g-3">
-	  <div class="col" align="center">
+     <div class="row row-cols-2">
+	  <div class="col-12 col-md-6" align="center">
 	    <h4><b>나의 지도</b></h4>
-          	<button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #3384C6; width: 60%; height:120px; margin-top: 20px;"  type="button" onclick="location.href='guiding/guider/<%=user.getUserSeqId() %>'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님의 지도 (내 장소)<br><%if(user.getUserInform() !=null){ %><%=user.getUserInform()%><%} %></button>
-          	<button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #3384C6; width: 60%; height:120px; margin-top: 20px;"  type="button" onclick="location.href='myfavorite'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님이 좋아하는 장소<br>${sessionScope.plcnt}개의 장소</button><br><br>
-          	<button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #3384C6; width: 60%; height:80px; margin-top: 10px;"  type="button" onclick="location.href='#'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님이 좋아하는 지도<br>${sessionScope.fvcnt}개의 지도</button>
+          	<button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #3384C6; width: 70%; height:120px; margin-top: 20px;"  type="button" onclick="location.href='guiding/guider/<%=user.getUserSeqId() %>'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님의 지도 (내 장소)<br><%if(user.getUserInform() !=null){ %><%=user.getUserInform()%><%} %></button>
+          	<button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #3384C6; width: 70%; height:120px; margin-top: 20px;"  type="button" onclick="location.href='myfavorite'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님이 좋아하는 장소<br>${sessionScope.plcnt}개의 장소</button><br><br>
+          	<button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #3384C6; width: 70%; height:80px; margin-top: 10px;"  type="button" onclick="location.href='#'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님이 좋아하는 지도<br>${sessionScope.fvcnt}개의 지도</button>
           	<%for(int i = 0; i<myFavorite.size();i++){ %>
-			<button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px; color: #3384C6;background-color: white; width: 60%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='guideMap/<%=myFavorite.get(i).getMapSeq() %>'"><%=myFavorite.get(i).getMapIcon()%> <%=myFavorite.get(i).getMapName()%></button>
+			<button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px; color: #3384C6;background-color: white; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='guideMap/<%=myFavorite.get(i).getMapSeq() %>'"><%=myFavorite.get(i).getMapIcon()%> <%=myFavorite.get(i).getMapName()%></button>
 		<%} %>   
 		<br><br><br><br>	
 	  </div>
-	  	<div class="col" align="center">
+	  	<div class="col-12 col-md-6" align="center">
 	    	<h4><b>내가 만든 개인 가이드 지도</b></h4><h6>개인 가이드 지도는 한명의 회원이 지도를 만들어 장소를 공유할 수 있습니다.</h6>
         <%for(int i = 0; i<guider.size();i++){ %>
-			<button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px; color: #3384C6;background-color: white; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='guiderMap/<%=guider.get(i).getMapSeq() %>'"><%=guider.get(i).getMapIcon()%> <%=guider.get(i).getMapName()%></button>
-			<button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px; color: #3384C6;background-color: white; width: 10%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='mapUpdateForm/<%=guider.get(i).getMapSeq() %>'">수정</button>
-			<button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px; color: #3384C6;background-color: white; width: 10%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='mapDelete/<%=guider.get(i).getMapSeq() %>'">삭제</button>
+			<button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px 0 0 20px; color: #3384C6;background-color: white; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='guiderMap/<%=guider.get(i).getMapSeq() %>'"><%=guider.get(i).getMapIcon()%> <%=guider.get(i).getMapName()%></button>
+			<button class="btn btn-primary" style="margin:0; border-color: #F3B922; border-radius:0 20px 20px 0; color: #3384C6;background-color: white; width: 15%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='mapUpdateForm/<%=guider.get(i).getMapSeq() %>'">✏&nbsp</button>
 <%} %><br><br>
 		    <h4><b>나의 함께 만드는 가이드 지도</b></h4><h6>단체 가이드 지도는 다 함께 테마별로 지도를 만들어 장소를 공유할 수 있습니다.</h6>
 		<%for(int i = 0; i<guide.size();i++){ %>
 			<button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px; color: #3384C6;background-color: white; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='guideMap/<%=guide.get(i).getMapSeq() %>'"><%=guide.get(i).getMapIcon()%> <%=guide.get(i).getMapName()%></button>
-			<button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px; color: #3384C6;background-color: white; width: 10%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='mapUpdateForm/<%=guide.get(i).getMapSeq() %>'">수정</button>
-			<button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px; color: #3384C6;background-color: white; width: 10%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='mapDelete/<%=guide.get(i).getMapSeq() %>'">삭제</button>
 		<%} %>
-		<p style="color:black;width: 70%;">
+		<p style="color:black;width: 80%;">
 			<br><b>나만의 개인 가이드 지도를 만들어 장소를 등록하고, 공유해보세요</b><br>
 			-하나의 지도에 장소를 마음껏 등록할 수 있습니다.<br>
 			-등록된 장소들은 지도 설정 값에 따라 MAU웹사이트에 공유될 수 있습니다.
 		</p>
       	<button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #F3B922; width: 70%; height: 60px;"  type="button" onclick="location.href='createGuiderMapForm'">나만의 개인 가이드 지도 만들기</button><br>
-      	<p style="color:black;width: 70%;">
+      	<p style="color:black;width: 80%;">
 			<br><b>함께 만드는 가이드지도는 누구나 만들 수 있습니다.</b><br>
 		</p>
       	<button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #F3B922; width: 70%; height: 60px;"  type="button" onclick="location.href='createGuideMapForm'">함께 만드는 가이드 지도 만들기</button><br><br><br><br>
@@ -123,7 +125,7 @@
 	</div>
       
 </div>
-</div>
+
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </html>

@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <% %>
     <% UserVO user=(UserVO)session.getAttribute("loginUser"); %>
 <!DOCTYPE html>
 <html>
@@ -21,6 +22,40 @@
     <link rel="icon" type="image/png" sizes="16x16"  href="${pageContext.request.contextPath}/image/logo/mauicon.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
+    <style>
+    /* 인디케이터*/
+body, ul, li, h1 {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+.page-indicator > ul > li > a {
+text-decoration: none;
+color:#F3B922;
+}
+
+
+.page-indicator {
+    position:fixed;
+    top:50%;
+    right:20px;
+    transform:translateY(-50%);
+    padding:10px;
+    transition:transform 0.3s;
+}
+
+.page-indicator > ul > li.active {
+    background-color:#FEFFED;
+    font-size: 110%;
+    font-weight: bold;
+    color:white;
+     
+}
+
+html[data-current-page-index="0"] .page-indicator {
+    transform:translateY(0);
+}
+    </style>
   </head>
   <body>
   <div class="p-3 mb-2 " style="float: none; margin:100 auto; color: #000000; background-color:  #FEFFED;" >
@@ -59,7 +94,7 @@
                     <a class="nav-link" href="#">${sessionScope.loginUser.userNickName}(No.${sessionScope.loginUser.userSeqId})님 환영합니다.</a>
                   </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="mypage">나의 가이드 관리</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/mypage">나의 가이드 관리</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/updateform?userSeqId=${sessionScope.loginUser.userSeqId}">내 정보 변경</a>
@@ -183,9 +218,11 @@
                         <!--end of col-->
                     </div>
 </div>
+<div class="pages">
+<div class="page page-1" id="page-1">
 <!--card start 열혈가이더 넣을 예정-->
 <%@include file="/index/hotuserMap.jsp"%>
-
+</div>
 <!--card end-->
 <!--지도에서 장소찾기start-->
 <div class="container"><br>
@@ -197,13 +234,25 @@
 </div>
 <!--지도에서 장소찾기 end-->
 <!-- index 차트 start -->
+<div class="page page-2" id="page-2">
 <%@include file="/index/randomMap.jsp"%>
+</div>
+<div class="page page-3" id="page-3">
 <%@include file="/index/newestMap.jsp"%>
+</div>
+<div class="page page-4" id="page-4">
 <%@include file="/index/favoriteMap.jsp"%>
+</div>
+<div class="page page-5" id="page-5">
 <%@include file="/index/favoritePlace.jsp"%>
+</div>
+<div class="page page-6" id="page-6">
 <%@include file="/index/favoriteGuide.jsp"%>
+</div>
+<div class="page page-7" id="page-7">
 <%@include file="/index/randomGuide.jsp"%>
-
+</div>
+</div>
 <!-- index 차트 end -->
    </div>
     <form id="form2" name="form2" action="${pageContext.request.contextPath}/login" method="post" >
@@ -252,6 +301,84 @@
 
   </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- 인디게이터 -->
+<div class="page-indicator">
+    <ul>
+        <li><a href="#page-1">&nbsp&nbsp&nbsp&nbsp열혈 회원&nbsp&nbsp&nbsp&nbsp</a></li>
+        <li><a href="#page-2">개인 가이드 (추천)</a></li>
+        <li><a href="#page-3">단체 가이드 (최신)</a></li>
+        <li><a href="#page-4">개인 가이드 (인기)</a></li>
+        <li><a href="#page-5">요즘 사랑받는 장소</a></li>
+        <li><a href="#page-6">단체 가이드 (인기)</a></li>
+        <li><a href="#page-7">단체 가이드 (추천)</a></li>
+    </ul>
+</div>
+<!-- 인디게이터js -->
+<script>
+$('.page-indicator > ul > li > a').click(function(e) {
+    var href = $(this).attr('href');
+    
+    var targetTop = $(href).offset().top;
+    
+    /*
+    // 한번에 가도록 하는 방법
+    $(window).scrollTop(targetTop);
+    */
+    
+    $('html').stop().animate({scrollTop:targetTop}, 300);
+    
+    e.preventDefault();
+});
 
+function Page__updateIndicatorActive() {
+    var scrollTop = $(window).scrollTop();
+    
+    // 역순으로 검색해야 편하다
+    $($('.page').get().reverse()).each(function(index, node) {
+        var $node = $(this);
+        var offsetTop = parseInt($node.attr('data-offset-top'));
+        
+        if ( scrollTop >= offsetTop ) {
+            // 기존 녀석에게 활성화 풀고
+            $('.page-indicator > ul > li.active').removeClass('active');
+            // 해당하는 녀석에게 활성화 넣고
+            
+            var currentPageIndex = $node.index();
+            $('.page-indicator > ul > li').eq(currentPageIndex).addClass('active');
+            
+            $('html').attr('data-current-page-index', currentPageIndex);
+            
+            return false; // 더 이상 다른 페이지를 검사하지 않는다.
+        }
+    });
+}
 
+// 각 페이지의 offsetTop 속성을 업데이트
+function Page__updateOffsetTop() {
+    
+    $('.page').each(function(index, node) {
+        var $page = $(node);
+        var offsetTop = $page.offset().top;
+        
+        $page.attr('data-offset-top', offsetTop);
+    });
+    
+    // 계산이 바뀌었으니까, 다시 상태 업데이트
+    Page__updateIndicatorActive();
+}
+
+function Page__init() {
+    Page__updateOffsetTop();
+}
+
+// 초기화
+Page__init();
+
+// 화면이 리사이즈 할 때 마다, offsetTop을 다시계산
+$(window).resize(Page__updateOffsetTop);
+
+// 스크롤이 될 때 마다, 인디케이터의 상태를 갱신
+$(window).scroll(Page__updateIndicatorActive);
+</script>
 </html>

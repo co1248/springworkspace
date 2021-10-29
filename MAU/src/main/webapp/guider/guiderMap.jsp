@@ -33,7 +33,7 @@
     <style type="text/css">
     .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:800px;}
+.map_wrap {position:relative;width:100%;height:800px;padding: 30px;}
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
@@ -67,8 +67,8 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
-.map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
-.map_rightb {position:absolute;bottom:0;right:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;border-radius: 10px;}
+.map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 10px;padding:30px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.map_rightb {position:absolute;bottom:0;right:0;width:250px;margin:10px 0 30px 10px;padding:30px;overflow-y:auto;z-index: 1;border-radius: 10px;}
 input[type="checkbox"]+label {
     display: block;
     width: 50px;
@@ -85,11 +85,11 @@ input[type="checkbox"] {
 }
 .card div{
 background: #FEFFED;
-border-radius: 20px;
+border-radius: 5px;
 }
 .card:hover div{
+color: white;
 background: #3384C6;
-
 }
 .modal {width: 50%; height: 50%; display: none; background-color: rgba(0, 0,0,0.4); }
 
@@ -144,6 +144,11 @@ background: #3384C6;
                    <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
                   </li>
+                  <%if(user.getAdminNum()==1){ %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/adminForm">관리자페이지</a>
+                  </li>
+                  <%} %>
               </ul>
             </div>
       </c:otherwise>
@@ -163,13 +168,13 @@ background: #3384C6;
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
-    <div class="map_wrap">
+    <div class="map_wrap" >
     <div id="map" style="width:100%;height:800px;position:relative;overflow:hidden;"></div>
 
        <div id="menu_wrap" >
 <!-- 지도이름 -->
 <div>
-<button class="btn btn-primary"  style="border-radius:20px; font-size : 15px; border-style: none; color: black;background-color: #F3B922; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='/mau/guideMap/<%=mapSeq %>'"><%=placegetMap.getMapIcon()%> <%=placegetMap.getMapName()%></button><br><br>
+<button class="btn btn-primary"  style="border-radius:20px; font-size : 15px; border-style: none; color: black;background-color: #F3B922; width: 100%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='/mau/guiderMap/<%=mapSeq %>'"><%=placegetMap.getMapIcon()%> <%=placegetMap.getMapName()%></button><br><br>
 </div>
 
 <!-- 지도즐겨찾기 -->
@@ -179,7 +184,7 @@ background: #3384C6;
 		<label for="myCheck"></label>
     </div>
        <%for(int i=0; i<placeList.size();i++){ %>
-<div class="card text-dark bg-warning mb-3 card" style="max-width: 18rem; height: 80px; font-size: 1.2em; cursor: pointer; " onclick="location.href='${pageContext.request.contextPath}/detailInfo/'+<%=placeList.get(i).getPlaceSeq()%>">
+<div class="card text-dark bg-warning mb-3 card" style="max-width: 18rem; height: 80px; font-size: 1.2em; cursor: pointer; " onclick="window.open('${pageContext.request.contextPath}/detailInfo/<%=placeList.get(i).getPlaceSeq() %>', 'PopupWin', 'width=1000px,height=1000px')">
   <div class="card-header"><%=placeList.get(i).getPlaceName() %></div>
   <div class="card-body">
     <h5 class="card-title"><%=placeList.get(i).getPlaceAddr() %></h5>
@@ -363,7 +368,7 @@ function ClickListener(seq,map, marker, infowindow) {
         	   });
            });  */
             
-    	window.open("${pageContext.request.contextPath}/detailInfo/"+seq, "PopupWin", "width=500,height=600");
+    	window.open("${pageContext.request.contextPath}/detailInfo/"+seq, "PopupWin", "width=1000px,height=1000px");
         console.log(seq);
     };
 }

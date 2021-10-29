@@ -9,6 +9,7 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
    List<MapViewVO> placeList = (List<MapViewVO>)request.getAttribute("placeList");
+ 	UserVO user = (UserVO)session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -27,7 +28,7 @@
     <style type="text/css">
     .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:500px;}
+.map_wrap {position:relative;width:100%;height:800px;padding: 30px;}
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
@@ -61,6 +62,8 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+.map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 10px;padding:30px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.map_rightb {position:absolute;bottom:0;right:0;width:250px;margin:10px 0 30px 10px;padding:30px;overflow-y:auto;z-index: 1;border-radius: 10px;}
 input[type="checkbox"]+label {
     display: block;
     width: 50px;
@@ -77,11 +80,11 @@ input[type="checkbox"] {
 }
 .card div{
 background: #FEFFED;
-border-radius: 20px;
+border-radius: 5px;
 }
 .card:hover div{
+color: white;
 background: #3384C6;
-
 }
 .modal {width: 50%; height: 50%; display: none; background-color: rgba(0, 0,0,0.4); }
 
@@ -136,6 +139,11 @@ background: #3384C6;
                    <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
                   </li>
+                  <%if(user.getAdminNum()==1){ %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/adminForm">관리자페이지</a>
+                  </li>
+                  <%} %>
               </ul>
             </div>
       </c:otherwise>
@@ -156,11 +164,17 @@ background: #3384C6;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
     <div class="map_wrap">
-    <div id="map" style="width:100%;height:950px;position:relative;overflow:hidden;"></div>
+    <div id="map" style="width:100%;height:800px;position:relative;overflow:hidden;"></div>
 
     <div id="menu_wrap" >
+    <!-- 지도이름 -->
+<div>
+<button class="btn btn-primary"  style="border-radius:20px; font-size : 15px; border-style: none; color: black;background-color: #F3B922; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='/mau/myfavorite'"><%=user.getUserIcon()%> <%=user.getUserNickName()%>님이 좋아하는 장소</button><br><br>
+</div>
+    
+    
    <%for(int i=0; i<placeList.size();i++){ %>
-<div class="card text-dark bg-warning mb-3 card" style="max-width: 18rem; height: 80px; font-size: 1.2em; cursor: pointer; " onclick="location.href='${pageContext.request.contextPath}/detailInfo/'+<%=placeList.get(i).getPlaceSeq()%>">
+<div class="card text-dark bg-warning mb-3 card" style="max-width: 18rem; height: 80px; font-size: 1.2em; cursor: pointer; " onclick="window.open('${pageContext.request.contextPath}/detailInfo/<%=placeList.get(i).getPlaceSeq() %>', 'PopupWin', 'width=1000px,height=1000px')">
   <div class="card-header"><%=placeList.get(i).getPlaceName() %></div>
   <div class="card-body">
     <h5 class="card-title"><%=placeList.get(i).getPlaceAddr() %></h5>
@@ -168,6 +182,11 @@ background: #3384C6;
 </div>
 <%} %>
     </div>
+    <div class="map_leftb">
+	<div class="" onclick="geolocation()"> 
+		<img id="mapbutton" src="image/map/mylocation.png" alt="현재위치" height="50px">
+	</div><br>
+</div><!-- map_leftb end -->
 </div>
     
 </div>
@@ -298,7 +317,7 @@ function ClickListener(seq,map, marker, infowindow) {
               });
            });  */
             
-       window.open("${pageContext.request.contextPath}/detailInfo/"+seq, "PopupWin", "width=500,height=600");
+       	window.open("${pageContext.request.contextPath}/detailInfo/"+seq, "PopupWin", "width=1000px,height=1000px");
         console.log(seq);
     };
 }
@@ -316,7 +335,52 @@ function makeOutListener(infowindow) {
         infowindow.close();
     };
 }
+//현재 위치 버튼을 누르면 현지 위치로 중심을 바꾸고 지도를 확대하는 함수입니다
+function geolocation() {
 
+	// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+	if (navigator.geolocation) {
+		
+		// GeoLocation을 이용해서 접속 위치를 얻어옵니다
+		navigator.geolocation.getCurrentPosition(function(position) {
+			
+			var lat = position.coords.latitude, // 위도
+				lon = position.coords.longitude; // 경도
+			
+			var locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+			
+			// 마커를 표시합니다
+			displayMarker(locPosition);
+
+		});
+		
+	} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+		
+		alert('현재 위치를 알 수 없어요 😨')
+			
+	}
+}
+//지도에 현재 위치 마커를 표시하고 지도를 확대하는 함수입니다
+function displayMarker(locPosition) {
+
+	var locimageSrc = '../../static/img/icon-mylocation.svg', // 마커이미지의 주소입니다    
+	locimageSize = new kakao.maps.Size(16, 16), // 마커이미지의 크기입니다
+	locimageOption = {offset: new kakao.maps.Point(8, 8)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		
+	// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+	var locmarkerImage = new kakao.maps.MarkerImage(locimageSrc, locimageSize, locimageOption);
+
+	// 마커를 생성합니다
+	var marker = new kakao.maps.Marker({  
+		map: map, 
+		position: locPosition,
+		image: locmarkerImage // 마커이미지 설정 
+	}); 
+
+	// 지도 중심좌표를 접속위치로 변경하고 맵 크기를 조정합니다
+	map.setCenter(locPosition);   
+	map.setLevel(5);   
+}    
 </script>
   </body>
 </html>

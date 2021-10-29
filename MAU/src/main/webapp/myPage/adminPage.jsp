@@ -64,7 +64,7 @@
                     <a class="nav-link" href="#">${sessionScope.loginUser.userNickName}(No.${sessionScope.loginUser.userSeqId})님 환영합니다.</a>
                   </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="mypage">나의 가이드 관리</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/smypage">나의 가이드 관리</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/updateform?userSeqId=${sessionScope.loginUser.userSeqId}">내 정보 변경</a>

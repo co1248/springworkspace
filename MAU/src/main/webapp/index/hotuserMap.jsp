@@ -11,7 +11,7 @@
 	</div>
 <c:forEach items="${getHotUser}" var="getHotUser" begin="0" end="5" step="1">
         <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2  text-center" style="color:#3384C6;">
-            <div class="project">
+            <div class="project" onclick="location.href='guiding/guider/'+${getHotUser.userSeqId}">
                 <figure class="img-responsive">
                     <a style="font-size: 50px">${getHotUser.userIcon}</a><br>
                     <span class="actions">

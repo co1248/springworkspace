@@ -1,8 +1,10 @@
+<%@page import="com.spring.mau.user.UserVO"%>
 <%@page import="com.spring.mau.map.MapVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%MapVO mapType = (MapVO)request.getAttribute("mapType"); %>
+    <%MapVO mapType = (MapVO)request.getAttribute("mapType"); 
+     UserVO user = (UserVO)session.getAttribute("loginUser");%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -34,7 +36,7 @@
 #placesList li {list-style: none;}
 #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
 #placesList .item span {display: block;margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+#placesList .item h4, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 #placesList .item .info{padding:10px 0 10px 55px;}
 #placesList .info .gray {color:#8a8a8a;}
 #placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
@@ -105,6 +107,11 @@
                    <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
                   </li>
+                  <%if(user.getAdminNum()==1){ %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/adminForm">관리자페이지</a>
+                  </li>
+                  <%} %>
               </ul>
             </div>
       </c:otherwise>
@@ -264,21 +271,21 @@ function displayPlaces(places) {
 function getListItem(index, places) {
 
     var el = document.createElement('li'),
-    itemStr = '<span class="markerbg marker_' + (index+1) + ' text-dark"></span>' +
+    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                 '<div class="info">' +
                 '<h4 class="title text-dark">' + places.place_name + '</h4>';
 
     if (places.road_address_name) { //도로명주소일때
         itemStr += '<span class="add text-dark">' + places.road_address_name + '</span>'
         itemStr += 
-			'<div onclick="select_place('+places.id+',\''+places.place_name+'\',\''+places.road_address_name+'\',\''+places.x +'\',\''+places.y +'\')"'+
-			'class="btn btn-outline-danger px-1">장소추가</div>'
+			'<br><div onclick="select_place('+places.id+',\''+places.place_name+'\',\''+places.road_address_name+'\',\''+places.x +'\',\''+places.y +'\')"'+
+			'class="btn btn-outline-danger btn-sm">장소추가</div>'
 		itemStr += '</div>';
     } else { //도로명주소가없으면 지번주소 받아온다.
         itemStr += '<span class="add text-dark">' +  places.address_name  + '</span>';
         itemStr += 
-			'<div onclick="select_place('+places.id+',\''+places.place_name+'\',\''+places.address_name+'\',\''+places.x +'\',\''+places.y +'\')"'+
-			'class="btn btn-outline-danger px-1">장소추가</div>'
+			'<br><div onclick="select_place('+places.id+',\''+places.place_name+'\',\''+places.address_name+'\',\''+places.x +'\',\''+places.y +'\')"'+
+			'class="btn btn-outline-danger btn-sm">장소추가</div>'
 		itemStr += '</div>';
     }
 		el.innerHTML = itemStr;
