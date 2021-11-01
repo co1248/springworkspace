@@ -83,14 +83,14 @@
           </div>
         </div>
       </nav>
-      <form action="${pageContext.request.contextPath}/mapUpdate/<%=mapInfo.getMapSeq()%>" method="post" style="text-align: center;">
+  <%if(user.getAdminNum()==1){ %>
+		<form action="${pageContext.request.contextPath}/AdminMapUpdate/<%=mapInfo.getMapSeq() %>" method="post"style="text-align: center;">
+		<%}else{ %>
+		<form action="${pageContext.request.contextPath}/mapUpdate/<%=mapInfo.getMapSeq() %>" method="post"style="text-align: center;">
+		<%} %>
 	      <div class="mb-3" align="center">
 	      <h1>나만의 가이더지도 수정 삭제</h1><br>
-	      <%if(user.getAdminNum()==1){ %>
-<form action="${pageContext.request.contextPath}/AdminMapUpdate/<%=mapInfo.getMapSeq() %>" method="post">
-<%}else{ %>
-<form action="${pageContext.request.contextPath}/mapUpdate/<%=mapInfo.getMapSeq() %>" method="post">
-<%} %>
+	      
 	  <label for="formGroupExampleInput" class="form-label"><b>가이더 주제</b></label>
 	  <input style="width: 300px; border-radius: 50px;" type="text" class="form-control" name="mapName"id="formGroupExampleInput" placeholder="가이더지도의 이름을 지어주세요!" required value="<%=mapInfo.getMapName()%>">
 	</div><br>

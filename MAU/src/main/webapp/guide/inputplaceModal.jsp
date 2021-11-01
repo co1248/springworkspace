@@ -169,7 +169,7 @@
       </div><!--info-box end -->
       </div><!--modal-body end -->
       <div class="modal-footer">
-              <div class="btn btn-secondary" onclick="next_step();">건너뛰기</div>
+              <div class="btn btn-secondary" onclick="last_step();">건너뛰기</div>
              <button type="button" class="btn btn-primary" onclick="add_review();">리뷰 남기기</button>
         </div>
         </div>
@@ -177,7 +177,7 @@
 </div>
 <!-- 장소등록 2차 끝 -->
 <!-- 장소등록 3차 시작 -->
-<div class="modal fade" id="modal-group-3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="modal-group-3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -194,9 +194,9 @@
          </form>
 
             <div class="img-box">
-                <!-- owl css
+                owl css
                 <link rel="stylesheet" type="text/css" href="/static/css/owl.carousel.min.css?q=1627023708">
-                <link rel="stylesheet" type="text/css" href="/static/css/owl.theme.default.min.css?q=1627023708"> -->
+                <link rel="stylesheet" type="text/css" href="/static/css/owl.theme.default.min.css?q=1627023708">
                 <div id="image-waiting">
                <div class="image-waiting spinner-cover uk-flex uk-flex-cen/seq/1middle">
                   <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -214,7 +214,7 @@
         </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- 장소등록 3차 끝 -->
 </body>
 </html>

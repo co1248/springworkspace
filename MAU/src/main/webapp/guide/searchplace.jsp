@@ -413,16 +413,12 @@ function add_place(placeId, placeSouthWest, placeNorthEast , placeName, placeAdd
 		modalPlaceState = $("#modalPlaceState").val(); 
 		$("#modalReview2").val(modalReview);
 		$('#modalPlaceState2').val(modalPlaceState);
-		alert("모달리뷰 :" + modalReview);
-		alert("모달이모지 :" + modalPlaceState);
+		/* alert("모달리뷰 :" + modalReview);
+		alert("모달이모지 :" + modalPlaceState); */
 	    $('#modal-group-2').modal('hide');
-	    $('#modal-group-3').modal('show');
+	    $("#formplace").submit();
 	};
 
-	function next_step(){
-	    $('#modal-group-2').modal('hide');
-	    $('#modal-group-3').modal('show');
-	};
 	function last_step(){
 	    $("#formplace").submit();
 	};

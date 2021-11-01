@@ -8,7 +8,8 @@
 response.setHeader("Pragma","no-cache"); 
 response.setDateHeader("Expires",0); 
 if (request.getProtocol().equals("HTTP/1.1")) 
-   response.setHeader("Cache-Control", "no-cache");%>
+	response.setHeader("Cache-Control", "no-cache");%>
+
 <%-- <%
 	List<MapVO> map = (List<MapVO>)request.getAttribute("searchMap");
 %> --%>
@@ -150,7 +151,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/주유소/${sessionScope.search}'">주유소</button><br>
 			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/지하철역/${sessionScope.search}'">지하철역</button>
 			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/은행/${sessionScope.search}'">은행</button>
-			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/문화시설/${sessionScope.search}>'">문화시설</button>
+			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/문화시설/${sessionScope.search}'">문화시설</button>
 			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/중개업소/${sessionScope.search}'">중개업소</button>
 			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/공공기관/${sessionScope.search}'">공공기관</button>
 			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/관광명소/${sessionScope.search}'">관광명소</button>
@@ -177,7 +178,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/주유소/${searchMap.search}'">주유소</button><br>
 			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/지하철역/${searchMap.search}'">지하철역</button>
 			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/은행/${searchMap.search}'">은행</button>
-			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/문화시설/${searchMap.search}>'">문화시설</button>
+			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/문화시설/${searchMap.search}'">문화시설</button>
 			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/중개업소/${searchMap.search}'">중개업소</button>
 			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/공공기관/${searchMap.search}'">공공기관</button>
 			<button onclick="location.href='${pageContext.request.contextPath}/searchCategory/관광명소/${searchMap.search}'">관광명소</button>
@@ -221,24 +222,38 @@ if (request.getProtocol().equals("HTTP/1.1"))
 
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <div style="margin-top: 58px; text-align : center;" style="color:#3384C6;"><h1>
-    <img src="https://visualpharm.com/assets/198/Location-595b40b85ba036ed117da637.svg" class="card-img-top" width="50px"  height="50px" alt="...">
-	</h1><br></div>
+    <div style="margin-top: 58px; text-align : center;" style="color: #000000;">
+    <h2><b style="color: #000000;">함께 만드는 지도</b></h2><br></div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-    <c:forEach items="${searchMap}" var="searchMap">
-	    <div class="col" onclick="location.href='${pageContext.request.contextPath}/guiderMap/'+${searchMap.mapSeq}">
+    <c:forEach items="${searchGuide}" var="searchGuide">
+	    <div class="col" onclick="location.href='${pageContext.request.contextPath}/guideMap/'+${searchGuide.mapSeq}">
 	     <div class="card bg-white p-3 mb-4 shadow text-center">
-	    	<p class="card-img-top" style="font-size:30px">${searchMap.mapIcon}</p>
+	    	<p class="card-img-top" style="font-size:30px">${searchGuide.mapIcon}</p>
 	      <div class="card-body">
-	        <h5 class="card-title"><b>${searchMap.mapName}</b></h5>
-	        <p class="card-text">${searchMap.placeCnt} 개의 장소</p>
-	        
+	        <h5 class="card-title"><b>${searchGuide.mapName}</b></h5>
+ 			<p class="card-text">${searchGuide.placeCnt} 개의 장소</p>
 	      </div>
 	    </div>
 	  </div>
-		
 	</c:forEach>
 	</div>
+	
+	<div style="margin-top: 58px; text-align : center;" style="color: #000000;">
+	<h2><b style="color: #000000;">개인이 만드는 지도</b></h2><br></div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    <c:forEach items="${searchGuider}" var="searchGuider">
+	    <div class="col" onclick="location.href='${pageContext.request.contextPath}/guiderMap/'+${searchGuider.mapSeq}">
+	     <div class="card bg-white p-3 mb-4 shadow text-center">
+	    	<p class="card-img-top" style="font-size:30px">${searchGuider.mapIcon}</p>
+	      <div class="card-body">
+	        <h5 class="card-title"><b>${searchGuider.mapName}</b></h5>
+ 			<p class="card-text">${searchGuider.placeCnt} 개의 장소</p>
+	      </div>
+	    </div>
+	  </div>
+	</c:forEach>
+	</div>
+	
    </div>
     <form id="form2" name="form2" action="${pageContext.request.contextPath}/login" method="post" >
       <input type="hidden" name="userId" id="userId" value=""/>

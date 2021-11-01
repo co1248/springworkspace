@@ -84,21 +84,23 @@
           </div>
         </div>
       </nav>
-      <div>
-      <h1>모든 가이더맵(공유O)</h1>
-      <%for(int i=0; i<AllUsersGuiderMap.size();i++){ %>
-      		<a href="${pageContext.request.contextPath}/guiderMap/<%=AllUsersGuiderMap.get(i).getMapSeq()%>"><%=AllUsersGuiderMap.get(i).getMapName() %></a>
-      		<button onclick="location.href='adminMapDelete/<%=AllUsersGuiderMap.get(i).getMapSeq()%>'">X</button>
-      		<button onclick="location.href='mapUpdateForm/<%=AllUsersGuiderMap.get(i).getMapSeq()%>'">수정</button><br>
-      <%} %>
-      </div>
-      <div>
-      <h1>모든 가이드맵(공유O)</h1>
-      <%for(int i=0; i<AllUsersGuideMap.size();i++){ %>
-      		<a href="${pageContext.request.contextPath}/guiderMap/<%=AllUsersGuideMap.get(i).getMapSeq()%>"><%=AllUsersGuideMap.get(i).getMapName() %></a>
-      		<button onclick="location.href='adminMapDelete/<%=AllUsersGuideMap.get(i).getMapSeq()%>'">X</button>
-      		<button onclick="location.href='adminMapUpdateForm/<%=AllUsersGuideMap.get(i).getMapSeq()%>'">수정</button><br>
-      <%} %>
+      <div style="text-align: center; display: flex; justify-content: center;">
+	      <div>
+	      <h1>모든 가이더맵(공유O)</h1>
+	      <%for(int i=0; i<AllUsersGuiderMap.size();i++){ %>
+	      		<button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px 0 0 20px; color: #3384C6;background-color: white; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="${pageContext.request.contextPath}/guiderMap/<%=AllUsersGuiderMap.get(i).getMapSeq()%>'"><%=AllUsersGuiderMap.get(i).getMapIcon()%> <%=AllUsersGuiderMap.get(i).getMapName()%></button>
+				<button class="btn btn-primary" style="margin:0; border-color: #F3B922; border-radius:0 20px 20px 0; color: #3384C6;background-color: white; width: 15%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='mapUpdateForm/<%=AllUsersGuiderMap.get(i).getMapSeq()%>'">✏&nbsp</button><br>
+	      <%} %>
+	      
+	      
+	      </div>
+	      <div style="margin-left: 150px;">
+	      <h1>모든 가이드맵(공유O)</h1>
+	      <%for(int i=0; i<AllUsersGuideMap.size();i++){ %>
+	      		<button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px 0 0 20px; color: #3384C6;background-color: white; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="${pageContext.request.contextPath}/guideMap/<%=AllUsersGuideMap.get(i).getMapSeq()%>'"><%=AllUsersGuideMap.get(i).getMapIcon()%> <%=AllUsersGuideMap.get(i).getMapName()%></button>
+	      		<button class="btn btn-primary" style="margin:0; border-color: #F3B922; border-radius:0 20px 20px 0; color: #3384C6;background-color: white; width: 15%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='mapUpdateForm/<%=AllUsersGuideMap.get(i).getMapSeq()%>'">✏&nbsp</button><br>
+	      <%} %>
+	      </div>
       </div>
 
 <!-- index 차트 end -->

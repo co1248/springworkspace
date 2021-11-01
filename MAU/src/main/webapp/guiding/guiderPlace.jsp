@@ -32,8 +32,8 @@
     <style type="text/css">
     .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:800px;padding: 30px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.map_wrap {position:relative;width:100%;height:800px;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;height:500px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
@@ -173,14 +173,14 @@ background: #3384C6;
        <div id="menu_wrap" >
     <!-- 지도이름 -->
 <div>
-<button class="btn btn-primary"  style="border-radius:20px; font-size : 15px; border-style: none; color: black;background-color: #F3B922; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='/mau/guiding/guider/<%=userseq.getUserSeqId()%>'"><%=userseq.getUserIcon()%> <%=userseq.getUserNickName()%>님이 지도</button><br><br>
+<button class="btn btn-primary"  style="border-radius:20px; font-size : 15px; border-style: none; color: black;background-color: #F3B922; width: 100%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='/mau/guiding/guider/<%=userseq.getUserSeqId()%>'"><%=userseq.getUserIcon()%> <%=userseq.getUserNickName()%>님이 지도</button><br><br>
 </div>
     
    <%for(int i=0; i<placeList.size();i++){ %>
 <div class="card text-dark bg-warning mb-3 card" style="max-width: 18rem; height: 80px; font-size: 1.2em; cursor: pointer; " onclick="window.open('${pageContext.request.contextPath}/detailInfo/<%=placeList.get(i).getPlaceSeq() %>', 'PopupWin', 'width=1000px,height=1000px')">
-  <div class="card-header"><%=placeList.get(i).getPlaceName() %></div>
+  <div class="card-header" style="font-size:15px; padding-left:15px;"><%=placeList.get(i).getPlaceName() %></div>
   <div class="card-body">
-    <h5 class="card-title"><%=placeList.get(i).getPlaceAddr() %></h5>
+    <h5 class="card-title" style="font-size:13px; padding-left:15px; padding-top:17px;"><%=placeList.get(i).getPlaceAddr() %></h5>
   </div>
 </div>
 <%} %>

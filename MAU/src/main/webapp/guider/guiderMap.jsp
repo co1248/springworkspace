@@ -14,7 +14,7 @@
 	UserVO user = (UserVO)session.getAttribute("loginUser");
 	int mapSeq= (int)request.getAttribute("mapSeq");
 	PlaceVO place = (PlaceVO)request.getAttribute("place");  
-	 MapVO placegetMap = (MapVO)request.getAttribute("placegetMap");
+	MapVO placegetMap = (MapVO)request.getAttribute("placegetMap");
 %>
 <!DOCTYPE html>
 <html>
@@ -33,7 +33,7 @@
     <style type="text/css">
     .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:800px;padding: 30px;}
+.map_wrap {position:relative;width:100%;height:800px;}
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
@@ -180,15 +180,22 @@ background: #3384C6;
 <!-- 지도즐겨찾기 -->
    	<div style="display: flex;">
    		<!-- <h1 style="font-size: 3em;">찜하기</h1> -->
-   		<input type="checkbox" id="myCheck" name="myCheck"<%if(chk!=null){ %>checked<%} %>>
+   		&nbsp&nbsp&nbsp&nbsp&nbsp<input type="checkbox" id="myCheck" name="myCheck"<%if(chk!=null){ %>checked<%} %>>
 		<label for="myCheck"></label>
     </div>
        <%for(int i=0; i<placeList.size();i++){ %>
 <div class="card text-dark bg-warning mb-3 card" style="max-width: 18rem; height: 80px; font-size: 1.2em; cursor: pointer; " onclick="window.open('${pageContext.request.contextPath}/detailInfo/<%=placeList.get(i).getPlaceSeq() %>', 'PopupWin', 'width=1000px,height=1000px')">
-  <div class="card-header"><%=placeList.get(i).getPlaceName() %></div>
+  <div class="card-header" style="font-size:15px; padding-left:15px;"><%=placeList.get(i).getPlaceName() %></div>
   <div class="card-body">
-    <h5 class="card-title"><%=placeList.get(i).getPlaceAddr() %></h5>
-  </div>
+    <h5 class="card-title" style="font-size:13px; padding-left:15px; padding-top:17px;"><%=placeList.get(i).getPlaceAddr() %></h5>
+    <%if(user!=null){ %>
+    <%if(user.getUserSeqId()==placeList.get(i).getUserSeqId()){%>
+    <%if(placeList.get(i).getMapType()==0){ %>
+    <input type="image" style="width: 30px; height: 30px; margin-left: 200px;" src="${pageContext.request.contextPath}/image/map/deleteBtn.png" onclick="location.href='${pageContext.request.contextPath}/deletePlace/<%=placeList.get(i).getMapSeq()%>/<%=placeList.get(i).getPlaceSeq()%>'">
+     <%}%>
+     <%}} %>
+      </div>
+  
 </div>
 <%} %>
     </div><!-- menu_wrap end -->
@@ -205,14 +212,18 @@ background: #3384C6;
 	</div>
 </div><!-- map_leftb end -->
 <!-- 장소 검색창(키워드) -->
+
+<%if(user!=null){
+if(user.getUserSeqId()==placegetMap.getUserSeqId()){%>
 <div class = "map_rightb">
 <form method="post" action="${pageContext.request.contextPath}/guideMap/search/${mapSeq}">
 	<div class="input-group mb-3">
 				<input type="text" class="form-control rounded" autocomplete="off" name="keyword" placeholder="여기에서 장소를 검색하고 등록!"  aria-label="Recipient's username" aria-describedby="basic-addon2">
-				<button class="btn btn-outline-secondary"  id="mapbutton"><img id="mapbutton" src="../image/map/search.png" alt="장소찾기" height="50px"></button>
+				<button class="btn btn-outline-secondary"  id="mapbutton"><img id="mapbutton" src="../image/map/search.png" alt="장소찾기" height="50px"></button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 		</div>
 		</form>
 	</div><!-- map_rightb end -->
+     <%}} %>
     </div>
 </div>
 <%for(int i = 0; i< placeList.size();i++){%>

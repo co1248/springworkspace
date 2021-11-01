@@ -22,16 +22,42 @@
     <link rel="icon" type="image/png" sizes="16x16"  href="${pageContext.request.contextPath}/image/logo/mauicon.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
-    <style>
+        <style>
     /* 인디케이터*/
 body, ul, li, h1 {
     margin:0;
     padding:0;
     list-style:none;
 }
+
+/* .page {
+    height:30vh;
+    box-sizing:border-box;
+}
+
+.page-2 {
+    height:80vh;
+}
+
+.page-3 {
+    height:80vh;
+}
+
+.page-4 {
+    height:80vh;
+}
+
+.page-5 {
+    height:80vh;
+}
+
+.page-6 {
+    height:80vh;
+} */
+
 .page-indicator > ul > li > a {
 text-decoration: none;
-color:#F3B922;
+color:black;  
 }
 
 
@@ -41,15 +67,17 @@ color:#F3B922;
     right:20px;
     transform:translateY(-50%);
     padding:10px;
+    background-color: #FEFFED;
+    opacity:0.5;
     transition:transform 0.3s;
+    border-radius:20%;
 }
 
 .page-indicator > ul > li.active {
-    background-color:#FEFFED;
+    background-color:#F3B922;
     font-size: 110%;
     font-weight: bold;
     color:white;
-     
 }
 
 html[data-current-page-index="0"] .page-indicator {

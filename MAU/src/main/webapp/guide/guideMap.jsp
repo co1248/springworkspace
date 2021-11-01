@@ -40,15 +40,15 @@
 .customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:800px;padding: 30px;}
+.map_wrap {position:relative;width:100%;height:800px;}
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
 #menu_wrap .option p {margin:10px 0;}  
 #menu_wrap .option button {margin-left:5px;}
-.map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 40px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
-.map_rightb {position:absolute;bottom:0;right:0;width:250px;margin:10px 50px 10px 10px;padding:5px;overflow-y:auto;z-index: 1;border-radius: 10px;}
+.map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 30px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.map_rightb {position:absolute;bottom:0;right:0;width:250px;margin:10px 30px 10px 10px;padding:5px;overflow-y:auto;z-index: 1;border-radius: 10px;}
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
@@ -156,7 +156,7 @@ background: #3384C6;
 <!-- 지도즐겨찾기 -->
    	<div style="display: flex;">
    		<!-- <h1 style="font-size: 3em;">찜하기</h1> -->
-   		&nbsp&nbsp&nbsp&nbsp&nbsp<input type="checkbox" id="myCheck" name="myCheck"<%if(chk!=null){ %>checked<%} %>>
+   		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="myCheck" name="myCheck"<%if(chk!=null){ %>checked<%} %>>
 		<label for="myCheck"></label>
     </div>
     </div><!-- menu_wrap end -->
@@ -174,6 +174,8 @@ background: #3384C6;
 	</div>
 </div><!-- map_leftb end -->
 <!-- 장소 검색창(키워드) -->
+<%if(user!=null){
+if(user.getUserSeqId()==placegetMap.getUserSeqId()){%>
 <div class = "map_rightb">
 <form method="post" action="${pageContext.request.contextPath}/guideMap/search/${mapSeq}">
 	<div class="input-group mb-3">
@@ -182,6 +184,7 @@ background: #3384C6;
 		</div>
 		</form>
 	</div><!-- map_rightb end -->
+     <%}} %>
 </div><!-- map_wrap end -->
 </div>
 <%for(int i = 0; i< placeList.size();i++){%>

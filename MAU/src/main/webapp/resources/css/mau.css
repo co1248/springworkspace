@@ -19,8 +19,9 @@
 .place_name_text {
     width: 100%;
     color: #0581BB;
-    font-size: 21px;
+    font-size: 26px;
     font-weight: 600;
+    padding-bottom: 6px;
 }
 
 @font-face {
@@ -31,7 +32,7 @@
 }
 
 .img_upload_box {
-    width: 100%;
+    width: 270px;
     background-color: #E5E5E5;
     text-align: center;
     font-size: 15px;
@@ -39,8 +40,9 @@
     font-weight: lighter;
     line-height: 165%;
     font-family: 'S-CoreDream-9Black';
-    padding-top: 20px;
     padding-bottom:20px;
+    display: flex;
+    height: 200px;
 }
 
 
@@ -49,9 +51,15 @@
     /* display: flex; */
     cursor: pointer;
     text-align: center;
-    /* width: 1240px; */
+    width: 300px;
     margin-top: 10px;
     font-weight: 500;
+    padding-top:20px;
+    font-weight: 600;
+}
+
+div#img_input {
+    width: 280px;
 }
 
 .img_upload {
@@ -59,7 +67,7 @@
 }
 
 .info-box {
-    width: 690px;
+   /*  width: 690px; */
     /* height: 250px; */
     float: left;
     color: #666666;
@@ -75,13 +83,12 @@
     padding: 17px 20px 15px;
     box-sizing: border-box;
     position: relative;
-    margin-bottom: 20px;
     background-color: #FEFEFE;
 }
 
 .title {
-    padding-left: 18px;
     padding-bottom: 10px;
+    font-size: 16px;
 }
 
 /* 이모티콘 */
@@ -162,6 +169,7 @@
 .title_2 {
     margin-top: 100px;
     margin-bottom: 20px;
+    font-size:16px;
 }
 
 /* 지도 */
@@ -175,12 +183,18 @@ input[type="checkbox"]+label {
     display: block;
     position: relative;
     width: 35px;
-    bottom: 32px;
+    bottom: 55px;
     height: 35px;
     background: url(/mau/image/favoriteCheck/heart_off.png) no-repeat 0 0px/ contain;
-	left: 97%;
+	left: 96%;
 }
 
 input[type='checkbox']:checked+label {
     background: url(/mau/image/favoriteCheck/heart_on.png) no-repeat 0 0px/ contain;
+}
+/* 주소 */
+#modal_place_addr {
+    font-weight: bold;
+    color: darkorange;
+    font-size: 16px;
 }

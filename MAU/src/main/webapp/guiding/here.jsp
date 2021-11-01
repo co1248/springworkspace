@@ -25,10 +25,10 @@
     <style type="text/css">
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:800px;padding: 30px;}
+.map_wrap {position:relative;width:100%;height:800px;}
 #menu_wrap {position:absolute;top:0px;left:0;bottom:0;width:250px;height:500px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
 .center {position:absolute;top:475px;left:50%;bottom:0;margin:0;padding:0;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
-.map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 40px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
+.map_leftb {position:absolute;bottom:0;left:0;width:250px;margin:10px 0 30px 30px;padding:5px;overflow-y:auto;z-index: 1;font-size:12px;border-radius: 10px;}
 .map_centerb {position:absolute;bottom:6%;left:45%;margin:0 0 0 0;padding:0;overflow-y:auto;z-index: 1;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
@@ -189,14 +189,14 @@ background: #3384C6;
     <div id="menu_wrap" >
 <!-- 지도이름(지도에서 장소 찾기) -->
 <div>
-<button class="btn btn-primary"  style="border-radius:20px; font-size : 15px; border-style: none; color: black;background-color: #F3B922; width: 70%; height:60px;"  type="button" onclick="location.href='/mau/here?lat=37.566826&lng=126.9786567&retry=true'">지도에서 장소 찾기</button><br><br>
+<button class="btn btn-primary"  style="border-radius:20px; font-size : 15px; border-style: none; color: black;background-color: #F3B922; width: 100%; height:60px;"  type="button" onclick="location.href='/mau/here?lat=37.566826&lng=126.9786567&retry=true'">지도에서 장소 찾기</button><br><br>
 </div>
 
    <%for(int i=0; i<herePlaceList.size();i++){ %>
 <div class="card text-dark bg-warning mb-3 card" style="max-width: 18rem; height: 80px; font-size: 1.2em; cursor: pointer; " onclick="window.open('${pageContext.request.contextPath}/detailInfo/<%=herePlaceList.get(i).getPlaceSeq() %>', 'PopupWin', 'width=1000px,height=1000px')">
-  <div class="card-header"><%=herePlaceList.get(i).getPlaceName() %></div>
+  <div class="card-header" style="font-size:15px; padding-left:15px;"><%=herePlaceList.get(i).getPlaceName() %></div>
   <div class="card-body">
-    <h5 class="card-title"><%=herePlaceList.get(i).getPlaceAddr() %></h5>
+    <h5 class="card-title" style="font-size:13px; padding-left:15px; padding-top:17px;"><%=herePlaceList.get(i).getPlaceAddr() %></h5>
   </div>
 </div>
 <%} %>

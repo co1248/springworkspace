@@ -130,39 +130,40 @@
             <div class="uk-modal-body" uk-overflow-auto>
                  <!-- 사진 업로드 -->
                 <div class="img-box">
-                <div>
-                    <div class="img_upload_box">
+                    <div class="img_upload_box" style="width:950px">
                         <img src="" class="img_upload">
-                        <div class="size"></div>
                         <%if(photo==null){ %>
                         <div class="size">장소와 관련된 사진을 올려주시면 <br> 페이지가 더 유익해질 것 같아요!
                     		<form action="${pageContext.request.contextPath}/uploadImg/<%=place.getPlaceSeq()%>" method="post" enctype="multipart/form-data">
 								<input type="file" name="photoUpload"/>
-								<input type="submit" value="업로드">
+								<input type="submit" value="업로드" style=" width:200px;">
 							 </form><br>
                         </div>
                         <%} else {%>
-                        <!-- 사진 출력 부분 -->
                          <div class="size">장소와 관련된 사진을 올려주시면 <br> 페이지가 더 유익해질 것 같아요!
                     		<form action="${pageContext.request.contextPath}/uploadImg/<%=place.getPlaceSeq()%>" method="post" enctype="multipart/form-data">
-								<input type="file" name="photoUpload"/>
-								<input type="submit" value="업로드">
-							 </form><br>
-							 <%for(int i=0; i< photo.size(); i++) { %>
-	                            <img src="/mau/imgPath/<%=photo.get(i).getPhotoName()%>" style="width:100px; height:100px;">
-                            <%}%>
+								<div id="img_input">
+										<input type="file" name="photoUpload" style="position: relative; left: 40px; padding-top: 20px; padding-bottom: 10px"/>
+										<input type="submit" value="업로드" style=" width:200px;">
+								</div>
+							 </form>
                         </div>
-                            
+                          <!-- 사진 출력 부분 -->
+                         <%for(int i=0; i< photo.size(); i++) { %>
+							 	<div class="img_upload_box">
+	                            <img src="/mau/imgPath/<%=photo.get(i).getPhotoName()%>" style="width:250px; height:200px;">
+                            	</div>
+                            <%}%>
                         <%} %>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="height: 650px;">
                         <div class="info-box">
                             <div class="title">여기는 어떤 곳인가요?</div>
                             <!-- 장소 키워드카드 -->
-                            <div class="inline-theme-cards clear" onclick="trackOutboundLink('place_page','inbound','go-to-theme');" style="padding-left: 15px;">
-                            	<table>
+                            <div class="inline-theme-cards clear" onclick="trackOutboundLink('place_page','inbound','go-to-theme');"> <!-- style="padding-left: 15px;" -->
+                            	<table style="font-size:16px;">
                             	<%for(int i=0; i< keyword.size(); i++) { %>
                             	<tr>
 	                            	<td><%=keyword.get(i).getMapIcon()%></td>
@@ -262,10 +263,7 @@
                 <div class="col-md-6" >
                     <div id="comment-box" class="info-box">
                         <div class="title">이 장소에 대한 이야기들</div>
-                        <div class="comment-cards">
-                            아래 이모지를 눌러서 의견을 남겨보세요!
-                        </div>
-                        <div onclick="get_more_place_comment()" class="load-more button shadow bg-white padding-15">
+                        <div onclick="get_more_place_comment()" class="load-more button shadow bg-white padding-15" style="width:245%;">
                             <!-- <span>더 불러오기</span> -->
                             <table>
                             <%for(int i = 0; i<review.size();i++){ 
@@ -300,7 +298,10 @@
                     </div>
 					<!-- 댓글 달기 / 이모티콘 -->
                        <div class="info-box">
-                        <div class="title">직접 의견을 남겨보세요!</div>
+                       <!--  <div class="title">직접 의견을 남겨보세요!</div> -->
+                          <div class="comment-cards" style="font-size: 17px; width:80%">
+                            아래 이모지를 눌러서 의견을 남겨보세요!
+                        </div>
                         <div class="emoji-list">
                             <div class="uk-width-1-5">
                                 <div id="emoji_1" class="emoji-box bg-white border-radius shadow" data-icon="1-a" data-score="1">
@@ -382,7 +383,7 @@
                                    
                                    <input type="hidden" id="userSeqId" name="userSeqId"<%if(user!=null){%> value="<%=user.getUserSeqId()%><%}%>">
                                    <input type="hidden" id="placeState" name="placeState" value="">
-                                   <div class="submit-button disabled button shadow bg-white padding-15">
+                                   <div class="submit-button disabled button shadow bg-white padding-15" style="width:450px;">
                                        <input type="submit" value="저장하기" style="width: 380px;border-style: none; background-color: white;">
                                    </div>
                                 </form>

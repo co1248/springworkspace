@@ -96,9 +96,9 @@
           	<button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #3384C6; width: 70%; height:120px; margin-top: 20px;"  type="button" onclick="location.href='guiding/guider/<%=user.getUserSeqId() %>'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님의 지도 (내 장소)<br><%if(user.getUserInform() !=null){ %><%=user.getUserInform()%><%} %></button>
           	<button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #3384C6; width: 70%; height:120px; margin-top: 20px;"  type="button" onclick="location.href='myfavorite'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님이 좋아하는 장소<br>${sessionScope.plcnt}개의 장소</button><br><br>
           	<button class="btn btn-primary" style="border-style: none; border-radius:20px; color: white;background-color: #3384C6; width: 70%; height:80px; margin-top: 10px;"  type="button" onclick="location.href='#'"><%=user.getUserIcon() %> <%=user.getUserNickName() %>님이 좋아하는 지도<br>${sessionScope.fvcnt}개의 지도</button>
-          	<%for(int i = 0; i<myFavorite.size();i++){ %>
-			<button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px; color: #3384C6;background-color: white; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='guideMap/<%=myFavorite.get(i).getMapSeq() %>'"><%=myFavorite.get(i).getMapIcon()%> <%=myFavorite.get(i).getMapName()%></button>
-		<%} %>   
+         <%for(int i = 0; i<myFavorite.size();i++){ %>
+         <button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px; color: #3384C6;background-color: white; width: 60%; height:60px; margin-top: 10px;"  type="button" <%if(myFavorite.get(i).getMapType()==0){%> onclick="location.href='guiderMap/<%=myFavorite.get(i).getMapSeq()%>'"<%}else{%> onclick="location.href='guideMap/<%=myFavorite.get(i).getMapSeq()%>'"<%} %>><%=myFavorite.get(i).getMapIcon()%> <%=myFavorite.get(i).getMapName()%></button>
+      <%} %>
 		<br><br><br><br>	
 	  </div>
 	  	<div class="col-12 col-md-6" align="center">
@@ -110,7 +110,9 @@
 		    <h4><b>나의 함께 만드는 가이드 지도</b></h4><h6>단체 가이드 지도는 다 함께 테마별로 지도를 만들어 장소를 공유할 수 있습니다.</h6>
 		<%for(int i = 0; i<guide.size();i++){ %>
 			<button class="btn btn-primary" style="border-color: #F3B922; border-radius:20px; color: #3384C6;background-color: white; width: 70%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='guideMap/<%=guide.get(i).getMapSeq() %>'"><%=guide.get(i).getMapIcon()%> <%=guide.get(i).getMapName()%></button>
-		<%} %>
+			<%if(guide.get(i).getShareYn()==0){ %>
+			<button class="btn btn-primary" style="margin:0; border-color: #F3B922; border-radius:0 20px 20px 0; color: #3384C6;background-color: white; width: 15%; height:60px; margin-top: 10px;"  type="button" onclick="location.href='mapUpdateForm/<%=guider.get(i).getMapSeq() %>'">✏&nbsp</button>
+		<%}} %>
 		<p style="color:black;width: 80%;">
 			<br><b>나만의 개인 가이드 지도를 만들어 장소를 등록하고, 공유해보세요</b><br>
 			-하나의 지도에 장소를 마음껏 등록할 수 있습니다.<br>
