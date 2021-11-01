@@ -158,7 +158,7 @@
 			<input type="hidden" name = "mapType" value=1>
 			<%} %>
 			<input type="hidden" name="userSeqId" value="<%=user.getUserSeqId() %>">
-			<button class="btn btn-outline-danger" onclick="location.href='${pageContext.request.contextPath}/mapDelete/<%=mapInfo.getMapSeq()%>'">삭제</button>&nbsp;&nbsp;&nbsp;
+			<div class="btn btn-outline-danger" onclick="location.href='${pageContext.request.contextPath}/mapDelete/<%=mapInfo.getMapSeq()%>'">삭제</div>&nbsp;&nbsp;&nbsp;
 			<input type="submit" value="수정" class="btn btn-outline-danger"><br><br><br><br>
 </form>
       <div>
