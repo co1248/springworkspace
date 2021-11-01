@@ -8,10 +8,25 @@
         select * from userplace where mapseq = #{mapSeq}
         ]]>
     </select>
-    <select id = "insertUserPlace" resultType = "userPlace">
+    <insert id = "insertUserPlace">
 		<![CDATA[
         insert into userplace values((select nvl(max(userPlaceSeq), 0) + 1 from userplace),#{userSeqId},1,#{placeSeq},#{mapSeq})
         ]]>
+    </insert>
+    <select id="getUserPlaceMapSeq" resultType="userPlace">
+    <![CDATA[
+    	select DISTINCT mapseq from userplace where mapseq=#{mapSeq}
+    	]]>
     </select>
+    <delete id="deleteUserPlace">
+    <![CDATA[
+    delete from userplace where mapseq=#{mapSeq}
+    	]]>
+    </delete>
+    <delete id="deleteUserPlaceSeqMapSeq">
+    <![CDATA[
+    delete from userplace where mapseq=#{mapSeq} and placeseq=#{placeSeq}
+    	]]>
+    </delete>
 
 </mapper>

@@ -18,7 +18,7 @@
 
 	<insert id="insertUser">
         <![CDATA[
-        insert into mauuser(userId,userSeqId,userNickName) values(#{userId},MAUUSERSEQ.nextval,#{userNickName})
+       insert into mauuser(userId,userSeqId,userNickName,userIcon) values(#{userId},MAUUSERSEQ.nextval,#{userNickName},'👤')
         ]]>
 	</insert>
 
