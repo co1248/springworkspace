@@ -175,7 +175,7 @@ background: #3384C6;
 </div><!-- map_leftb end -->
 <!-- 장소 검색창(키워드) -->
 <%if(user!=null){
-if(user.getUserSeqId()==placegetMap.getUserSeqId()){%>
+if(user.getUserSeqId()>0){%>
 <div class = "map_rightb">
 <form method="post" action="${pageContext.request.contextPath}/guideMap/search/${mapSeq}">
 	<div class="input-group mb-3">
