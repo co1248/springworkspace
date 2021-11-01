@@ -23,5 +23,10 @@
     delete from userplace where mapseq=#{mapSeq}
     	]]>
     </delete>
+    <delete id="deleteUserPlaceSeqMapSeq">
+    <![CDATA[
+    delete from userplace where mapseq=#{mapSeq} and placeseq=#{placeSeq}
+    	]]>
+    </delete>
 
 </mapper>

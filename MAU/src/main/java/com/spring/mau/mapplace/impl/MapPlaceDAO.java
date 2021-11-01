@@ -24,4 +24,9 @@ public class MapPlaceDAO {
 		System.out.println("MapPlaceDAO==>getMapSeq 실행");
 		return mybatis.selectOne("MapPlaceDAO.getMapPlaceSeq",vo);
 	}
+	
+	public void deleteMapPlaceSeq(MapPlaceVO vo) {
+		System.out.println("MapPlaceDAO==>deleteMapPlaceSeq 실행");
+		mybatis.delete("MapPlaceDAO.deleteMapPlaceSeq",vo);
+	}
 }

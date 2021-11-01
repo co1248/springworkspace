@@ -257,6 +257,12 @@ public class PlaceController {
 	       
 	       return new ModelAndView("guiding/here.jsp");
 	   }
+	   @RequestMapping("deletePlace/{mapSeq}/{placeSeq}")
+	   public ModelAndView deletePlace (@PathVariable("placeSeq") int placeSeq,@PathVariable("mapSeq")int mapSeq,MapPlaceVO mapVo,UserPlaceVO userPlaceVo) {
+		   mapPlaceService.deleteMapPlaceSeq(mapVo);
+		   userPlaceService.deleteUserPlaceSeqMapSeq(userPlaceVo);
+		   return new ModelAndView("redirect:/guiderMap/"+mapSeq);
+	   }
 	
 
 	

@@ -72,7 +72,7 @@ public class MapServiceImpl implements MapService {
 		return mapDao.searchMapCategory(vo);
 	}
 	@Override
-	public MapVO getPlaceCnt(MapVO vo) {
+	public Integer getPlaceCnt(MapVO vo) {
 		// TODO 자동 생성된 메소드 스텁
 		return mapDao.getPlaceCnt(vo);
 	}

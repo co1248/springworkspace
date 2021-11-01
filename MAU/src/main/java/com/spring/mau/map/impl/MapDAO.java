@@ -64,7 +64,7 @@ public class MapDAO {
 		System.out.println("맵카테고리검색");
 		return mybatis.selectList("MapDAO.searchMapCategory", vo);
 	}
-	public MapVO getPlaceCnt(MapVO vo) {
+	public Integer getPlaceCnt(MapVO vo) {
 		System.out.println("맵시퀀스로 맵 가져오기");
 		return mybatis.selectOne("MapDAO.getPlaceCnt", vo);
 	}

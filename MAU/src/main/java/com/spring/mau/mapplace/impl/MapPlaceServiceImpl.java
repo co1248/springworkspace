@@ -26,5 +26,11 @@ public class MapPlaceServiceImpl implements MapPlaceService {
 		// TODO Auto-generated method stub
 		return mapPlaceDAO.getMapPlaceSeq(vo);
 	}
+	@Override
+	public void deleteMapPlaceSeq(MapPlaceVO vo) {
+		// TODO Auto-generated method stub
+		mapPlaceDAO.deleteMapPlaceSeq(vo);
+	}
+	
 
 }

@@ -24,4 +24,9 @@
 		select DISTINCT mapseq from mapplace where mapseq=#{mapSeq}
 		]]>
 	</select>
+	<delete id="deleteMapPlaceSeq">
+	<![CDATA[
+		delete from mapplace where placeSeq=#{placeSeq}
+	]]>
+	</delete>
 </mapper>

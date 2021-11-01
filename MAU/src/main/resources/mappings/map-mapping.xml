@@ -58,14 +58,14 @@
 	</update>
 	
 	    <select id = "searchMap" resultType="maps">
-        SELECT * FROM map WHERE (mapName LIKE '%'||#{search}||'%' or keyWord LIKE '%'||#{search}||'%')
+        SELECT * FROM map WHERE (mapName LIKE '%'||#{search}||'%' or keyWord LIKE '%'||#{search}||'%') and shareyn=1
     </select>
     
     <select id = "searchMapCategory" resultType="maps">
-        SELECT * FROM map WHERE (mapName LIKE '%'||#{search}||'%' or keyWord LIKE '%'||#{search}||'%') and kateGory like '%'||#{searchKategory}||'%'
+        SELECT * FROM map WHERE (mapName LIKE '%'||#{search}||'%' or keyWord LIKE '%'||#{search}||'%') and kateGory like '%'||#{searchKategory}||'%' and shareyn=1
     </select>
     
-    <select id="getPlaceCnt" resultType="maps">
+    <select id="getPlaceCnt" resultType="Integer">
        <![CDATA[
        select placeCnt from mapplace_cnt where mapSeq=#{mapSeq}
        ]]>

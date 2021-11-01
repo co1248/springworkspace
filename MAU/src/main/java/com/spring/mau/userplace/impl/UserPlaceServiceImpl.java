@@ -26,5 +26,10 @@ public class UserPlaceServiceImpl implements UserPlaceService {
 		// TODO Auto-generated method stub
 		userPlaceDAO.deleteUserPlace(vo);
 	}
+	@Override
+	public void deleteUserPlaceSeqMapSeq(UserPlaceVO vo) {
+		// TODO Auto-generated method stub
+		userPlaceDAO.deleteUserPlaceSeqMapSeq(vo);
+	}
 
 }

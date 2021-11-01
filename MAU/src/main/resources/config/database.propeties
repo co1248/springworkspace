@@ -1,5 +1,4 @@
 jdbc.driver=oracle.jdbc.driver.OracleDriver
-jdbc.url=jdbc:oracle:thin:@db202110161217_high?TNS_ADMIN=C:/Users/Human/Desktop/1020/src/main/resources/Wallet_DB202110161217/
+jdbc.url=jdbc:oracle:thin:@db202110161217_high?TNS_ADMIN=C:/Users/Human/Desktop/MAU/src/main/resources/Wallet_DB202110161217/
 jdbc.username=admin
 jdbc.password=Mau123456789
-

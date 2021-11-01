@@ -2,6 +2,7 @@ package com.spring.mau.view.mapview;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -121,18 +122,42 @@ public class MapViewController {
                 out.flush();
        }else {
           List<MapVO> searchMap = mapService.searchMap(vo2);
+          List<MapVO> searchGuide = new ArrayList<MapVO>();
+          List<MapVO> searchGuider = new ArrayList<MapVO>();
+          
           for(MapVO vo3 : searchMap) {
-             vo3.setSearch(search);
-//             vo3.setSearchKategory(a);
-             System.out.println(search);
-             int cnt = mapService.getPlaceCnt(vo3).getPlaceCnt();
-             vo3.setPlaceCnt(cnt);
-             
+             if(vo3.getMapType()==0) {
+                vo3.setSearch(search);
+//                vo3.setSearchKategory(a);
+                System.out.println(search);
+                Integer cnt = mapService.getPlaceCnt(vo3);
+                if(cnt==null) {
+                   vo3.setPlaceCnt(0);
+                }else{
+                     System.out.println(cnt);
+                     vo3.setPlaceCnt(cnt);
+                }
+                searchGuider.add(vo3);
+             }else if(vo3.getMapType()==1){
+                 vo3.setSearch(search);
+   //             vo3.setSearchKategory(a);
+                 System.out.println(search);
+                 Integer cnt = mapService.getPlaceCnt(vo3);
+                 if(cnt==null) {
+                    vo3.setPlaceCnt(0);
+                 }else{
+                    System.out.println(cnt);
+                    vo3.setPlaceCnt(cnt);
+                 }
+                 searchGuide.add(vo3);
+            }
           }
           session.setAttribute("search", search);
           session.setAttribute("kategory", a);
           session.setAttribute("searchList", searchMap);
           model.addAttribute("searchMap", searchMap);
+          model.addAttribute("searchGuider", searchGuider);
+          model.addAttribute("searchGuide", searchGuide);
           return new ModelAndView("/index/searchAll.jsp");
        }
        
@@ -155,18 +180,42 @@ public class MapViewController {
 		vo2.setSearch(search);
 		vo2.setSearchKategory(searchkeyword);
 		List<MapVO> searchMap2 = mapService.searchMapCategory(vo2);
+		List<MapVO> searchGuide2 = new ArrayList<MapVO>();
+        List<MapVO> searchGuider2 = new ArrayList<MapVO>();
 		
 		for(MapVO vo3 : searchMap2) {
-			vo3.setSearch(search);
-			int cnt = mapService.getPlaceCnt(vo3).getPlaceCnt();
-			vo3.setPlaceCnt(cnt);
-			if(searchkeyword.equals("")) {
-				searchkeyword = "전체";
-				vo3.setSearchKategory(searchkeyword);
+			if(vo3.getMapType()==0) {
+				vo3.setSearch(search);
+				Integer cnt = mapService.getPlaceCnt(vo3);
+				if(cnt==null) {
+	                vo3.setPlaceCnt(0);
+	        	}else{
+	                vo3.setPlaceCnt(cnt);
+	            }
+				if(searchkeyword.equals("")) {
+					searchkeyword = "전체";
+					vo3.setSearchKategory(searchkeyword);
+				}
+				searchGuider2.add(vo3);
+			}else if(vo3.getMapType()==1) {
+				vo3.setSearch(search);
+				Integer cnt = mapService.getPlaceCnt(vo3);
+				if(cnt==null) {
+	                vo3.setPlaceCnt(0);
+	        	}else{
+	                  vo3.setPlaceCnt(cnt);
+	            }
+				if(searchkeyword.equals("")) {
+					searchkeyword = "전체";
+					vo3.setSearchKategory(searchkeyword);
+				}
+				searchGuide2.add(vo3);
 			}
 		}
 		session.setAttribute("searchList", searchMap2);
 		session.setAttribute("kategory", searchkeyword);
+        model.addAttribute("searchGuider2", searchGuider2);
+        model.addAttribute("searchGuide2", searchGuide2);
 		model.addAttribute("searchMap", searchMap2);
 		return new ModelAndView("/index/searchKategory.jsp");
 	}
